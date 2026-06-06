@@ -1,0 +1,594 @@
+<style>
+  /* ── Base: all colours driven by scheme CSS vars ── */
+  .invite-hero,
+  .invite-section-wrap,
+  .invite-fund {
+    transition: background 0.2s;
+  }
+
+  .invite-page {
+    padding-bottom: 12rem;
+  }
+
+  /* Hero */
+  .invite-hero {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    text-align: center;
+    padding: 10rem 2rem 8rem;
+  }
+
+  .invite-hero__eyebrow {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-hero__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.6rem, 6vw, 7rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 2.4rem;
+    letter-spacing: -0.01em;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-hero__subtitle {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    max-width: 56rem;
+    margin: 0 auto;
+    opacity: 0.75;
+    color: rgb(var(--color-foreground));
+  }
+
+  /* Section wrapper */
+  .invite-section-wrap {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 9rem 2rem 9rem;
+  }
+
+  .invite-section + .invite-section-wrap {
+    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  /* Tag pill */
+  .invite-section__tag {
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 2.4rem;
+    background-color: var(--invite-accent, rgb(var(--color-button)));
+    color: rgb(var(--color-button-label));
+  }
+
+  .invite-section__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3rem, 4.5vw, 5.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 2.4rem;
+    max-width: 640px;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-section__lead {
+    font-size: 1.7rem;
+    line-height: 1.85;
+    max-width: 620px;
+    margin-bottom: 4rem;
+    opacity: 0.8;
+    color: rgb(var(--color-foreground));
+  }
+
+  /* Perks grid */
+  .invite-perks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+    margin-bottom: 5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .invite-perks { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .invite-perk {
+    background: rgba(var(--color-foreground), 0.04);
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    padding: 3rem 2.4rem;
+  }
+
+  .invite-perk__icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-perk__title {
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-perk__text {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    opacity: 0.7;
+    color: rgb(var(--color-foreground));
+  }
+
+  /* Eligibility box */
+  .invite-eligibility {
+    background: rgba(var(--color-foreground), 0.05);
+    padding: 3.6rem;
+    margin-bottom: 4rem;
+  }
+
+  .invite-eligibility__title {
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-eligibility__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .invite-eligibility__list { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .invite-eligibility__item {
+    font-size: 1.4rem;
+    padding-left: 1.6rem;
+    position: relative;
+    line-height: 1.6;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-eligibility__item::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+    top: 0.4rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  /* CTA buttons */
+  .invite-cta {
+    display: inline-block;
+    padding: 1.4rem 3.6rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-right: 1.6rem;
+    margin-bottom: 1.6rem;
+    border: 1px solid rgb(var(--color-button));
+    background: rgb(var(--color-button));
+    color: rgb(var(--color-button-label));
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .invite-cta:hover {
+    background: transparent;
+    color: rgb(var(--color-button));
+  }
+
+  .invite-cta--ghost {
+    background: transparent;
+    color: rgb(var(--color-secondary-button-label));
+    border-color: rgba(var(--color-foreground), 0.3);
+  }
+
+  .invite-cta--ghost:hover {
+    background: rgb(var(--color-button));
+    color: rgb(var(--color-button-label));
+    border-color: rgb(var(--color-button));
+  }
+
+  /* Fund callout */
+  .invite-fund {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    padding: 5rem 3.6rem;
+    margin-top: 4rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+  }
+
+  .invite-fund__label {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-fund__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 1.6rem;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-fund__text {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    max-width: 540px;
+    opacity: 0.7;
+    color: rgb(var(--color-foreground));
+  }
+</style>
+
+{%- liquid
+  assign accent = section.settings.accent_color
+-%}
+
+<!-- Hero -->
+<div
+  class="invite-hero color-{{ section.settings.hero_color_scheme }} gradient"
+  style="--invite-accent: {{ accent }};"
+>
+  <span class="invite-hero__eyebrow">{{ section.settings.hero_eyebrow }}</span>
+  <h1 class="invite-hero__title">{{ section.settings.hero_title }}</h1>
+  <p class="invite-hero__subtitle">{{ section.settings.hero_subtitle }}</p>
+</div>
+
+<!-- Herprint Muse -->
+<div
+  class="invite-section-wrap color-{{ section.settings.muse_color_scheme }} gradient"
+  style="--invite-accent: {{ accent }};"
+>
+  <div class="invite-section">
+    <span class="invite-section__tag">{{ section.settings.muse_tag }}</span>
+    <h2 class="invite-section__title">{{ section.settings.muse_title }}</h2>
+    <p class="invite-section__lead">{{ section.settings.muse_lead }}</p>
+
+    <div class="invite-perks">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'muse_perk' -%}
+          <div class="invite-perk" {{ block.shopify_attributes }}>
+            <span class="invite-perk__icon">{{ block.settings.icon }}</span>
+            <h3 class="invite-perk__title">{{ block.settings.title }}</h3>
+            <p class="invite-perk__text">{{ block.settings.text }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="invite-eligibility">
+      <p class="invite-eligibility__title">{{ section.settings.eligibility_heading }}</p>
+      <ul class="invite-eligibility__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'eligibility_item' -%}
+            <li class="invite-eligibility__item" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <a href="{{ section.settings.muse_link }}" class="invite-cta">{{ section.settings.muse_cta }}</a>
+    <a href="mailto:{{ section.settings.muse_email }}" class="invite-cta invite-cta--ghost">{{ section.settings.muse_email_label }}</a>
+  </div>
+</div>
+
+<!-- Herprint Partner -->
+<div
+  class="invite-section-wrap color-{{ section.settings.partner_color_scheme }} gradient"
+  style="--invite-accent: {{ accent }};"
+>
+  <div class="invite-section">
+    <span class="invite-section__tag">{{ section.settings.partner_tag }}</span>
+    <h2 class="invite-section__title">{{ section.settings.partner_title }}</h2>
+    <p class="invite-section__lead">{{ section.settings.partner_lead }}</p>
+
+    <div class="invite-perks">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'partner_perk' -%}
+          <div class="invite-perk" {{ block.shopify_attributes }}>
+            <span class="invite-perk__icon">{{ block.settings.icon }}</span>
+            <h3 class="invite-perk__title">{{ block.settings.title }}</h3>
+            <p class="invite-perk__text">{{ block.settings.text }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div
+      class="invite-fund color-{{ section.settings.fund_color_scheme }} gradient"
+      style="--invite-accent: {{ accent }};"
+    >
+      <span class="invite-fund__label">{{ section.settings.fund_label }}</span>
+      <h3 class="invite-fund__title">{{ section.settings.fund_title }}</h3>
+      <p class="invite-fund__text">{{ section.settings.fund_text }}</p>
+    </div>
+
+    <br><br>
+    <a href="{{ section.settings.partner_link }}" class="invite-cta">{{ section.settings.partner_cta }}</a>
+    <a href="mailto:{{ section.settings.partner_email }}" class="invite-cta invite-cta--ghost">{{ section.settings.partner_email_label }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Invitation Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Global Accent Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (pills, icons, ✦)",
+      "default": "#7f6464",
+      "info": "Used for decorative accents. All main colours are controlled by the scheme pickers below."
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "color_scheme",
+      "id": "hero_color_scheme",
+      "label": "Hero colour scheme",
+      "default": "scheme-coffee"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "An Invitation"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Heading",
+      "default": "You're invited into our world."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Subheading",
+      "default": "Herprint was built by women, for women. Whether you create, lead, or dream — there is a place for you here."
+    },
+    {
+      "type": "header",
+      "content": "Herprint Muse Section"
+    },
+    {
+      "type": "color_scheme",
+      "id": "muse_color_scheme",
+      "label": "Muse section colour scheme",
+      "default": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392"
+    },
+    {
+      "type": "text",
+      "id": "muse_tag",
+      "label": "Section tag",
+      "default": "Herprint Muse"
+    },
+    {
+      "type": "text",
+      "id": "muse_title",
+      "label": "Title",
+      "default": "For the creators who move culture."
+    },
+    {
+      "type": "textarea",
+      "id": "muse_lead",
+      "label": "Lead text",
+      "default": "If you create content around fashion, beauty, lifestyle or jewelry — and your community trusts you — we want to gift you a Herprint experience. No strings. Just jewelry that fits your story."
+    },
+    {
+      "type": "text",
+      "id": "eligibility_heading",
+      "label": "Eligibility box heading",
+      "default": "You may qualify if you —"
+    },
+    {
+      "type": "text",
+      "id": "muse_cta",
+      "label": "Primary button label",
+      "default": "Apply as a Muse"
+    },
+    {
+      "type": "url",
+      "id": "muse_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "muse_email",
+      "label": "Contact email",
+      "default": "muse@herprint.co"
+    },
+    {
+      "type": "text",
+      "id": "muse_email_label",
+      "label": "Email button label",
+      "default": "Email us directly"
+    },
+    {
+      "type": "header",
+      "content": "Herprint Partner Section"
+    },
+    {
+      "type": "color_scheme",
+      "id": "partner_color_scheme",
+      "label": "Partner section colour scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "text",
+      "id": "partner_tag",
+      "label": "Section tag",
+      "default": "Herprint Partner"
+    },
+    {
+      "type": "text",
+      "id": "partner_title",
+      "label": "Title",
+      "default": "For the ambitious women ready to build something real."
+    },
+    {
+      "type": "textarea",
+      "id": "partner_lead",
+      "label": "Lead text",
+      "default": "We are looking for driven, passionate women around the world to grow with us. Herprint is not just a jewelry brand — it is a movement. We want to help every woman write her own story."
+    },
+    {
+      "type": "text",
+      "id": "partner_cta",
+      "label": "Primary button label",
+      "default": "Become a Partner"
+    },
+    {
+      "type": "url",
+      "id": "partner_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "partner_email",
+      "label": "Contact email",
+      "default": "partner@herprint.co"
+    },
+    {
+      "type": "text",
+      "id": "partner_email_label",
+      "label": "Email button label",
+      "default": "Tell us your story"
+    },
+    {
+      "type": "header",
+      "content": "The Herprint Fund"
+    },
+    {
+      "type": "color_scheme",
+      "id": "fund_color_scheme",
+      "label": "Fund box colour scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "text",
+      "id": "fund_label",
+      "label": "Fund label",
+      "default": "The Herprint Fund"
+    },
+    {
+      "type": "text",
+      "id": "fund_title",
+      "label": "Fund heading",
+      "default": "We are building a real fund for children and single mothers around the world."
+    },
+    {
+      "type": "textarea",
+      "id": "fund_text",
+      "label": "Fund description",
+      "default": "Because every woman deserves a chance. And every child deserves a future. This is what Herprint is ultimately for."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "muse_perk",
+      "name": "Muse — Perk",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon character",
+          "default": "✦"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "eligibility_item",
+      "name": "Muse — Eligibility Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Requirement"
+        }
+      ]
+    },
+    {
+      "type": "partner_perk",
+      "name": "Partner — Perk",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon character",
+          "default": "◇"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Invitation Page",
+      "blocks": [
+        { "type": "muse_perk", "settings": { "icon": "✦", "title": "Free Experience", "text": "Receive a Herprint coupon to shop our collection, completely on us." } },
+        { "type": "muse_perk", "settings": { "icon": "◇", "title": "No Obligation", "text": "We ask nothing in return. If you love it and want to share, we'd be honoured." } },
+        { "type": "muse_perk", "settings": { "icon": "○", "title": "Ongoing Partnership", "text": "Great fits become long-term Herprint friends — with early access, custom pieces, and more." } },
+        { "type": "eligibility_item", "settings": { "text": "Have 10,000+ followers on any single platform" } },
+        { "type": "eligibility_item", "settings": { "text": "Create in fashion, beauty, lifestyle or jewelry" } },
+        { "type": "eligibility_item", "settings": { "text": "Are active on YouTube, Instagram or TikTok" } },
+        { "type": "eligibility_item", "settings": { "text": "Have an engaged, authentic community" } },
+        { "type": "partner_perk", "settings": { "icon": "✦", "title": "Build with Us", "text": "Join our core team as a regional partner, brand ambassador or creative collaborator." } },
+        { "type": "partner_perk", "settings": { "icon": "◇", "title": "Grow Together", "text": "Access resources, mentorship and a global network of women who lift each other up." } },
+        { "type": "partner_perk", "settings": { "icon": "○", "title": "Make an Impact", "text": "A portion of every sale goes into our fund — supporting children and single mothers worldwide." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

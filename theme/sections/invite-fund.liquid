@@ -1,0 +1,85 @@
+<div class="invite-fund-section color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
+  <div class="invite-fund-section__inner">
+    {%- if section.settings.label != blank -%}
+      <span class="invite-fund-section__label">{{ section.settings.label | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h2 class="invite-fund-section__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="invite-fund-section__text">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .invite-fund-section {
+    padding: 8rem 2rem;
+  }
+  .invite-fund-section__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .invite-fund-section__label {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+  .invite-fund-section__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 3.5vw, 4.4rem);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 2rem;
+    color: rgb(var(--color-foreground));
+  }
+  .invite-fund-section__text {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    opacity: 0.75;
+    color: rgb(var(--color-foreground));
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Invite — Fund",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#c8a6a6"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "The Herprint Fund"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "We are building a real fund for children and single mothers around the world."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Because every woman deserves a chance. And every child deserves a future. This is what Herprint is ultimately for."
+    }
+  ],
+  "presets": [{ "name": "Invite — Fund" }]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+<div class="invite-hero color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
+  <div class="invite-hero__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="invite-hero__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h1 class="invite-hero__title">{{ section.settings.title | escape }}</h1>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="invite-hero__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .invite-hero {
+    text-align: center;
+    padding: 10rem 2rem 8rem;
+  }
+  .invite-hero__inner { max-width: 720px; margin: 0 auto; }
+  .invite-hero__eyebrow {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+  .invite-hero__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.6rem, 6vw, 7rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 2.4rem;
+    letter-spacing: -0.01em;
+    color: rgb(var(--color-foreground));
+  }
+  .invite-hero__subtitle {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    opacity: 0.75;
+    color: rgb(var(--color-foreground));
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Invite — Hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-coffee"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#7f6464"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "An Invitation"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "You're invited into our world."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Herprint was built by women, for women. Whether you create, lead, or dream — there is a place for you here."
+    }
+  ],
+  "presets": [{ "name": "Invite — Hero" }]
+}
+{% endschema %}

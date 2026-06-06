@@ -1,0 +1,68 @@
+{
+  "sections": {
+    "hero": {
+      "type": "invite-hero",
+      "settings": {
+        "color_scheme": "scheme-coffee",
+        "accent_color": "#7f6464",
+        "eyebrow": "An Invitation",
+        "title": "You're invited into our world.",
+        "subtitle": "Herprint was built by women, for women. Whether you create, lead, or dream — there is a place for you here."
+      }
+    },
+    "muse": {
+      "type": "invite-muse",
+      "blocks": {
+        "perk_1": { "type": "perk", "settings": { "icon": "✦", "title": "Free Experience", "text": "Receive a Herprint coupon to shop our collection, completely on us." } },
+        "perk_2": { "type": "perk", "settings": { "icon": "◇", "title": "No Obligation", "text": "We ask nothing in return. If you love it and want to share, we'd be honoured." } },
+        "perk_3": { "type": "perk", "settings": { "icon": "○", "title": "Ongoing Partnership", "text": "Great fits become long-term Herprint friends — with early access, custom pieces, and more." } },
+        "elig_1": { "type": "eligibility", "settings": { "text": "Have 10,000+ followers on any single platform" } },
+        "elig_2": { "type": "eligibility", "settings": { "text": "Create in fashion, beauty, lifestyle or jewelry" } },
+        "elig_3": { "type": "eligibility", "settings": { "text": "Are active on YouTube, Instagram or TikTok" } },
+        "elig_4": { "type": "eligibility", "settings": { "text": "Have an engaged, authentic community" } }
+      },
+      "block_order": ["perk_1", "perk_2", "perk_3", "elig_1", "elig_2", "elig_3", "elig_4"],
+      "settings": {
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "accent_color": "#7f6464",
+        "tag": "Herprint Muse",
+        "title": "For the creators who move culture.",
+        "lead": "If you create content around fashion, beauty, lifestyle or jewelry — and your community trusts you — we want to gift you a Herprint experience. No strings. Just jewelry that fits your story.",
+        "eligibility_heading": "You may qualify if you —",
+        "cta_label": "Apply as a Muse",
+        "email": "muse@herprint.co",
+        "email_label": "Email us directly"
+      }
+    },
+    "partner": {
+      "type": "invite-partner",
+      "blocks": {
+        "perk_1": { "type": "perk", "settings": { "icon": "✦", "title": "Build with Us", "text": "Join our core team as a regional partner, brand ambassador or creative collaborator." } },
+        "perk_2": { "type": "perk", "settings": { "icon": "◇", "title": "Grow Together", "text": "Access resources, mentorship and a global network of women who lift each other up." } },
+        "perk_3": { "type": "perk", "settings": { "icon": "○", "title": "Make an Impact", "text": "A portion of every sale goes into our fund — supporting children and single mothers worldwide." } }
+      },
+      "block_order": ["perk_1", "perk_2", "perk_3"],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "accent_color": "#7f6464",
+        "tag": "Herprint Partner",
+        "title": "For the ambitious women ready to build something real.",
+        "lead": "We are looking for driven, passionate women around the world to grow with us. Herprint is not just a jewelry brand — it is a movement.",
+        "cta_label": "Become a Partner",
+        "email": "partner@herprint.co",
+        "email_label": "Tell us your story"
+      }
+    },
+    "fund": {
+      "type": "invite-fund",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "accent_color": "#c8a6a6",
+        "label": "The Herprint Fund",
+        "title": "We are building a real fund for children and single mothers around the world.",
+        "text": "Because every woman deserves a chance. And every child deserves a future. This is what Herprint is ultimately for."
+      }
+    }
+  },
+  "order": ["hero", "muse", "partner", "fund"]
+}

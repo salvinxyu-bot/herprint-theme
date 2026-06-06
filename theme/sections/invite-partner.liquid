@@ -1,0 +1,106 @@
+<div class="invite-block color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
+  <div class="invite-block__inner">
+
+    <span class="invite-tag">{{ section.settings.tag }}</span>
+    <h2 class="invite-block__title">{{ section.settings.title }}</h2>
+    <p class="invite-block__lead">{{ section.settings.lead }}</p>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="invite-perks">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'perk' -%}
+            <div class="invite-perk" {{ block.shopify_attributes }}>
+              <span class="invite-perk__icon">{{ block.settings.icon }}</span>
+              <h3 class="invite-perk__title">{{ block.settings.title }}</h3>
+              <p class="invite-perk__text">{{ block.settings.text }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <a href="{{ section.settings.cta_link }}" class="invite-cta">{{ section.settings.cta_label }}</a>
+    <a href="mailto:{{ section.settings.email }}" class="invite-cta invite-cta--ghost">{{ section.settings.email_label }}</a>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Invite — Partner",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#7f6464"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Section tag",
+      "default": "Herprint Partner"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "For the ambitious women ready to build something real."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead text",
+      "default": "We are looking for driven, passionate women around the world to grow with us. Herprint is not just a jewelry brand — it is a movement."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Primary button",
+      "default": "Become a Partner"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "default": "partner@herprint.co"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email button label",
+      "default": "Tell us your story"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "perk",
+      "name": "Perk",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "✦" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Invite — Partner",
+    "blocks": [
+      { "type": "perk", "settings": { "icon": "✦", "title": "Build with Us", "text": "Join our core team as a regional partner, brand ambassador or creative collaborator." } },
+      { "type": "perk", "settings": { "icon": "◇", "title": "Grow Together", "text": "Access resources, mentorship and a global network of women who lift each other up." } },
+      { "type": "perk", "settings": { "icon": "○", "title": "Make an Impact", "text": "A portion of every sale goes into our fund — supporting children and single mothers worldwide." } }
+    ]
+  }]
+}
+{% endschema %}

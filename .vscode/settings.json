@@ -1,0 +1,5 @@
+{
+    "claudeCodeChat.permissions.yoloMode": true,
+    "terminal.integrated.accessibleViewPreserveCursorPosition": true,
+    "terminal.integrated.accessibleViewFocusOnCommandExecution": true
+}

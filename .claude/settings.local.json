@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -q \"theme_export__herprint-co-dawn__30MAY2026-0806pm.zip\" -d theme)",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); [print\\(s.get\\('name',''\\)\\) for s in data]\")",
+      "WebFetch(domain:www.catbirdnyc.com)"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand": {
+          "type": "brand_information",
+          "settings": {
+            "paragraph": "<p>Handcrafted solid gold jewelry for every chapter of your story.<\/p>",
+            "show_brand_name": true,
+            "show_brand_description": true
+          }
+        },
+        "shop_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer-shop"
+          }
+        },
+        "company_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer-company"
+          }
+        },
+        "help_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer-help"
+          }
+        }
+      },
+      "block_order": ["brand", "shop_links", "company_links", "help_links"],
+      "settings": {
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "newsletter_enable": true,
+        "newsletter_heading": "Join the Herprint community",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 60,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": ["footer"]
+}
