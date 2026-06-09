@@ -1,18 +1,174 @@
+{% stylesheet %}
+  .invite-block {
+    padding: 9rem 2rem;
+  }
+
+  .invite-block__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .invite-tag {
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 2.4rem;
+    background-color: var(--invite-accent, rgb(var(--color-button)));
+    color: rgb(var(--color-button-label));
+  }
+
+  .invite-block__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3rem, 4.5vw, 5.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 2.4rem;
+    max-width: 640px;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-block__lead {
+    font-size: 1.7rem;
+    line-height: 1.85;
+    max-width: 620px;
+    margin-bottom: 4rem;
+    opacity: 0.8;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-perks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+    margin-bottom: 5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .invite-perks { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .invite-perk {
+    background: rgba(var(--color-foreground), 0.04);
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+    padding: 3rem 2.4rem;
+  }
+
+  .invite-perk__icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-perk__title {
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-perk__text {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    opacity: 0.7;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-eligibility {
+    background: rgba(var(--color-foreground), 0.05);
+    padding: 3.6rem;
+    margin-bottom: 4rem;
+  }
+
+  .invite-eligibility__title {
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-eligibility__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .invite-eligibility__list { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .invite-eligibility__item {
+    font-size: 1.4rem;
+    padding-left: 1.6rem;
+    position: relative;
+    line-height: 1.6;
+    color: rgb(var(--color-foreground));
+  }
+
+  .invite-eligibility__item::before {
+    content: '\2726';
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+    top: 0.4rem;
+    color: var(--invite-accent, rgb(var(--color-button)));
+  }
+
+  .invite-cta {
+    display: inline-block;
+    padding: 1.4rem 3.6rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-right: 1.6rem;
+    margin-bottom: 1.6rem;
+    border: 1px solid rgb(var(--color-button));
+    background: rgb(var(--color-button));
+    color: rgb(var(--color-button-label));
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .invite-cta:hover {
+    background: transparent;
+    color: rgb(var(--color-button));
+  }
+
+  .invite-cta--ghost {
+    background: transparent;
+    color: rgb(var(--color-secondary-button-label));
+    border-color: rgba(var(--color-foreground), 0.3);
+  }
+
+  .invite-cta--ghost:hover {
+    background: rgb(var(--color-button));
+    color: rgb(var(--color-button-label));
+    border-color: rgb(var(--color-button));
+  }
+{% endstylesheet %}
+
 <div class="invite-block color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
   <div class="invite-block__inner">
 
-    <span class="invite-tag">{{ section.settings.tag }}</span>
-    <h2 class="invite-block__title">{{ section.settings.title }}</h2>
-    <p class="invite-block__lead">{{ section.settings.lead }}</p>
+    <span class="invite-tag">{{ section.settings.tag | escape }}</span>
+    <h2 class="invite-block__title">{{ section.settings.title | escape }}</h2>
+    <p class="invite-block__lead">{{ section.settings.lead | escape }}</p>
 
     {%- if section.blocks.size > 0 -%}
       <div class="invite-perks">
         {%- for block in section.blocks -%}
           {%- if block.type == 'perk' -%}
             <div class="invite-perk" {{ block.shopify_attributes }}>
-              <span class="invite-perk__icon">{{ block.settings.icon }}</span>
-              <h3 class="invite-perk__title">{{ block.settings.title }}</h3>
-              <p class="invite-perk__text">{{ block.settings.text }}</p>
+              <span class="invite-perk__icon">{{ block.settings.icon | escape }}</span>
+              <h3 class="invite-perk__title">{{ block.settings.title | escape }}</h3>
+              <p class="invite-perk__text">{{ block.settings.text | escape }}</p>
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -22,19 +178,19 @@
     {%- assign eligibility_items = section.blocks | where: 'type', 'eligibility' -%}
     {%- if eligibility_items.size > 0 -%}
       <div class="invite-eligibility">
-        <p class="invite-eligibility__title">{{ section.settings.eligibility_heading }}</p>
+        <p class="invite-eligibility__title">{{ section.settings.eligibility_heading | escape }}</p>
         <ul class="invite-eligibility__list">
           {%- for block in section.blocks -%}
             {%- if block.type == 'eligibility' -%}
-              <li class="invite-eligibility__item" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+              <li class="invite-eligibility__item" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
             {%- endif -%}
           {%- endfor -%}
         </ul>
       </div>
     {%- endif -%}
 
-    <a href="{{ section.settings.cta_link }}" class="invite-cta">{{ section.settings.cta_label }}</a>
-    <a href="mailto:{{ section.settings.email }}" class="invite-cta invite-cta--ghost">{{ section.settings.email_label }}</a>
+    <a href="{{ section.settings.cta_link }}" class="invite-cta">{{ section.settings.cta_label | escape }}</a>
+    <a href="mailto:{{ section.settings.email | escape }}" class="invite-cta invite-cta--ghost">{{ section.settings.email_label | escape }}</a>
 
   </div>
 </div>
