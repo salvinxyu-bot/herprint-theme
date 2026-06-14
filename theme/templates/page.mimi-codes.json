@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-mimi-codes",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

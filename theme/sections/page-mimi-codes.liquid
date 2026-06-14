@@ -1,0 +1,664 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+.mimi-root {
+  --good:#8caa6d; --good-deep:#6f8c52; --good-bg:#e9f0dd;
+  --bad:#d98a8e; --bad-deep:#c46b70; --bad-bg:#f7e6e6;
+  --lav:#b6a9d4; --lav-deep:#8f7fb8;
+  --ink:#5d556a; --muted:#9b93a8; --line:#ddd5e6; --code:#4b4658;
+
+  font-family:'Nunito',system-ui,sans-serif;
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:16px 16px 48px;
+  overflow-x:hidden;
+  position:relative;
+  background:
+    radial-gradient(90% 60% at 12% 8%, rgba(182,169,212,.55), transparent 60%),
+    radial-gradient(80% 55% at 88% 14%, rgba(169,197,224,.5), transparent 60%),
+    radial-gradient(90% 60% at 80% 92%, rgba(239,193,200,.45), transparent 60%),
+    radial-gradient(90% 70% at 18% 88%, rgba(169,194,160,.5), transparent 60%),
+    linear-gradient(180deg,#eef0e9,#f4ece9);
+}
+.mimi-root *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+.mimi-root .stage{width:100%;max-width:480px;display:flex;flex-direction:column;position:relative;z-index:1;perspective:1600px}
+.mimi-root .deco{position:absolute;pointer-events:none;opacity:.5;z-index:0}
+.mimi-root .d1{top:7%;left:6%;font-size:26px;animation:mimi-drift 7s ease-in-out infinite}
+.mimi-root .d2{top:13%;right:7%;font-size:22px;animation:mimi-drift 8s ease-in-out infinite .6s}
+.mimi-root .d3{bottom:11%;left:9%;font-size:24px;animation:mimi-drift 9s ease-in-out infinite 1.1s}
+.mimi-root .d4{bottom:18%;right:8%;font-size:22px;animation:mimi-drift 7.5s ease-in-out infinite .9s}
+@keyframes mimi-drift{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-13px) rotate(5deg)}}
+
+.mimi-root .brand{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);z-index:6;pointer-events:none;
+  font-family:'Baloo 2';font-weight:700;font-size:12px;letter-spacing:1.5px;color:var(--lav-deep);
+  background:rgba(255,255,255,.6);padding:4px 14px;border-radius:20px;white-space:nowrap;
+  box-shadow:0 1px 4px rgba(143,127,184,.12)}
+
+.mimi-root .top{display:flex;align-items:center;gap:10px;margin-bottom:8px;visibility:hidden}
+.mimi-root .back{background:rgba(255,255,255,.8);border:2px solid var(--line);border-radius:12px;width:38px;height:34px;
+  font-size:16px;cursor:pointer;flex-shrink:0;color:var(--lav-deep)}
+.mimi-root .bar{flex:1;height:15px;background:rgba(255,255,255,.7);border:2px solid var(--line);border-radius:20px;overflow:hidden}
+.mimi-root .fill{height:100%;width:0;background:linear-gradient(90deg,#a9c2a0,#8fb8b2);border-radius:20px;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.mimi-root .hearts{display:flex;gap:1px;font-size:15px}
+.mimi-root .hearts .h{transition:transform .3s,opacity .3s}
+.mimi-root .hearts .h.gone{opacity:.2;transform:scale(.8)}
+.mimi-root .lvtag{text-align:center;font-family:'Baloo 2';font-weight:700;font-size:12px;color:var(--lav-deep);letter-spacing:.8px;margin-bottom:16px;visibility:hidden}
+
+.mimi-root .screen{display:none;position:relative}
+.mimi-root .screen.on{display:block;animation:mimi-pop .4s cubic-bezier(.2,.9,.3,1.15)}
+@keyframes mimi-pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+
+.mimi-root .screen.flip-out{display:block;position:absolute;top:0;left:0;width:100%;z-index:12;
+  transform-origin:left center;backface-visibility:hidden;animation:mimi-pageTurnOut .62s cubic-bezier(.4,.05,.5,.95) forwards}
+@keyframes mimi-pageTurnOut{
+  0%{transform:rotateY(0);box-shadow:0 0 0 rgba(93,85,106,0)}
+  100%{transform:rotateY(-112deg);box-shadow:26px 0 46px rgba(93,85,106,.22)}}
+.mimi-root .screen.flip-in{animation:mimi-pageTurnIn .62s ease-out}
+@keyframes mimi-pageTurnIn{0%{opacity:.35;transform:scale(.985)}100%{opacity:1;transform:none}}
+
+.mimi-root .screen.fade-out{display:block;position:absolute;top:0;left:0;width:100%;z-index:12;animation:mimi-fadeOut .4s ease forwards}
+@keyframes mimi-fadeOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.04)}}
+.mimi-root .screen.fade-in{animation:mimi-fadeIn .5s ease .12s both}
+@keyframes mimi-fadeIn{from{opacity:0}to{opacity:1}}
+
+.mimi-root .cover{display:flex;flex-direction:column;justify-content:center;min-height:84vh}
+.mimi-root .cover-frame{background:rgba(255,255,255,.5);border:2px solid var(--line);border-radius:28px;
+  padding:30px 22px 30px;box-shadow:0 8px 0 rgba(143,127,184,.16);text-align:center;position:relative;overflow:hidden}
+.mimi-root .cover-frame:before{content:'';position:absolute;inset:6px;border:1.5px solid rgba(182,169,212,.35);border-radius:22px;pointer-events:none}
+.mimi-root .ribbon{display:inline-block;font-family:'Baloo 2';font-weight:800;font-size:11px;letter-spacing:2px;
+  color:#fff;background:var(--lav-deep);padding:5px 14px;border-radius:30px;margin-bottom:6px}
+.mimi-root .eyebrow{font-family:'Baloo 2';font-weight:700;font-size:13px;letter-spacing:3px;color:var(--lav-deep);text-transform:uppercase;margin-top:8px}
+.mimi-root .cover h1{font-family:'Baloo 2';font-weight:800;font-size:46px;line-height:1;margin:2px 0 4px}
+.mimi-root .cover h1 .pop{color:var(--lav-deep)}
+.mimi-root .cover .tag{color:var(--muted);font-weight:700;font-size:15px;margin-bottom:4px}
+.mimi-root .cover .meta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
+.mimi-root .cover .meta .m{background:rgba(255,255,255,.85);border:2px solid var(--line);border-radius:30px;
+  padding:6px 13px;font-weight:800;font-size:12.5px;color:var(--lav-deep)}
+.mimi-root .cover .mascot.big{width:178px}
+
+.mimi-root .mascot{width:124px;flex-shrink:0}
+.mimi-root .mascot.big{width:200px;margin:0 auto;display:block}
+.mimi-root .mascot svg{display:block;width:100%}
+.mimi-root .bob{animation:mimi-bob 3.6s ease-in-out infinite}
+@keyframes mimi-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.mimi-root .tail{transform-box:fill-box;transform-origin:18% 82%;animation:mimi-wag .65s ease-in-out infinite}
+@keyframes mimi-wag{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(16deg)}}
+.mimi-root .eyes{transform-box:fill-box;transform-origin:center;animation:mimi-blink 4.2s infinite}
+@keyframes mimi-blink{0%,93%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.08)}}
+.mimi-root .cheer{animation:mimi-cheer .6s ease}
+@keyframes mimi-cheer{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-14px) rotate(-6deg)}75%{transform:translateY(-14px) rotate(6deg)}}
+.mimi-root .shake{animation:mimi-shake .5s ease}
+@keyframes mimi-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+.mimi-root .hi{text-align:center;margin-bottom:6px}
+.mimi-root .hi h1{font-family:'Baloo 2';font-weight:800;font-size:34px;line-height:1.05}
+.mimi-root .hi h1 .pop{color:var(--lav-deep)}
+.mimi-root .hi p{color:var(--muted);font-weight:700;font-size:14px;margin-top:2px}
+.mimi-root .map{display:flex;flex-direction:column;gap:11px;margin-top:14px}
+.mimi-root .setcard{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.92);border:2px solid var(--line);
+  border-bottom-width:5px;border-radius:18px;padding:13px 15px;cursor:pointer;transition:transform .08s,border-color .15s}
+.mimi-root .setcard:hover{border-color:var(--lav)}
+.mimi-root .setcard:active{transform:translateY(2px);border-bottom-width:3px}
+.mimi-root .num{width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2';font-weight:800;font-size:20px;color:#fff}
+.mimi-root .setinfo{flex:1;min-width:0}
+.mimi-root .setinfo .tier{font-family:'Baloo 2';font-weight:700;font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.mimi-root .setinfo .nm{font-family:'Baloo 2';font-weight:700;font-size:16px;line-height:1.15}
+.mimi-root .chev{font-size:18px;color:var(--muted);flex-shrink:0}
+.mimi-root .chev.done{color:var(--good)}
+
+.mimi-root .prog{background:linear-gradient(135deg,#b6a9d4,#8fb8b2);color:#fff;border-radius:20px;padding:16px 18px 14px;
+  margin:14px 0 4px;box-shadow:0 5px 0 rgba(143,127,184,.3)}
+.mimi-root .prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.mimi-root .prog-big{font-family:'Baloo 2';font-weight:800;font-size:34px;line-height:1}
+.mimi-root .prog-big span{font-size:18px;opacity:.85}
+.mimi-root .prog-sub{font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.6px;opacity:.92;margin-top:2px}
+.mimi-root .prog-stats{text-align:right;font-family:'Baloo 2';font-weight:700;font-size:15px;line-height:1.55}
+.mimi-root .prog-bar{height:14px;background:rgba(255,255,255,.35);border-radius:20px;overflow:hidden}
+.mimi-root .prog-fill{height:100%;background:#fff;border-radius:20px;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.mimi-root .prog-reset{display:block;margin:9px auto 0;background:none;border:none;color:rgba(255,255,255,.8);
+  font-weight:800;font-size:11px;letter-spacing:.4px;text-decoration:underline;cursor:pointer}
+.mimi-root .cright{text-align:right;flex-shrink:0;min-width:30px}
+.mimi-root .cstars{font-size:13px;line-height:1}
+.mimi-root .cbest{font-size:10px;font-weight:800;color:var(--muted);margin-top:3px}
+.mimi-root .cgo{font-size:18px;color:var(--muted)}
+.mimi-root .setcard.locked{opacity:.5;cursor:not-allowed}
+.mimi-root .setcard.locked:hover{border-color:var(--line)}
+.mimi-root .setcard.deny{animation:mimi-shake .4s ease}
+.mimi-root .lock{font-size:17px}
+.mimi-root .badge-perfect{margin-top:11px;background:linear-gradient(135deg,#f3e2a6,#e6b85f);color:#6b531a;
+  font-family:'Baloo 2';font-weight:800;font-size:13px;text-align:center;padding:9px;border-radius:13px;
+  letter-spacing:.4px;box-shadow:0 2px 0 rgba(180,140,60,.3)}
+
+.mimi-root .talk{display:flex;align-items:flex-end;gap:10px;margin-bottom:16px}
+.mimi-root .bubble{background:rgba(255,255,255,.92);border:2px solid var(--line);border-radius:18px;padding:12px 15px;
+  font-weight:700;font-size:15px;line-height:1.4;position:relative;flex:1;box-shadow:0 3px 0 rgba(143,127,184,.13)}
+.mimi-root .bubble:after{content:'';position:absolute;left:-9px;bottom:15px;width:14px;height:14px;background:rgba(255,255,255,.92);
+  border-left:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+
+.mimi-root .kind{display:inline-flex;align-items:center;gap:6px;background:var(--lav);color:#fff;font-family:'Baloo 2';
+  font-weight:700;font-size:13px;padding:5px 13px;border-radius:30px;margin-bottom:14px}
+.mimi-root pre.code{font-family:'JetBrains Mono',monospace;font-size:14.5px;line-height:1.7;background:var(--code);color:#f1ece4;
+  border-radius:16px;padding:16px 18px;margin-bottom:18px;overflow-x:auto;white-space:pre;box-shadow:0 4px 0 rgba(75,70,88,.25)}
+.mimi-root pre.code .blank{color:#f3e2a6;background:rgba(243,226,166,.18);padding:0 7px;border-radius:5px}
+.mimi-root pre.code .lit{color:#bcd6a8}
+.mimi-root pre.code .fn{color:#c3b6e0}
+.mimi-root pre.code .kw{color:#e8b4be}
+
+.mimi-root .opts{display:flex;flex-direction:column;gap:11px}
+.mimi-root .opt{display:flex;align-items:center;gap:12px;text-align:left;background:rgba(255,255,255,.92);border:2px solid var(--line);
+  border-bottom-width:5px;border-radius:16px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:15.5px;
+  font-weight:500;color:var(--ink);cursor:pointer;transition:transform .07s,border-color .15s,background .15s}
+.mimi-root .opt:hover:not(:disabled){background:#fff;border-color:var(--lav)}
+.mimi-root .opt:active:not(:disabled){transform:translateY(2px);border-bottom-width:3px}
+.mimi-root .opt:disabled{cursor:default}
+.mimi-root .opt .k{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2';font-weight:700;font-size:13px;color:var(--muted);flex-shrink:0}
+.mimi-root .opt.right{border-color:var(--good);background:var(--good-bg)}
+.mimi-root .opt.right .k{border-color:var(--good);background:var(--good);color:#fff}
+.mimi-root .opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.mimi-root .opt.wrong .k{border-color:var(--bad);background:var(--bad);color:#fff}
+
+.mimi-root .hint-wrap{margin-top:18px}
+.mimi-root .hint-btn{width:100%;background:transparent;border:2px dashed var(--lav);color:var(--lav-deep);border-radius:14px;
+  padding:11px;font-family:'Baloo 2';font-weight:700;font-size:14px;cursor:pointer}
+.mimi-root .hint-btn:active{transform:translateY(1px)}
+.mimi-root .hint-box{display:none;margin-top:10px;background:#fbf3e6;border:2px solid #f0e1b6;border-radius:14px;padding:13px 15px;
+  font-weight:700;font-size:14px;line-height:1.5;color:#8c7327}
+.mimi-root .hint-box.show{display:flex;gap:9px;animation:mimi-pop .3s ease}
+.mimi-root .hint-box b{flex-shrink:0}
+
+.mimi-root .btn{width:100%;font-family:'Baloo 2';font-weight:800;font-size:18px;color:#fff;background:var(--good);border:none;
+  border-bottom:5px solid var(--good-deep);border-radius:16px;padding:15px;cursor:pointer;letter-spacing:.4px;transition:transform .07s,filter .15s}
+.mimi-root .btn:hover{filter:brightness(1.04)}
+.mimi-root .btn:active{transform:translateY(3px);border-bottom-width:2px}
+.mimi-root .btn.lav{background:var(--lav-deep);border-bottom-color:#6f63a0}
+.mimi-root .btn.ghost{background:rgba(255,255,255,.85);color:var(--lav-deep);border:2px solid var(--line);border-bottom-width:5px}
+.mimi-root .btn-row{display:flex;gap:10px;margin-top:10px}
+
+.mimi-sheet{position:fixed;left:0;right:0;bottom:0;z-index:20;transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.9,.3,1.1)}
+.mimi-sheet.up{transform:translateY(0)}
+.mimi-sheet .sheet-inner{max-width:480px;margin:0 auto;border-radius:22px 22px 0 0;padding:18px 18px calc(20px + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 30px rgba(93,85,106,.18)}
+.mimi-sheet.ok .sheet-inner{background:var(--good-bg,#e9f0dd)}
+.mimi-sheet.no .sheet-inner{background:var(--bad-bg,#f7e6e6)}
+.mimi-sheet .sheet-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.mimi-sheet .sheet-head .mini{width:64px;flex-shrink:0}
+.mimi-sheet .sheet-title{font-family:'Baloo 2';font-weight:800;font-size:21px}
+.mimi-sheet.ok .sheet-title{color:#6f8c52}
+.mimi-sheet.no .sheet-title{color:#c46b70}
+.mimi-sheet .sheet-note{font-weight:700;font-size:14.5px;line-height:1.5;margin:2px 0 15px;padding-left:2px}
+.mimi-sheet.ok .sheet-note{color:#5e7a3a}
+.mimi-sheet.no .sheet-note{color:#a85a5e}
+.mimi-sheet .btn{width:100%;font-family:'Baloo 2';font-weight:800;font-size:18px;color:#fff;background:#8caa6d;border:none;
+  border-bottom:5px solid #6f8c52;border-radius:16px;padding:15px;cursor:pointer;letter-spacing:.4px;transition:transform .07s,filter .15s}
+.mimi-sheet .btn:hover{filter:brightness(1.04)}
+.mimi-sheet .btn:active{transform:translateY(3px);border-bottom-width:2px}
+.mimi-sheet .btn.lav{background:#8f7fb8;border-bottom-color:#6f63a0}
+
+.mimi-root .end{text-align:center}
+.mimi-root .end h2{font-family:'Baloo 2';font-weight:800;font-size:28px;margin:6px 0 4px}
+.mimi-root .end .funny{color:var(--muted);font-weight:700;font-size:15px;margin-bottom:20px}
+.mimi-root .stats{display:flex;gap:9px;margin-bottom:20px}
+.mimi-root .stat{flex:1;background:rgba(255,255,255,.9);border:2px solid var(--line);border-bottom-width:4px;border-radius:16px;padding:13px 6px}
+.mimi-root .stat .n{font-family:'Baloo 2';font-weight:800;font-size:23px}
+.mimi-root .stat.xp .n{color:#caa400}
+.mimi-root .stat.acc .n{color:#8caa6d}
+.mimi-root .stat.hp .n{color:#c46b70}
+.mimi-root .stat .l{font-weight:800;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+.mimi-confetti{position:fixed;top:-12px;width:9px;height:9px;z-index:30;pointer-events:none;border-radius:2px}
+@keyframes mimi-fall{to{transform:translateY(105vh) rotate(540deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.mimi-root *{animation:none!important;transition:none!important}.mimi-sheet{transition:none!important}}
+</style>
+
+<div class="mimi-root">
+  <div class="deco d1">🌿</div>
+  <div class="deco d2">🦋</div>
+  <div class="deco d3">🌸</div>
+  <div class="deco d4">☁️</div>
+
+  <div class="stage">
+    <div class="top" id="mimiTop">
+      <button class="back" onclick="mimiGame.toMap()">‹</button>
+      <div class="bar"><div class="fill" id="mimiFill"></div></div>
+      <div class="hearts" id="mimiHearts"></div>
+    </div>
+    <div class="lvtag" id="mimiLvtag"></div>
+
+    <!-- COVER -->
+    <section class="screen on cover" id="mimiCover">
+      <div class="cover-frame">
+        <span class="ribbon">VOL. 1 · PYTHON</span>
+        <div id="mimiCoverMascot"></div>
+        <div class="eyebrow">S' Mimi Series</div>
+        <h1>Mimi <span class="pop">Codes!</span></h1>
+        <p class="tag">Learn Python with a very fluffy pup 🐾</p>
+        <div class="meta">
+          <span class="m">🎓 10 sets</span><span class="m">🐍 100 questions</span><span class="m">🌱 freshman → pro</span>
+        </div>
+        <button class="btn" onclick="mimiGame.enter()">START THE COURSE →</button>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section class="screen" id="mimiMap">
+      <div id="mimiMapMascot"></div>
+      <div class="hi"><h1>Mimi <span class="pop">Codes!</span></h1><p>10 sets, freshman → pro. Pick a lesson 🐾</p></div>
+      <div class="prog" id="mimiProgressBanner"></div>
+      <div class="map" id="mimiSetList"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="screen" id="mimiQuiz">
+      <div class="talk"><div class="mascot" id="mimiQMascot"></div><div class="bubble" id="mimiBubble"></div></div>
+      <div class="kind" id="mimiKind"></div>
+      <pre class="code" id="mimiCode"></pre>
+      <div class="opts" id="mimiOpts"></div>
+      <div class="hint-wrap">
+        <button class="hint-btn" id="mimiHintBtn" onclick="mimiGame.toggleHint()">🐾 Need a paw? Tap for a hint</button>
+        <div class="hint-box" id="mimiHintBox"><b>💡</b><span id="mimiHintText"></span></div>
+      </div>
+    </section>
+
+    <!-- END -->
+    <section class="screen end" id="mimiEnd">
+      <div id="mimiEndMascot"></div>
+      <h2 id="mimiEndTitle"></h2>
+      <p class="funny" id="mimiEndFunny"></p>
+      <div class="stats">
+        <div class="stat xp"><div class="n" id="mimiXp">0</div><div class="l">XP</div></div>
+        <div class="stat acc"><div class="n" id="mimiAcc">0%</div><div class="l">Correct</div></div>
+        <div class="stat hp"><div class="n" id="mimiHp">5</div><div class="l">Hearts</div></div>
+      </div>
+      <button class="btn" id="mimiNextBtn" onclick="mimiGame.nextSet()">NEXT SET ▶</button>
+      <div class="btn-row">
+        <button class="btn ghost" onclick="mimiGame.replaySet()">REPLAY 🔁</button>
+        <button class="btn ghost" onclick="mimiGame.toMap()">MAP 🗺️</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="brand">S' Mimi Series 🐾</div>
+</div>
+
+<!-- Sheet lives outside .mimi-root so it can be fixed to the viewport -->
+<div class="mimi-sheet" id="mimiSheet">
+  <div class="sheet-inner">
+    <div class="sheet-head"><div class="mini" id="mimiSheetMini"></div><div class="sheet-title" id="mimiSheetTitle"></div></div>
+    <div class="sheet-note" id="mimiSheetNote"></div>
+    <button class="btn" id="mimiSheetBtn" onclick="mimiGame.next()">CONTINUE</button>
+  </div>
+</div>
+
+<script>
+(function(){
+/* ---------- Mimi mascot ---------- */
+function mimi(mood){
+  const fluff='#fdfbf7',shade='#e4ddec',warm='#efe6e0';
+  const tail=`<g class="tail"><path d="M150 120 q34 -6 30 26 q-2 22 -26 14 q-18 -6 -10 -28 z" fill="${fluff}"/><path d="M156 124 q22 -2 20 18" fill="none" stroke="${shade}" stroke-width="2.5" stroke-linecap="round"/></g>`;
+  const body=`<ellipse cx="100" cy="150" rx="50" ry="36" fill="${fluff}"/><ellipse cx="100" cy="158" rx="50" ry="28" fill="${warm}" opacity=".5"/>`;
+  const ears=`<path d="M52 70 q-26 6 -22 50 q4 30 26 20 q14 -8 10 -40 q-2 -24 -14 -30 z" fill="${fluff}"/><path d="M148 70 q26 6 22 50 q-4 30 -26 20 q-14 -8 -10 -40 q2 -24 14 -30 z" fill="${fluff}"/><path d="M48 92 q-10 16 -4 34" fill="none" stroke="${shade}" stroke-width="2.5" stroke-linecap="round"/><path d="M152 92 q10 16 4 34" fill="none" stroke="${shade}" stroke-width="2.5" stroke-linecap="round"/>`;
+  const head=`<g><circle cx="70" cy="72" r="20" fill="${fluff}"/><circle cx="100" cy="60" r="22" fill="${fluff}"/><circle cx="130" cy="72" r="20" fill="${fluff}"/><circle cx="60" cy="98" r="20" fill="${fluff}"/><circle cx="140" cy="98" r="20" fill="${fluff}"/><circle cx="78" cy="112" r="20" fill="${fluff}"/><circle cx="122" cy="112" r="20" fill="${fluff}"/><circle cx="100" cy="92" r="44" fill="${fluff}"/><path d="M64 104 q6 12 16 14" fill="none" stroke="${shade}" stroke-width="2" stroke-linecap="round" opacity=".7"/><path d="M136 104 q-6 12 -16 14" fill="none" stroke="${shade}" stroke-width="2" stroke-linecap="round" opacity=".7"/></g>`;
+  const bangs=`<path d="M88 64 q12 -16 24 0 q-4 14 -12 16 q-8 -2 -12 -16z" fill="${fluff}"/>`;
+  const cheeks=`<ellipse cx="74" cy="106" rx="11" ry="7" fill="#f0c3c9" opacity=".7"/><ellipse cx="126" cy="106" rx="11" ry="7" fill="#f0c3c9" opacity=".7"/>`;
+  const nose=`<ellipse cx="100" cy="108" rx="13" ry="11" fill="#4a3a44"/><ellipse cx="95" cy="104" rx="4" ry="3" fill="#7d6f78" opacity=".8"/>`;
+  let eyes,extra='';
+  if(mood==='happy'||mood==='cheer'){
+    eyes=`<path d="M78 88 q8 -8 16 0" stroke="#4a3a44" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M106 88 q8 -8 16 0" stroke="#4a3a44" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    extra=`<text x="26" y="46" font-size="18">✨</text><text x="156" y="50" font-size="15">🌸</text>`;
+  } else if(mood==='oops'){
+    eyes=`<circle cx="86" cy="89" r="6" fill="#4a3a44"/><circle cx="114" cy="89" r="6" fill="#4a3a44"/><path d="M150 64 q7 9 0 18" stroke="#a9c5e0" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="155" cy="70" r="3.5" fill="#a9c5e0"/>`;
+  } else {
+    eyes=`<g class="eyes"><ellipse cx="86" cy="89" rx="5.5" ry="7" fill="#4a3a44"/><circle cx="88" cy="86" r="1.8" fill="#fff"/><ellipse cx="114" cy="89" rx="5.5" ry="7" fill="#4a3a44"/><circle cx="116" cy="86" r="1.8" fill="#fff"/></g>`;
+  }
+  const mouth=`<path d="M94 120 q6 6 12 0" stroke="#4a3a44" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">${extra}${tail}${body}${ears}${head}${bangs}${cheeks}${eyes}${nose}${mouth}</svg>`;
+}
+
+/* ---------- curriculum: 10 sets x 10 questions ---------- */
+const SETS=[
+  {tier:'Freshman',nm:'First steps',color:'#a9c2a0',qs:[
+    {q:`print("hi")`,o:['hi','print','"hi"','error'],a:0,h:'print() shows what is inside the parentheses.',n:'It prints hi — your first line! 🌱'},
+    {q:`print(7)`,o:['7','"7"','seven','error'],a:0,h:'Numbers print as-is, no quotes needed.',n:'Just 7. Numbers do not need quote marks.'},
+    {q:`x = 4\nprint(x)`,o:['4','x','"4"','error'],a:0,h:'x is a box holding 4.',n:'print(x) shows what is inside x — 4. 📦'},
+    {q:`print(2 + 3)`,o:['5','23','6','error'],a:0,h:'+ adds numbers.',n:'2 + 3 = 5. Simple math!'},
+    {q:`print(10 - 4)`,o:['6','14','-6','4'],a:0,h:'- subtracts.',n:'10 - 4 = 6.'},
+    {q:`print(3 * 4)`,o:['12','7','34','9'],a:0,h:'* means multiply.',n:'3 × 4 = 12.'},
+    {q:`pet = "cat"\nprint(pet)`,o:['cat','pet','"cat"','error'],a:0,h:'pet holds the word cat.',n:'print(pet) shows cat. 🐱'},
+    {q:`print("5")`,o:['5','"5"','five','error'],a:0,h:'Quotes wrap text but do not show.',n:'It prints 5 (the quotes are just wrapping).'},
+    {q:`print(True)`,o:['True','true','1','yes'],a:0,h:'True/False are written with a capital letter.',n:'Python prints True with a capital T.'},
+    {q:`print(3.0)`,o:['3.0','3','"3.0"','error'],a:0,h:'A number with a dot is a decimal (float).',n:'It keeps the decimal: 3.0.'},
+  ]},
+  {tier:'Beginner',nm:'Strings & numbers',color:'#9fbfa8',qs:[
+    {q:`print("sun" + "shine")`,o:['sunshine','sun shine','sun+shine','error'],a:0,h:'+ glues words with no space.',n:'You get sunshine — no gap.'},
+    {q:`n = "Bo"\nprint(f"Hi {n}")`,o:['Hi Bo','Hi {n}','Hi n','HiBo'],a:0,h:'f"..." swaps {n} for the box value.',n:'{n} becomes Bo → Hi Bo. f-strings! ✨'},
+    {q:`print("ha" * 3)`,o:['hahaha','ha3','9','error'],a:0,h:'text * number repeats the text.',n:'"ha" three times = hahaha. 😄'},
+    {q:`print(8 / 2)`,o:['4.0','4','2','16'],a:0,h:'/ always gives a decimal (float).',n:'8 / 2 = 4.0 — division gives a float!'},
+    {q:`print(int("5") + 1)`,o:['6','51','"51"','error'],a:0,h:'int("5") turns text into the number 5.',n:'5 + 1 = 6, after converting the text.'},
+    {q:`print("age: " + str(20))`,o:['age: 20','age:20','20','error'],a:0,h:'str(20) turns the number into text so + can glue it.',n:'You get age: 20.'},
+    {q:`print("hi".upper())`,o:['HI','hi','"HI"','error'],a:0,h:'.upper() makes letters capital.',n:'hi → HI.'},
+    {q:`print(len("dog"))`,o:['3','dog','2','"dog"'],a:0,h:'len() counts letters.',n:'d-o-g = 3.'},
+    {q:`print(7 % 3)`,o:['1','2','0','3'],a:0,h:'% gives the leftover (remainder).',n:'7 ÷ 3 leaves 1 over → 1.'},
+    {q:`print(2 ** 3)`,o:['8','6','9','23'],a:0,h:'** means "to the power of".',n:'2 to the 3rd = 8.'},
+  ]},
+  {tier:'Beginner+',nm:'Lists',color:'#9bbcb4',qs:[
+    {q:`a = [10, 20, 30]\nprint(a[0])`,o:['10','20','30','[10]'],a:0,h:'Lists start at 0.',n:'a[0] is the first item — 10.'},
+    {q:`a = [10, 20, 30]\nprint(a[-1])`,o:['30','10','-1','[30]'],a:0,h:'-1 means last item.',n:'a[-1] is the last — 30.'},
+    {q:`a = [10, 20, 30]\nprint(len(a))`,o:['3','30','2','[3]'],a:0,h:'len() counts the items.',n:'Three items → 3.'},
+    {q:`a = [10, 20, 30]\nprint(a[0:2])`,o:['[10, 20]','[10, 20, 30]','[20, 30]','[10]'],a:0,h:'[0:2] takes items 0 and 1 (stops before 2).',n:'You get [10, 20].'},
+    {q:`a = [1, 2]\na.append(3)\nprint(a)`,o:['[1, 2, 3]','[1, 2]','[3]','[1, 2, [3]]'],a:0,h:'append() adds to the end.',n:'3 joins the list → [1, 2, 3].'},
+    {q:`nums = [5, 6, 7, 8]\nprint(nums[2])`,o:['7','6','8','[7]'],a:0,h:'Count 0,1,2 — the third item.',n:'nums[2] is 7.'},
+    {q:`print(2 in [1, 2, 3])`,o:['True','False','2','yes'],a:0,h:'"in" checks if it is inside.',n:'2 is in the list → True.'},
+    {q:`print([1, 2] + [3])`,o:['[1, 2, 3]','[6]','[1, 2, 3, 0]','error'],a:0,h:'+ joins two lists.',n:'They merge → [1, 2, 3].'},
+    {q:`print(sum([1, 2, 3]))`,o:['6','123','3','[6]'],a:0,h:'sum() adds the numbers.',n:'1 + 2 + 3 = 6.'},
+    {q:`m = [[1, 2], [3, 4]]\nprint(m[1][0])`,o:['3','1','4','2'],a:0,h:'m[1] is [3, 4], then [0] of that.',n:'[1] then [0] → 3.'},
+  ]},
+  {tier:'Intermediate',nm:'Loops',color:'#9bb6c6',qs:[
+    {q:`print(list(range(3)))`,o:['[0, 1, 2]','[1, 2, 3]','[0, 1, 2, 3]','3'],a:0,h:'range(3) is 0,1,2.',n:'[0, 1, 2] — stops before 3.'},
+    {q:`total = 0\nfor n in [1, 2, 3]:\n    total += n\nprint(total)`,o:['6','3','123','0'],a:0,h:'+= adds each n to total.',n:'1 + 2 + 3 = 6.'},
+    {q:`count = 0\nfor c in "abc":\n    count += 1\nprint(count)`,o:['3','abc','2','0'],a:0,h:'The loop runs once per letter.',n:'3 letters → count is 3.'},
+    {q:`print(list(range(1, 4)))`,o:['[1, 2, 3]','[1, 2, 3, 4]','[0, 1, 2, 3]','[1, 4]'],a:0,h:'range(1,4) starts at 1, stops before 4.',n:'[1, 2, 3].'},
+    {q:`print(list(range(0, 6, 2)))`,o:['[0, 2, 4]','[0, 2, 4, 6]','[2, 4, 6]','[0, 6]'],a:0,h:'The third number is the step (jump by 2).',n:'0, 2, 4 — stops before 6.'},
+    {q:`i = 0\nwhile i < 3:\n    i += 1\nprint(i)`,o:['3','0','2','4'],a:0,h:'It loops until i is no longer < 3.',n:'i climbs to 3, then stops.'},
+    {q:`p = 1\nfor n in [2, 3]:\n    p *= n\nprint(p)`,o:['6','5','1','23'],a:0,h:'*= multiplies into p.',n:'1 × 2 × 3 = 6.'},
+    {q:`print([n for n in range(4)])`,o:['[0, 1, 2, 3]','[1, 2, 3, 4]','[0, 1, 2]','4'],a:0,h:'Collect each n from range(4).',n:'[0, 1, 2, 3].'},
+    {q:`for n in range(5):\n    if n == 3:\n        break\n    print(n)`,o:['0 1 2','0 1 2 3','3','0 1 2 3 4'],a:0,h:'break stops the loop the moment n is 3.',n:'Prints 0, 1, 2 then stops. 🛑'},
+    {q:`for n in range(4):\n    if n == 1:\n        continue\n    print(n)`,o:['0 2 3','0 1 2 3','1','0 3'],a:0,h:'continue skips just that one turn.',n:'1 is skipped → 0, 2, 3.'},
+  ]},
+  {tier:'Intermediate',nm:'Logic',color:'#a3b0cf',qs:[
+    {q:`x = 5\nif x > 3:\n    print("big")`,o:['big','5','nothing','error'],a:0,h:'5 > 3 is true, so it runs.',n:'Prints big.'},
+    {q:`x = 2\nif x > 3:\n    print("big")\nelse:\n    print("small")`,o:['small','big','2','error'],a:0,h:'2 > 3 is false → else runs.',n:'Prints small.'},
+    {q:`s = 75\nif s >= 90:\n    print("A")\nelif s >= 70:\n    print("B")\nelse:\n    print("C")`,o:['B','A','C','75'],a:0,h:'75 fails >=90 but passes >=70.',n:'The elif catches it → B.'},
+    {q:`print(True and False)`,o:['False','True','None','error'],a:0,h:'"and" needs BOTH to be true.',n:'One is false → False.'},
+    {q:`print(True or False)`,o:['True','False','None','error'],a:0,h:'"or" needs just ONE true.',n:'One is true → True.'},
+    {q:`print(not True)`,o:['False','True','not','error'],a:0,h:'"not" flips it.',n:'not True → False.'},
+    {q:`print(1 < 2 < 3)`,o:['True','False','1','error'],a:0,h:'Python can chain comparisons.',n:'1<2 and 2<3 → True.'},
+    {q:`print(10 % 2 == 0)`,o:['True','False','0','10'],a:0,h:'Even numbers leave remainder 0.',n:'10 is even → True. (The even check!)'},
+    {q:`x = 5\nprint("yes" if x > 0 else "no")`,o:['yes','no','5','True'],a:0,h:'A one-line if/else (ternary).',n:'x > 0 is true → yes.'},
+    {q:`print("a" == "a")`,o:['True','False','a','error'],a:0,h:'== compares for being equal.',n:'Same text → True.'},
+  ]},
+  {tier:'Intermediate+',nm:'Dicts & sets',color:'#b0a9cf',qs:[
+    {q:`d = {"a": 1, "b": 2}\nprint(d["b"])`,o:['2','1','b','error'],a:0,h:'Look up a value by its key.',n:'Key b → 2.'},
+    {q:`d = {"a": 1, "b": 2}\nprint(d.get("c", 0))`,o:['0','None','error','c'],a:0,h:'get() returns a fallback if the key is missing.',n:'No c, so the default 0 is returned.'},
+    {q:`d = {"a": 1, "b": 2}\nprint(list(d.keys()))`,o:["['a', 'b']",'[1, 2]','a b','["a","b"]'],a:0,h:'keys() gives the labels.',n:"You get ['a', 'b']."},
+    {q:`d = {"a": 1, "b": 2}\nprint(sum(d.values()))`,o:['3','2','[1, 2]','ab'],a:0,h:'values() gives 1 and 2.',n:'1 + 2 = 3.'},
+    {q:`d = {"a": 1}\nprint("a" in d)`,o:['True','False','1','a'],a:0,h:'"in" checks the keys.',n:'Key a exists → True.'},
+    {q:`d = {}\nd["x"] = 9\nprint(d["x"])`,o:['9','x','{}','error'],a:0,h:'Assign a new key, then read it back.',n:'x now holds 9.'},
+    {q:`print(len({"a": 1, "b": 2}))`,o:['2','1','4','ab'],a:0,h:'len() counts the key/value pairs.',n:'Two pairs → 2.'},
+    {q:`print(set([1, 1, 2]))`,o:['{1, 2}','[1, 1, 2]','{1, 1, 2}','[1, 2]'],a:0,h:'A set removes duplicates.',n:'The extra 1 is dropped → {1, 2}.'},
+    {q:`print(3 in {1, 2, 3})`,o:['True','False','3','error'],a:0,h:'"in" works on sets too.',n:'3 is there → True.'},
+    {q:`d = {"n": 1}\nd["n"] += 4\nprint(d["n"])`,o:['5','4','14','1'],a:0,h:'Add 4 to the value at key n.',n:'1 + 4 = 5.'},
+  ]},
+  {tier:'Advanced',nm:'Functions',color:'#bda6c9',qs:[
+    {q:`def add(a, b):\n    return a + b\n\nprint(add(2, 3))`,o:['5','23','add','None'],a:0,h:'return hands back a + b.',n:'2 + 3 = 5. 🛠️'},
+    {q:`def f():\n    pass\n\nprint(f())`,o:['None','pass','0','error'],a:0,h:'No return means it gives back None.',n:'Prints None.'},
+    {q:`def g(x=10):\n    return x\n\nprint(g())`,o:['10','0','x','None'],a:0,h:'x defaults to 10 if you pass nothing.',n:'No argument → 10.'},
+    {q:`def g(x=10):\n    return x\n\nprint(g(3))`,o:['3','10','13','None'],a:0,h:'Passing 3 overrides the default.',n:'You sent 3 → 3.'},
+    {q:`def sq(n):\n    return n * n\n\nprint(sq(5))`,o:['25','10','55','5'],a:0,h:'It returns n times n.',n:'5 × 5 = 25.'},
+    {q:`def sub(a, b):\n    return a - b\n\nprint(sub(10, 3))`,o:['7','13','-7','3'],a:0,h:'Order matters: a - b.',n:'10 - 3 = 7.'},
+    {q:`def hi():\n    return "hi"\n\nprint(hi() + "!")`,o:['hi!','hi !','hi','error'],a:0,h:'Call it, then glue on "!".',n:'hi + ! → hi!'},
+    {q:`def dbl(n):\n    return n * 2\n\nprint(dbl(dbl(3)))`,o:['12','6','9','3'],a:0,h:'Inner first: dbl(3) is 6, then dbl(6).',n:'6 then 12.'},
+    {q:`def mm():\n    return 1, 2\n\na, b = mm()\nprint(a + b)`,o:['3','12','(1, 2)','1'],a:0,h:'A function can return two values.',n:'1 + 2 = 3.'},
+    {q:`def greet(name):\n    return "Hi " + name\n\nprint(greet(name="Bo"))`,o:['Hi Bo','Hi name','Bo','error'],a:0,h:'You can pass arguments by name.',n:'name=Bo → Hi Bo.'},
+  ]},
+  {tier:'Advanced',nm:'Comprehensions',color:'#caa3c0',qs:[
+    {q:`print([n * 2 for n in range(3)])`,o:['[0, 2, 4]','[2, 4, 6]','[0, 1, 2]','6'],a:0,h:'Double each of 0,1,2.',n:'[0, 2, 4] — a list comprehension. 🐍'},
+    {q:`print([n for n in range(5) if n % 2 == 0])`,o:['[0, 2, 4]','[1, 3]','[0, 1, 2, 3, 4]','[2, 4]'],a:0,h:'Keep only the even ones.',n:'Evens from 0–4 → [0, 2, 4].'},
+    {q:`print([c.upper() for c in "ab"])`,o:["['A', 'B']",'AB','["A","B"]','[a, b]'],a:0,h:'Uppercase each letter into a list.',n:"['A', 'B']."},
+    {q:`print({n: n * n for n in range(3)})`,o:['{0: 0, 1: 1, 2: 4}','[0, 1, 4]','{0, 1, 4}','{1, 2, 4}'],a:0,h:'A dict comprehension: n maps to n*n.',n:'{0: 0, 1: 1, 2: 4}.'},
+    {q:`f = lambda x: x + 1\nprint(f(4))`,o:['5','4','x+1','41'],a:0,h:'lambda is a tiny one-line function.',n:'4 + 1 = 5.'},
+    {q:`print(list(map(lambda x: x * x, [1, 2, 3])))`,o:['[1, 4, 9]','[1, 2, 3]','[2, 4, 6]','[1, 8, 27]'],a:0,h:'map runs the lambda on each item.',n:'1², 2², 3² → [1, 4, 9].'},
+    {q:`print(list(filter(lambda x: x > 2, [1, 2, 3, 4])))`,o:['[3, 4]','[1, 2]','[2, 3, 4]','True'],a:0,h:'filter keeps items where the test is true.',n:'Only >2 survive → [3, 4].'},
+    {q:`print(sum([n for n in range(4)]))`,o:['6','10','[0, 1, 2, 3]','4'],a:0,h:'Build [0,1,2,3], then add it up.',n:'0+1+2+3 = 6.'},
+    {q:`print(sorted([3, 1, 2]))`,o:['[1, 2, 3]','[3, 2, 1]','[3, 1, 2]','6'],a:0,h:'sorted() puts them in order.',n:'[1, 2, 3].'},
+    {q:`print(len([n for n in range(10) if n % 3 == 0]))`,o:['4','3','[0, 3, 6, 9]','10'],a:0,h:'Multiples of 3 under 10: 0,3,6,9.',n:'Four of them → 4.'},
+  ]},
+  {tier:'Expert',nm:'Idioms',color:'#d6a0b4',qs:[
+    {q:`print(list(enumerate("ab")))`,o:["[(0, 'a'), (1, 'b')]","['a', 'b']","[(1, 'a'), (2, 'b')]","[0, 1]"],a:0,h:'enumerate pairs each item with its index.',n:"[(0, 'a'), (1, 'b')]."},
+    {q:`print(list(zip([1, 2], [3, 4])))`,o:['[(1, 3), (2, 4)]','[(1, 2), (3, 4)]','[1, 2, 3, 4]','[(1, 4), (2, 3)]'],a:0,h:'zip pairs items position by position.',n:'[(1, 3), (2, 4)].'},
+    {q:`a, b = 1, 2\na, b = b, a\nprint(a)`,o:['2','1','(2, 1)','error'],a:0,h:'This swaps a and b in one line.',n:'After the swap, a is 2.'},
+    {q:`def s(*n):\n    return sum(n)\n\nprint(s(1, 2, 3))`,o:['6','[1, 2, 3]','3','(1, 2, 3)'],a:0,h:'*n collects all arguments into a tuple.',n:'1+2+3 = 6.'},
+    {q:`d = {"a": 1, "b": 2}\nprint({**d, "c": 3})`,o:["{'a': 1, 'b': 2, 'c': 3}","{'a': 1, 'b': 2}","{'c': 3}",'error'],a:0,h:'**d unpacks the dict, then c is added.',n:"{'a': 1, 'b': 2, 'c': 3}."},
+    {q:`print([1, 2, 3][::-1])`,o:['[3, 2, 1]','[1, 2, 3]','[1, 3]','[3, 1]'],a:0,h:'[::-1] reverses a list.',n:'[3, 2, 1].'},
+    {q:`print("-".join(["a", "b", "c"]))`,o:['a-b-c','abc','["a","b","c"]','a, b, c'],a:0,h:'join glues items with the separator.',n:'a-b-c.'},
+    {q:`print("a,b,c".split(","))`,o:["['a', 'b', 'c']",'a b c','["a","b","c"]','abc'],a:0,h:'split breaks text on the comma.',n:"['a', 'b', 'c']."},
+    {q:`print(sorted(["bbb", "a", "cc"], key=len))`,o:["['a', 'cc', 'bbb']","['bbb', 'cc', 'a']","['a', 'bbb', 'cc']","['bbb', 'a', 'cc']"],a:0,h:'key=len sorts by length, shortest first.',n:"['a', 'cc', 'bbb']."},
+    {q:`print(all([True, True, False]))`,o:['False','True','None','[True]'],a:0,h:'all() is true only if EVERY item is true.',n:'One False → False.'},
+  ]},
+  {tier:'Pro',nm:'Mastery',color:'#dd9aa4',qs:[
+    {q:`try:\n    print(1 / 0)\nexcept ZeroDivisionError:\n    print("oops")`,o:['oops','0','error','1'],a:0,h:'Dividing by zero is caught by except.',n:'It catches the error → oops. 🧯'},
+    {q:`g = (n * n for n in range(3))\nprint(list(g))`,o:['[0, 1, 4]','[0, 2, 4]','(0, 1, 4)','[1, 4, 9]'],a:0,h:'A generator squares 0,1,2 lazily.',n:'[0, 1, 4].'},
+    {q:`print(sum(n for n in range(5) if n % 2))`,o:['4','6','10','2'],a:0,h:'n % 2 is true for odd n (1 and 3).',n:'1 + 3 = 4.'},
+    {q:`d = {"a": 1, "b": 2}\nprint({v: k for k, v in d.items()})`,o:["{1: 'a', 2: 'b'}","{'a': 1, 'b': 2}","{1: 1, 2: 2}",'error'],a:0,h:'This flips keys and values.',n:"{1: 'a', 2: 'b'}."},
+    {q:`from functools import reduce\nprint(reduce(lambda a, b: a + b, [1, 2, 3, 4]))`,o:['10','24','[1, 2, 3, 4]','4'],a:0,h:'reduce folds the list down with +.',n:'1+2+3+4 = 10.'},
+    {q:`print([x for row in [[1, 2], [3, 4]] for x in row])`,o:['[1, 2, 3, 4]','[[1, 2], [3, 4]]','[1, 3]','[4, 3, 2, 1]'],a:0,h:'A nested comp flattens the rows.',n:'[1, 2, 3, 4].'},
+    {q:`print("  Hi ".strip().lower())`,o:['hi','Hi','HI','error'],a:0,h:'strip() trims spaces, lower() lowercases.',n:'Chained → hi.'},
+    {q:`words = "a b a c a".split()\nprint(words.count("a"))`,o:['3','5','2','1'],a:0,h:'count() tallies how many times "a" appears.',n:'Three a’s → 3.'},
+    {q:`pairs = [(1, "b"), (2, "a")]\nprint(sorted(pairs, key=lambda p: p[1]))`,o:["[(2, 'a'), (1, 'b')]","[(1, 'b'), (2, 'a')]","[(1, 'a'), (2, 'b')]",'error'],a:0,h:'Sort by the second item (the letter).',n:"a before b → [(2, 'a'), (1, 'b')]."},
+    {q:`print(f"{3.14159:.2f}")`,o:['3.14','3.141','3.1','3.14159'],a:0,h:'.2f rounds to 2 decimal places.',n:'3.14 — and you finished the course! 🎓🏆'},
+  ]},
+];
+
+const BUBBLES=["What does this print? 🤔","Read it with me 🐾","Your turn! ✨","Hmm, what's the output? 🔍","Take a guess! 💭","You've got this 💪"];
+const CHEERS=["Woof! Nailed it. 🎉","Big brain energy. 🧠","Tail = helicopter. 🚁","Chef's kiss. 🐾","Painted perfectly. 🎨","Too easy for you. 😎"];
+const OOPS=["Oof, I sneezed. 🤧","Sooo close! 😵","Not that one — next! 💪","Tuck it away for later. 🧐","My bad, I wagged too hard. 🐕"];
+const KEYS=['A','B','C','D'];
+
+const STORE_KEY='mimiCodesProgress';
+const _mem={};
+function loadBest(){try{const r=localStorage.getItem(STORE_KEY);return r?JSON.parse(r):{};}catch(e){return _mem.best||{};}}
+function saveBest(b){try{localStorage.setItem(STORE_KEY,JSON.stringify(b));}catch(e){_mem.best=b;}}
+let best=loadBest();
+function starsFor(b){return b>=10?3:b>=9?2:b>=7?1:0;}
+function progressStats(){
+  let cleared=0,stars=0,xp=0;
+  SETS.forEach((s,i)=>{const b=best[i]||0;if(b>=7)cleared++;stars+=starsFor(b);xp+=b*10;});
+  return{cleared,stars,xp,perfect:SETS.every((s,i)=>(best[i]||0)===10)};
+}
+function resetProgress(){best={};saveBest(best);mimiGame.renderMap();}
+
+const mimiGame={si:0,i:0,score:0,hearts:5,locked:false,
+
+  toMap(){
+    document.getElementById('mimiTop').style.visibility='hidden';
+    document.getElementById('mimiLvtag').style.visibility='hidden';
+    document.getElementById('mimiSheet').classList.remove('up');
+    this.renderMap();flipTo('mimiMap');
+  },
+
+  enter(){this.renderMap();fadeTo('mimiMap');},
+
+  renderMap(){
+    document.getElementById('mimiMapMascot').innerHTML=`<div class="mascot big bob">${mimi('happy')}</div>`;
+    const st=progressStats();
+    document.getElementById('mimiProgressBanner').innerHTML=
+      `<div class="prog-row">
+        <div><div class="prog-big">${st.cleared}<span>/10</span></div><div class="prog-sub">sets cleared</div></div>
+        <div class="prog-stats"><div>⭐ ${st.stars} stars</div><div>✨ ${st.xp} XP</div></div>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${st.cleared/10*100}%"></div></div>
+      ${st.perfect?'<div class="badge-perfect">🏅 PERFECT RUN · all 30 stars ✨</div>':''}
+      ${st.cleared||st.xp?'<button class="prog-reset" onclick="resetProgress()">reset progress</button>':''}`;
+    const list=document.getElementById('mimiSetList');list.innerHTML='';
+    SETS.forEach((s,idx)=>{
+      const b=best[idx]||0,stars=starsFor(b);
+      const unlocked=idx===0||(best[idx-1]||0)>=7;
+      const right=!unlocked
+        ?`<div class="cright"><div class="lock">🔒</div></div>`
+        :(idx in best)
+          ?`<div class="cright"><div class="cstars">${stars?'⭐'.repeat(stars):(b>=7?'✓':'·')}</div><div class="cbest">${b}/10</div></div>`
+          :`<div class="cright"><div class="cgo">›</div></div>`;
+      const c=document.createElement('div');c.className='setcard'+(unlocked?'':' locked');
+      if(unlocked)c.onclick=()=>this.startSet(idx);
+      else c.onclick=()=>{c.classList.remove('deny');void c.offsetWidth;c.classList.add('deny');};
+      c.innerHTML=`<div class="num" style="background:${unlocked?s.color:'#c7c0d2'}">${idx+1}</div>
+        <div class="setinfo"><div class="tier">${s.tier}</div><div class="nm">${s.nm}</div></div>
+        ${right}`;
+      list.appendChild(c);
+    });
+  },
+
+  startSet(si){
+    if(!(si===0||(best[si-1]||0)>=7))return;
+    this.si=si;this.i=0;this.score=0;this.hearts=5;this.locked=false;
+    document.getElementById('mimiTop').style.visibility='visible';
+    document.getElementById('mimiLvtag').style.visibility='visible';
+    this.drawHearts();this.render();flipTo('mimiQuiz');
+  },
+  replaySet(){this.startSet(this.si);},
+  nextSet(){const nx=this.si+1;if(nx<SETS.length&&(best[this.si]||0)>=7)this.startSet(nx);else this.toMap();},
+
+  drawHearts(){
+    const h=document.getElementById('mimiHearts');h.innerHTML='';
+    for(let k=0;k<5;k++){const s=document.createElement('span');s.className='h'+(k>=this.hearts?' gone':'');s.textContent='💗';h.appendChild(s);}
+  },
+
+  render(){
+    this.locked=false;const set=SETS[this.si];const q=set.qs[this.i];
+    document.getElementById('mimiFill').style.width=(this.i/set.qs.length*100)+'%';
+    document.getElementById('mimiLvtag').textContent=`SET ${this.si+1} · ${set.nm.toUpperCase()} · Q${this.i+1}/10`;
+    const m=document.getElementById('mimiQMascot');m.innerHTML=mimi('idle');m.className='mascot bob';
+    document.getElementById('mimiBubble').textContent=BUBBLES[this.i%BUBBLES.length];
+    document.getElementById('mimiKind').textContent=`${set.tier} · Q${this.i+1} of 10`;
+    document.getElementById('mimiCode').innerHTML=colorize(q.q);
+    const opts=document.getElementById('mimiOpts');opts.innerHTML='';
+    q.o.forEach((o,idx)=>{
+      const b=document.createElement('button');b.className='opt';
+      b.innerHTML=`<span class="k">${KEYS[idx]}</span><span>${esc(o)}</span>`;
+      b.onclick=()=>this.answer(idx,b);opts.appendChild(b);
+    });
+    document.getElementById('mimiHintBox').className='hint-box';
+    document.getElementById('mimiHintText').textContent=q.h;
+    document.getElementById('mimiHintBtn').style.display='block';
+  },
+
+  toggleHint(){document.getElementById('mimiHintBox').classList.toggle('show');},
+
+  answer(idx,btn){
+    if(this.locked)return;this.locked=true;const q=SETS[this.si].qs[this.i];
+    const correct=idx===q.a;
+    [...document.getElementById('mimiOpts').children].forEach(b=>b.disabled=true);
+    document.getElementById('mimiOpts').children[q.a].classList.add('right');
+    document.getElementById('mimiHintBtn').style.display='none';
+    const m=document.getElementById('mimiQMascot');
+    if(correct){
+      this.score++;m.innerHTML=mimi('cheer');m.className='mascot cheer';burst();
+      this.openSheet(true,pick(CHEERS),q.n);
+    } else {
+      btn.classList.add('wrong');this.hearts=Math.max(0,this.hearts-1);this.drawHearts();
+      m.innerHTML=mimi('oops');m.className='mascot shake';
+      this.openSheet(false,pick(OOPS),'Answer: '+q.o[q.a]+'. '+q.n);
+    }
+  },
+
+  openSheet(ok,title,note){
+    const s=document.getElementById('mimiSheet');s.className='mimi-sheet '+(ok?'ok':'no');
+    document.getElementById('mimiSheetMini').innerHTML=mimi(ok?'happy':'oops');
+    document.getElementById('mimiSheetTitle').textContent=title;
+    document.getElementById('mimiSheetNote').textContent=note;
+    document.getElementById('mimiSheetBtn').className='btn'+(ok?'':' lav');
+    document.getElementById('mimiSheetBtn').textContent=(this.i===SETS[this.si].qs.length-1)?'FINISH 🏁':'CONTINUE';
+    requestAnimationFrame(()=>s.classList.add('up'));
+  },
+
+  next(){
+    document.getElementById('mimiSheet').classList.remove('up');
+    if(this.i<SETS[this.si].qs.length-1){this.i++;setTimeout(()=>this.render(),200);}
+    else setTimeout(()=>this.finish(),200);
+  },
+
+  finish(){
+    document.getElementById('mimiFill').style.width='100%';
+    document.getElementById('mimiTop').style.visibility='hidden';
+    document.getElementById('mimiLvtag').style.visibility='hidden';
+    const set=SETS[this.si],total=set.qs.length,pct=Math.round(this.score/total*100);
+    if(this.score>(best[this.si]||0)){best[this.si]=this.score;saveBest(best);}
+    document.getElementById('mimiXp').textContent=this.score*10;
+    document.getElementById('mimiAcc').textContent=pct+'%';
+    document.getElementById('mimiHp').textContent=this.hearts;
+    const last=this.si===SETS.length-1;
+    const cleared=(best[this.si]||0)>=7;
+    let title,funny,mood='cheer';
+    if(pct===100){title='MASTERPIECE! 🏆';funny=last?'You finished the WHOLE course. Mimi is so proud. 🎓':'Flawless set — Mimi is doing zoomies!';}
+    else if(pct>=70){title='Good girl! 🌸';funny='Set cleared! The next lesson just unlocked. 🔓';}
+    else{title='Nice try! 🐾';funny='Get 70% to clear it — replay and unlock the next set!';mood='happy';}
+    if(progressStats().perfect){title='🏅 PERFECT RUN!';funny='All ten sets, three stars each. You are a certified Python pro! 🎓';mood='cheer';burst();}
+    document.getElementById('mimiEndMascot').innerHTML=`<div class="mascot big cheer">${mimi(mood)}</div>`;
+    document.getElementById('mimiEndTitle').textContent=title;
+    document.getElementById('mimiEndFunny').textContent=funny;
+    const nb=document.getElementById('mimiNextBtn');
+    nb.style.display=(!last&&cleared)?'block':'none';
+    show('mimiEnd');
+  }
+};
+
+function show(id){
+  document.querySelectorAll('.mimi-root .screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+const REDUCE=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function flipTo(id){
+  const cur=document.querySelector('.mimi-root .screen.on');
+  const next=document.getElementById(id);
+  if(!cur||cur===next){show(id);return;}
+  if(REDUCE){show(id);return;}
+  window.scrollTo({top:0});
+  next.classList.add('on','flip-in');
+  cur.classList.remove('on');cur.classList.add('flip-out');
+  let cleaned=false;
+  const done=()=>{if(cleaned)return;cleaned=true;cur.classList.remove('flip-out');next.classList.remove('flip-in');};
+  cur.addEventListener('animationend',done,{once:true});
+  setTimeout(done,720);
+}
+function fadeTo(id){
+  const cur=document.querySelector('.mimi-root .screen.on');
+  const next=document.getElementById(id);
+  if(!cur||cur===next){show(id);return;}
+  if(REDUCE){show(id);return;}
+  window.scrollTo({top:0});
+  next.classList.add('on','fade-in');
+  cur.classList.remove('on');cur.classList.add('fade-out');
+  let cleaned=false;
+  const done=()=>{if(cleaned)return;cleaned=true;cur.classList.remove('fade-out');next.classList.remove('fade-in');};
+  cur.addEventListener('animationend',done,{once:true});
+  setTimeout(done,560);
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function colorize(code){
+  let c=esc(code).replace(/___/g,'<span class="blank">___</span>');
+  c=c.replace(/(&quot;|").*?(&quot;|")/g,m=>`<span class="lit">${m}</span>`);
+  c=c.replace(/\b(print|range|len|list|map|filter|sum|sorted|set|str|int|enumerate|zip|reduce|all)\b/g,'<span class="fn">$1</span>');
+  c=c.replace(/\b(for|in|if|else|elif|def|return|lambda|and|or|not|while|break|continue|try|except|from|import|pass)\b/g,'<span class="kw">$1</span>');
+  return c;
+}
+function burst(){
+  const cols=['#a9c2a0','#b6a9d4','#efc1c8','#f3e2a6','#a9c5e0'];
+  for(let k=0;k<26;k++){
+    const d=document.createElement('div');d.className='mimi-confetti';
+    d.style.left=Math.random()*100+'vw';d.style.background=cols[k%cols.length];
+    d.style.animation=`mimi-fall ${1+Math.random()*0.8}s linear forwards`;d.style.animationDelay=Math.random()*0.2+'s';
+    if(k%2)d.style.borderRadius='50%';document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+  }
+}
+
+document.getElementById('mimiCoverMascot').innerHTML=`<div class="mascot big bob">${mimi('happy')}</div>`;
+mimiGame.renderMap();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Mimi Codes — Python",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Mimi Codes — Python"
+    }
+  ]
+}
+{% endschema %}
