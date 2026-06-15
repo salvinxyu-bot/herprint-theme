@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Herprint — Try It On</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F9F5EE; --warm:#FDFAF4; --gold:#C9A84C; --gold-dk:#8B6914;
+  --ink:#2A2520; --muted:#8A7D6E; --line:#E8E0D0; --panel:#F2EDE4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'Montserrat',sans-serif;color:var(--ink);background:var(--cream)}
+button{font-family:inherit}
+
+/* screens */
+.screen{display:none}
+.screen.active{display:flex}
+
+/* ── UPLOAD ── */
+#upload-screen{
+  flex-direction:column;align-items:center;justify-content:center;
+  height:100vh;padding:24px;
+  background:radial-gradient(ellipse at 20% 20%,rgba(201,168,76,.08),transparent 50%),
+             radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.06),transparent 50%),var(--cream);
+}
+.up-brand{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.up-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,7vw,60px);font-weight:300;
+  line-height:1.1;text-align:center;margin-bottom:10px}
+.up-title em{font-style:italic;color:var(--gold)}
+.up-sub{font-size:12px;color:var(--muted);text-align:center;margin-bottom:44px;letter-spacing:.4px}
+.drop-zone{width:100%;max-width:400px;border:1.5px dashed var(--line);border-radius:4px;
+  padding:44px 24px;text-align:center;cursor:pointer;
+  transition:border-color .2s,background .2s;background:rgba(255,255,255,.5);position:relative}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-icon{font-size:30px;margin-bottom:14px;opacity:.4}
+.drop-label{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-bottom:7px}
+.drop-hint{font-size:11px;color:var(--muted);letter-spacing:.4px}
+.up-zones{display:flex;gap:22px;margin-top:36px;flex-wrap:wrap;justify-content:center}
+.up-zone{font-size:11px;color:var(--muted);letter-spacing:.4px;display:flex;align-items:center;gap:5px}
+
+/* ── TRY-ON ── */
+#tryon-screen{height:100vh;flex-direction:row;overflow:hidden}
+
+/* catalog left */
+.cat-panel{width:220px;flex-shrink:0;background:var(--panel);
+  border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
+.cat-hdr{padding:14px 16px;border-bottom:1px solid var(--line);
+  font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:1px}
+.zone-tabs{display:flex;padding:8px 10px;gap:4px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ztab{padding:3px 9px;font-size:10px;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--muted);background:none;border:1px solid transparent;border-radius:20px;cursor:pointer;transition:all .15s}
+.ztab.active{color:var(--gold-dk);border-color:var(--gold);background:rgba(201,168,76,.08)}
+.cat-grid{flex:1;overflow-y:auto;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:7px;align-content:start}
+.jcard{background:var(--warm);border:1px solid var(--line);border-radius:3px;
+  padding:9px 5px 7px;text-align:center;cursor:pointer;transition:border-color .15s,transform .1s}
+.jcard:hover{border-color:var(--gold);transform:translateY(-1px)}
+.jcard canvas{display:block;margin:0 auto 5px;width:66px;height:66px}
+.jname{font-size:9px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);line-height:1.3}
+
+/* canvas area */
+.canvas-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--cream);position:relative;overflow:hidden}
+.canvas-wrap{position:relative;box-shadow:0 8px 40px rgba(42,37,32,.12)}
+#tryon-canvas{display:block;max-width:100%;max-height:calc(100vh - 72px)}
+
+.detect-overlay{position:absolute;inset:0;background:rgba(249,245,238,.88);
+  display:none;flex-direction:column;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(4px)}
+.detect-overlay.show{display:flex}
+.spinner{width:30px;height:30px;border:2px solid var(--line);border-top-color:var(--gold);
+  border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.detect-txt{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;
+  color:var(--ink);margin-top:14px;letter-spacing:1px}
+.detect-sub{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.4px}
+
+.ctrl-bar{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:8px;
+  background:rgba(249,245,238,.93);border:1px solid var(--line);
+  border-radius:40px;padding:7px 14px;backdrop-filter:blur(8px);white-space:nowrap}
+.cbtn{font-size:11px;letter-spacing:.4px;color:var(--muted);background:none;border:none;
+  cursor:pointer;padding:4px 7px;transition:color .15s;display:flex;align-items:center;gap:3px}
+.cbtn:hover{color:var(--gold-dk)}
+.cbtn.pri{background:var(--gold);color:#fff;border-radius:20px;padding:5px 14px}
+.cbtn.pri:hover{background:var(--gold-dk);color:#fff}
+.cdiv{width:1px;height:14px;background:var(--line)}
+
+/* info right */
+.info-panel{width:190px;flex-shrink:0;background:var(--warm);border-left:1px solid var(--line);
+  display:flex;flex-direction:column;padding:14px;gap:14px;overflow-y:auto}
+.ptitle{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.active-list{display:flex;flex-direction:column;gap:5px;min-height:20px}
+.aitem{display:flex;align-items:center;padding:5px 7px;
+  background:var(--panel);border-radius:3px;font-size:10px;color:var(--ink);letter-spacing:.3px}
+.aitem-name{flex:1}
+.rmbtn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px;padding:0 2px}
+.rmbtn:hover{color:#c46b6b}
+.hint{font-size:10px;color:var(--muted);line-height:1.7;letter-spacing:.3px}
+
+/* mobile */
+@media(max-width:680px){
+  #tryon-screen{flex-direction:column}
+  .cat-panel{width:100%;height:155px;flex-direction:column}
+  .cat-grid{grid-template-columns:repeat(auto-fill,68px)}
+  .cat-hdr{display:none}
+  .info-panel{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- UPLOAD -->
+<div class="screen active" id="upload-screen">
+  <div class="up-brand">Herprint · Jewellery</div>
+  <h1 class="up-title">Try it on,<br><em>before it's yours.</em></h1>
+  <p class="up-sub">Upload a photo · We'll detect your face and hands automatically</p>
+  <div class="drop-zone" id="drop-zone">
+    <input type="file" accept="image/*" id="file-input">
+    <div class="drop-icon">📷</div>
+    <div class="drop-label">Upload your photo</div>
+    <div class="drop-hint">JPG or PNG · Face + hands in frame for best results</div>
+  </div>
+  <div class="up-zones">
+    <div class="up-zone">💍 Rings</div>
+    <div class="up-zone">⌒ Bracelets</div>
+    <div class="up-zone">◌ Necklaces</div>
+    <div class="up-zone">◇ Earrings</div>
+  </div>
+</div>
+
+<!-- TRY-ON -->
+<div class="screen" id="tryon-screen">
+  <div class="cat-panel">
+    <div class="cat-hdr">Jewellery</div>
+    <div class="zone-tabs" id="zone-tabs">
+      <button class="ztab active" data-zone="all">All</button>
+      <button class="ztab" data-zone="ear">Ear</button>
+      <button class="ztab" data-zone="neck">Neck</button>
+      <button class="ztab" data-zone="wrist">Wrist</button>
+      <button class="ztab" data-zone="hand">Ring</button>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
+  </div>
+
+  <div class="canvas-area">
+    <div class="canvas-wrap" id="canvas-wrap">
+      <canvas id="tryon-canvas"></canvas>
+      <div class="detect-overlay" id="detect-overlay">
+        <div class="spinner"></div>
+        <div class="detect-txt">Detecting landmarks…</div>
+        <div class="detect-sub">Scanning face and hands</div>
+      </div>
+    </div>
+    <div class="ctrl-bar">
+      <button class="cbtn" id="btn-undo">↩ Undo</button>
+      <div class="cdiv"></div>
+      <button class="cbtn" id="btn-clear">✕ Clear</button>
+      <div class="cdiv"></div>
+      <button class="cbtn" id="btn-newphoto">New photo</button>
+      <div class="cdiv"></div>
+      <button class="cbtn pri" id="btn-save">↓ Save</button>
+    </div>
+  </div>
+
+  <div class="info-panel">
+    <div>
+      <div class="ptitle">Wearing</div>
+      <div class="active-list" id="active-list">
+        <div class="hint" id="wearing-empty">Tap a piece to try it on.</div>
+      </div>
+    </div>
+    <div>
+      <div class="ptitle">Controls</div>
+      <div class="hint">· Drag to move<br>· Scroll to resize<br>· Pinch on mobile<br>· Double-click removes</div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+// ─────────────────────────────────────────────
+//  MEDIAPIPE (graceful fallback if unavailable)
+// ─────────────────────────────────────────────
+let faceLandmarker = null, handLandmarker = null;
+
+async function initMP() {
+  try {
+    const { FaceLandmarker, HandLandmarker, FilesetResolver } = await import(
+      'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.12/vision_bundle.mjs'
+    );
+    const fsr = await FilesetResolver.forVisionTasks(
+      'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.12/wasm'
+    );
+    [faceLandmarker, handLandmarker] = await Promise.all([
+      FaceLandmarker.createFromOptions(fsr, {
+        baseOptions: {
+          modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task',
+          delegate: 'GPU'
+        },
+        runningMode: 'IMAGE', numFaces: 1, outputFaceBlendshapes: false
+      }),
+      HandLandmarker.createFromOptions(fsr, {
+        baseOptions: {
+          modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
+          delegate: 'GPU'
+        },
+        runningMode: 'IMAGE', numHands: 2
+      })
+    ]);
+  } catch(e) {
+    console.warn('MediaPipe unavailable — manual placement only.', e);
+  }
+}
+
+async function detect(imgEl) {
+  const r = { face: null, hands: [], handedness: [] };
+  try {
+    if (faceLandmarker) {
+      const fr = faceLandmarker.detect(imgEl);
+      r.face = fr.faceLandmarks?.[0] ?? null;
+    }
+    if (handLandmarker) {
+      const hr = handLandmarker.detect(imgEl);
+      r.hands = hr.landmarks ?? [];
+      r.handedness = hr.handedness ?? [];
+    }
+  } catch(e) { console.warn('Detection error:', e); }
+  return r;
+}
+
+// ─────────────────────────────────────────────
+//  GOLD DRAW HELPERS
+// ─────────────────────────────────────────────
+function gGrad(ctx, x0, y0, x1, y1) {
+  const g = ctx.createLinearGradient(x0, y0, x1, y1);
+  g.addColorStop(0,    '#6B4E10');
+  g.addColorStop(0.22, '#C9A84C');
+  g.addColorStop(0.48, '#F5E19A');
+  g.addColorStop(0.72, '#C9A84C');
+  g.addColorStop(1,    '#6B4E10');
+  return g;
+}
+function gRad(ctx, cx, cy, r) {
+  const g = ctx.createRadialGradient(cx-r*.32, cy-r*.32, r*.08, cx, cy, r);
+  g.addColorStop(0, '#F8EEB0'); g.addColorStop(.45, '#C9A84C'); g.addColorStop(1, '#6B4E10');
+  return g;
+}
+function ring(ctx, cx, cy, rx, ry, t) {
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry+t, 0, 0, Math.PI*2, false);
+  ctx.ellipse(cx, cy, rx*.82, Math.max(1, ry-t*.4), 0, 0, Math.PI*2, true);
+  ctx.fillStyle = gGrad(ctx, cx-rx, cy, cx+rx, cy);
+  ctx.fill('evenodd');
+}
+
+// ─────────────────────────────────────────────
+//  JEWELRY DRAW FUNCTIONS  (ctx, w, h)
+// ─────────────────────────────────────────────
+
+/* RINGS */
+function dRingBand(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  ring(ctx, w/2, h/2, w*.44, h*.2, h*.09);
+}
+
+function dRingSolitaire(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, ry=h*.2, t=h*.09;
+  ring(ctx, cx, cy, w*.44, ry, t);
+  const sr=w*.13, sx=cx, sy=cy-ry*.15;
+  ctx.beginPath(); ctx.arc(sx, sy, sr+3, 0, Math.PI*2);
+  ctx.fillStyle = gGrad(ctx, sx-sr, sy-sr, sx+sr, sy+sr); ctx.fill();
+  ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
+  const sg=ctx.createRadialGradient(sx-sr*.3, sy-sr*.3, sr*.05, sx, sy, sr);
+  sg.addColorStop(0,'#fff'); sg.addColorStop(.4,'#ddf'); sg.addColorStop(1,'#99c'); ctx.fillStyle=sg; ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.6)'; ctx.lineWidth=.8;
+  ctx.beginPath(); ctx.moveTo(sx,sy-sr); ctx.lineTo(sx,sy+sr); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(sx-sr,sy); ctx.lineTo(sx+sr,sy); ctx.stroke();
+}
+
+function dRingSignet(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, ry=h*.2, t=h*.13;
+  ring(ctx, cx, cy, w*.44, ry, t);
+  const fw=w*.5, fh=ry*.7;
+  ctx.beginPath(); ctx.ellipse(cx, cy-ry*.1, fw, fh, 0, 0, Math.PI*2);
+  ctx.fillStyle=gGrad(ctx, cx-fw, cy-ry, cx+fw, cy); ctx.fill();
+  ctx.fillStyle='rgba(80,50,5,.3)';
+  ctx.font=`bold ${fh*.9}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('H', cx, cy-ry*.1);
+}
+
+function dRingTwist(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, rx=w*.44, ry=h*.2, t=h*.09;
+  ring(ctx, cx, cy, rx, ry, t);
+  for (let i=0; i<8; i++) {
+    const a=(i/8)*Math.PI*2;
+    const x1=cx+Math.cos(a)*rx*.88, y1=cy+Math.sin(a)*ry*.88;
+    const a2=a+.8;
+    const x2=cx+Math.cos(a2)*rx*.88, y2=cy+Math.sin(a2)*ry*.88;
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+    ctx.strokeStyle=i%2?'#F5E19A':'#C9A84C'; ctx.lineWidth=1.5; ctx.stroke();
+  }
+}
+
+/* BRACELETS */
+function dBraceletChain(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cy=h/2, lw=w*.065, lh=h*.35, n=Math.floor(w/(lw*1.7));
+  const sx=(w-n*lw*1.7)/2+lw;
+  for (let i=0; i<n; i++) {
+    ctx.save();
+    ctx.translate(sx+i*lw*1.7, cy);
+    ctx.rotate(i%2===0 ? 0 : Math.PI/2);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, lw*.65, lh*.38, 0, 0, Math.PI*2, false);
+    ctx.ellipse(0, 0, lw*.35, lh*.2, 0, 0, Math.PI*2, true);
+    ctx.fillStyle=gGrad(ctx, -lw, 0, lw, 0); ctx.fill('evenodd');
+    ctx.restore();
+  }
+}
+
+function dBraceletBangle(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  ring(ctx, w/2, h/2, w*.44, h*.28, h*.1);
+  ctx.beginPath(); ctx.ellipse(w/2, h/2-h*.22, w*.28, h*.06, -.15, 0, Math.PI);
+  ctx.strokeStyle='rgba(255,255,200,.45)'; ctx.lineWidth=2; ctx.stroke();
+}
+
+function dBraceletCuff(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, rx=w*.44, ry=h*.26, t=h*.2;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry+t, 0, Math.PI*.18, Math.PI*.82, false);
+  ctx.ellipse(cx, cy, rx*.8, ry, 0, Math.PI*.82, Math.PI*.18, true);
+  ctx.closePath();
+  ctx.fillStyle=gGrad(ctx, cx-rx, cy, cx+rx, cy); ctx.fill();
+  for (let i=0; i<7; i++) {
+    const a=Math.PI*.22+i*Math.PI*.56/7;
+    const x=cx+Math.cos(a)*rx*.9, y=cy+Math.sin(a)*(ry+t*.5);
+    ctx.beginPath(); ctx.arc(x,y,1.8,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,240,160,.35)'; ctx.fill();
+  }
+}
+
+/* NECKLACE BASE */
+function chainArc(ctx, w, h, dropFactor, thick) {
+  const sx=w*.05, ex=w*.95, topY=h*.12, cpY=topY+h*dropFactor;
+  const steps=28;
+  for (let i=0; i<steps; i++) {
+    const t1=i/steps, t2=(i+.5)/steps;
+    const x1=(1-t1)*(1-t1)*sx+2*(1-t1)*t1*(w/2)+t1*t1*ex;
+    const y1=(1-t1)*(1-t1)*topY+2*(1-t1)*t1*cpY+t1*t1*topY;
+    const x2=(1-t2)*(1-t2)*sx+2*(1-t2)*t2*(w/2)+t2*t2*ex;
+    const y2=(1-t2)*(1-t2)*topY+2*(1-t2)*t2*cpY+t2*t2*topY;
+    if (i%2===0) {
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+      ctx.strokeStyle=gGrad(ctx,x1,y1,x2,y2); ctx.lineWidth=thick*1.1; ctx.lineCap='round'; ctx.stroke();
+    }
+  }
+  ctx.beginPath();
+  ctx.moveTo(sx,topY); ctx.quadraticCurveTo(w/2,cpY,ex,topY);
+  ctx.strokeStyle=gGrad(ctx,sx,topY,ex,topY); ctx.lineWidth=thick*.55; ctx.lineCap='round'; ctx.stroke();
+  return { cx:w/2, cy:topY+h*dropFactor*1.05 };
+}
+
+function dNeckPendant(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const {cx,cy}=chainArc(ctx,w,h,.3,3);
+  const pr=h*.075;
+  ctx.beginPath(); ctx.ellipse(cx,cy+pr*.8,pr*.8,pr,0,0,Math.PI*2);
+  ctx.fillStyle=gGrad(ctx,cx-pr,cy,cx+pr,cy+pr*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx,cy+pr*.8,pr*.58,0,Math.PI*2);
+  const sg=ctx.createRadialGradient(cx-pr*.3,cy+pr*.5,pr*.05,cx,cy+pr*.8,pr*.58);
+  sg.addColorStop(0,'#fff'); sg.addColorStop(.5,'#c8e0f8'); sg.addColorStop(1,'#90b8d8');
+  ctx.fillStyle=sg; ctx.fill();
+}
+
+function dNeckChoker(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const sx=w*.04, ex=w*.96, y=h*.35, cpY=y+h*.14;
+  ctx.beginPath(); ctx.moveTo(sx,y); ctx.quadraticCurveTo(w/2,cpY,ex,y);
+  ctx.strokeStyle=gGrad(ctx,sx,y,ex,y); ctx.lineWidth=10; ctx.lineCap='round'; ctx.stroke();
+  const steps=18;
+  for (let i=0; i<steps; i++) {
+    const t=i/steps;
+    const bx=(1-t)*(1-t)*sx+2*(1-t)*t*(w/2)+t*t*ex;
+    const by=(1-t)*(1-t)*y+2*(1-t)*t*cpY+t*t*y;
+    ctx.beginPath(); ctx.arc(bx,by,3.8,0,Math.PI*2);
+    ctx.fillStyle=i%2?'#F5E19A':'#C9A84C'; ctx.fill();
+  }
+}
+
+function dNeckLayered(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  chainArc(ctx,w,h,.18,1.5);
+  chainArc(ctx,w,h,.34,2.2);
+  const cx=w/2, cy2=h*.12+h*.34;
+  ctx.beginPath(); ctx.arc(cx,cy2+h*.1,h*.04,0,Math.PI*2);
+  ctx.fillStyle=gRad(ctx,cx,cy2+h*.1,h*.04); ctx.fill();
+}
+
+function dNeckPearl(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const {cx,cy}=chainArc(ctx,w,h,.28,1.6);
+  const pr=h*.08;
+  ctx.beginPath(); ctx.arc(cx,cy+pr,pr,0,Math.PI*2);
+  const pg=ctx.createRadialGradient(cx-pr*.35,cy+pr-pr*.35,pr*.05,cx,cy+pr,pr);
+  pg.addColorStop(0,'#fff'); pg.addColorStop(.4,'#f0eef4'); pg.addColorStop(.85,'#d4c8dc'); pg.addColorStop(1,'#b8a8c4');
+  ctx.fillStyle=pg; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx-pr*.3,cy+pr-pr*.3,pr*.22,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,255,.7)'; ctx.fill();
+}
+
+/* EARRINGS */
+function dEarStud(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, r=Math.min(w,h)*.34;
+  ctx.beginPath(); ctx.moveTo(cx,h*.06); ctx.lineTo(cx,h*.5-r*.9);
+  ctx.strokeStyle=gGrad(ctx,cx,h*.06,cx,h*.5-r); ctx.lineWidth=2; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,h*.52,r,0,Math.PI*2);
+  ctx.fillStyle=gRad(ctx,cx,h*.52,r); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx-r*.3,h*.52-r*.3,r*.24,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,220,.5)'; ctx.fill();
+}
+
+function dEarHoopSm(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h*.54, r=Math.min(w,h)*.38, t=r*.2;
+  ctx.beginPath();
+  ctx.arc(cx,cy,r+t/2,0,Math.PI*2,false);
+  ctx.arc(cx,cy,r-t/2,0,Math.PI*2,true);
+  ctx.fillStyle=gGrad(ctx,cx-r,cy,cx+r,cy); ctx.fill('evenodd');
+}
+
+function dEarHoopLg(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h*.56, r=Math.min(w,h)*.44, t=r*.13;
+  ctx.beginPath();
+  ctx.arc(cx,cy,r+t/2,0,Math.PI*2,false);
+  ctx.arc(cx,cy,r-t/2,0,Math.PI*2,true);
+  ctx.fillStyle=gGrad(ctx,cx-r,cy,cx+r,cy); ctx.fill('evenodd');
+  ctx.beginPath(); ctx.arc(cx-r*.55,cy-r*.55,r*.18,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,255,200,.38)'; ctx.lineWidth=2; ctx.stroke();
+}
+
+function dEarDrop(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2;
+  ctx.beginPath(); ctx.arc(cx,h*.08,w*.12,0,Math.PI*2);
+  ctx.fillStyle=gRad(ctx,cx,h*.08,w*.12); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(cx,h*.19); ctx.lineTo(cx,h*.32);
+  ctx.strokeStyle='#C9A84C'; ctx.lineWidth=2; ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx,h*.34);
+  ctx.bezierCurveTo(cx+w*.26,h*.46,cx+w*.26,h*.78,cx,h*.9);
+  ctx.bezierCurveTo(cx-w*.26,h*.78,cx-w*.26,h*.46,cx,h*.34);
+  ctx.fillStyle=gGrad(ctx,cx-w*.26,h*.34,cx+w*.26,h*.34); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx-w*.08,h*.58,w*.055,h*.09,-.3,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,255,200,.33)'; ctx.fill();
+}
+
+function dEarCuff(ctx, w, h) {
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2, cy=h/2, rx=w*.4, ry=h*.26, t=h*.18;
+  ctx.beginPath();
+  ctx.ellipse(cx,cy,rx,ry+t,0,Math.PI*1.18,Math.PI*2.82,false);
+  ctx.ellipse(cx,cy,rx*.72,ry,0,Math.PI*2.82,Math.PI*1.18,true);
+  ctx.closePath();
+  ctx.fillStyle=gGrad(ctx,cx-rx,cy,cx+rx,cy); ctx.fill();
+}
+
+// ─────────────────────────────────────────────
+//  CATALOG DATA
+// ─────────────────────────────────────────────
+const JEWELRY = [
+  // Rings
+  {id:'ring-band',     name:'Thin Band',      zone:'hand',  w:100,h:56, draw:dRingBand,     ax:.5,ay:.5, ds:.9},
+  {id:'ring-sol',      name:'Solitaire',      zone:'hand',  w:100,h:68, draw:dRingSolitaire, ax:.5,ay:.5, ds:.9},
+  {id:'ring-signet',   name:'Signet Ring',    zone:'hand',  w:100,h:68, draw:dRingSignet,    ax:.5,ay:.5, ds:.9},
+  {id:'ring-twist',    name:'Twisted Band',   zone:'hand',  w:100,h:56, draw:dRingTwist,     ax:.5,ay:.5, ds:.9},
+  // Bracelets
+  {id:'brace-chain',   name:'Chain Bracelet', zone:'wrist', w:200,h:60, draw:dBraceletChain, ax:.5,ay:.5, ds:1.0},
+  {id:'brace-bangle',  name:'Gold Bangle',    zone:'wrist', w:160,h:110,draw:dBraceletBangle,ax:.5,ay:.5, ds:1.0},
+  {id:'brace-cuff',    name:'Wide Cuff',      zone:'wrist', w:180,h:110,draw:dBraceletCuff,  ax:.5,ay:.5, ds:1.0},
+  // Necklaces
+  {id:'neck-pendant',  name:'Pendant',        zone:'neck',  w:340,h:140,draw:dNeckPendant,   ax:.5,ay:.1, ds:1.0},
+  {id:'neck-choker',   name:'Choker',         zone:'neck',  w:340,h:90, draw:dNeckChoker,    ax:.5,ay:.3, ds:1.0},
+  {id:'neck-layered',  name:'Layered Chains', zone:'neck',  w:340,h:150,draw:dNeckLayered,   ax:.5,ay:.1, ds:1.0},
+  {id:'neck-pearl',    name:'Pearl Pendant',  zone:'neck',  w:340,h:140,draw:dNeckPearl,     ax:.5,ay:.1, ds:1.0},
+  // Earrings
+  {id:'ear-stud',      name:'Gold Stud',      zone:'ear',   w:48, h:66, draw:dEarStud,       ax:.5,ay:.12,ds:1.0},
+  {id:'ear-hoop-sm',   name:'Small Hoop',     zone:'ear',   w:78, h:78, draw:dEarHoopSm,     ax:.5,ay:.1, ds:1.0},
+  {id:'ear-hoop-lg',   name:'Large Hoop',     zone:'ear',   w:108,h:108,draw:dEarHoopLg,     ax:.5,ay:.05,ds:1.0},
+  {id:'ear-drop',      name:'Drop Earring',   zone:'ear',   w:58, h:120,draw:dEarDrop,       ax:.5,ay:.07,ds:1.0},
+  {id:'ear-cuff',      name:'Ear Cuff',       zone:'ear',   w:78, h:66, draw:dEarCuff,       ax:.5,ay:.5, ds:1.0},
+];
+
+// Pre-render each piece to an offscreen canvas
+const cache = new Map();
+JEWELRY.forEach(j => {
+  const oc = document.createElement('canvas');
+  oc.width = j.w; oc.height = j.h;
+  j.draw(oc.getContext('2d'), j.w, j.h);
+  cache.set(j.id, oc);
+});
+
+// ─────────────────────────────────────────────
+//  APP STATE
+// ─────────────────────────────────────────────
+const S = {
+  photo: null, photoW: 0, photoH: 0, dispScale: 1,
+  lm: { face: null, hands: [], handedness: [] },
+  placements: {},
+  overlays: [], selected: null,
+  dragging: null,
+  zone: 'all',
+};
+
+// ─────────────────────────────────────────────
+//  LANDMARK → PLACEMENT
+// ─────────────────────────────────────────────
+function px(lm, iw, ih) { return { x: lm.x*iw, y: lm.y*ih }; }
+
+function buildPlacements(lm, iw, ih) {
+  const P = {};
+  if (lm.face) {
+    const f = lm.face;
+    const lEar  = px(f[234], iw, ih);
+    const rEar  = px(f[454], iw, ih);
+    const chin  = px(f[152], iw, ih);
+    const nose  = px(f[1],   iw, ih);
+    const lT    = px(f[127], iw, ih);
+    const rT    = px(f[356], iw, ih);
+    const fw    = Math.abs(lT.x - rT.x);
+    const fh    = Math.abs(chin.y - nose.y) * 2.1;
+    P.leftEar   = { x: lEar.x, y: lEar.y + fw*.04, scale: fw*.0011 };
+    P.rightEar  = { x: rEar.x, y: rEar.y + fw*.04, scale: fw*.0011 };
+    P.neck      = { x: (lT.x+rT.x)/2, y: chin.y + fh*.42, scale: fw*.0026 };
+  }
+  lm.hands.forEach((hand, hi) => {
+    const side = (lm.handedness[hi]?.[0]?.displayName ?? 'Right') === 'Left' ? 'left' : 'right';
+    const wrist   = px(hand[0],  iw, ih);
+    const idxMCP  = px(hand[5],  iw, ih);
+    const pinMCP  = px(hand[17], iw, ih);
+    const ringMCP = px(hand[13], iw, ih);
+    const handW   = Math.hypot(pinMCP.x-idxMCP.x, pinMCP.y-idxMCP.y);
+    P[side+'Wrist'] = { x: wrist.x,   y: wrist.y,   scale: handW*.0055 };
+    P[side+'Ring']  = { x: ringMCP.x, y: ringMCP.y, scale: (handW/5)*.018 };
+  });
+  return P;
+}
+
+function zonePlacementKeys(zone) {
+  return {
+    hand:  ['rightRing','leftRing'],
+    wrist: ['rightWrist','leftWrist'],
+    neck:  ['neck'],
+    ear:   ['rightEar','leftEar'],
+  }[zone] ?? [];
+}
+
+// ─────────────────────────────────────────────
+//  CANVAS
+// ─────────────────────────────────────────────
+const canvas = document.getElementById('tryon-canvas');
+const ctx    = canvas.getContext('2d');
+
+function setupCanvas(img) {
+  const wrap = document.getElementById('canvas-wrap').parentElement;
+  const maxW = wrap.clientWidth - 16;
+  const maxH = window.innerHeight - 72;
+  const s    = Math.min(maxW/img.naturalWidth, maxH/img.naturalHeight, 1);
+  canvas.width  = Math.round(img.naturalWidth  * s);
+  canvas.height = Math.round(img.naturalHeight * s);
+  S.photoW = img.naturalWidth; S.photoH = img.naturalHeight; S.dispScale = s;
+}
+
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (S.photo) ctx.drawImage(S.photo, 0, 0, canvas.width, canvas.height);
+  S.overlays.forEach(ov => drawOv(ov, false));
+  if (S.selected) drawOv(S.selected, true);
+}
+
+function drawOv(ov, sel) {
+  const img = cache.get(ov.jid);
+  if (!img) return;
+  const j = JEWELRY.find(x => x.id === ov.jid);
+  const w = img.width  * ov.scale * S.dispScale;
+  const h = img.height * ov.scale * S.dispScale;
+  ctx.save();
+  ctx.translate(ov.x, ov.y);
+  ctx.rotate(ov.rot);
+  ctx.drawImage(img, -w*j.ax, -h*j.ay, w, h);
+  if (sel) {
+    ctx.strokeStyle = 'rgba(201,168,76,.85)';
+    ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
+    ctx.strokeRect(-w*j.ax-5, -h*j.ay-5, w+10, h+10);
+    ctx.setLineDash([]);
+  }
+  ctx.restore();
+}
+
+// ─────────────────────────────────────────────
+//  OVERLAYS
+// ─────────────────────────────────────────────
+function addOverlay(j) {
+  const keys = zonePlacementKeys(j.zone);
+  let pl = null;
+  for (const k of keys) if (S.placements[k]) { pl = S.placements[k]; break; }
+
+  const x = pl ? pl.x * S.dispScale : canvas.width  / 2;
+  const y = pl ? pl.y * S.dispScale : canvas.height / 2;
+  const scale = pl ? Math.max(.05, pl.scale) : j.ds;
+
+  const ov = { id: Date.now()+Math.random(), jid: j.id, name: j.name, x, y, scale, rot: 0 };
+  S.overlays.push(ov);
+  S.selected = ov;
+  render(); refreshList();
+}
+
+// ─────────────────────────────────────────────
+//  INTERACTION
+// ─────────────────────────────────────────────
+function cPt(e) {
+  const r  = canvas.getBoundingClientRect();
+  const sx = canvas.width  / r.width;
+  const sy = canvas.height / r.height;
+  const src = e.touches ? e.touches[0] : e;
+  return { x: (src.clientX - r.left)*sx, y: (src.clientY - r.top)*sy };
+}
+
+function hitTest(pt) {
+  for (let i=S.overlays.length-1; i>=0; i--) {
+    const ov = S.overlays[i];
+    const j  = JEWELRY.find(x => x.id === ov.jid);
+    const img = cache.get(ov.jid);
+    if (!img || !j) continue;
+    const w = img.width*ov.scale*S.dispScale, h = img.height*ov.scale*S.dispScale;
+    const dx=pt.x-ov.x, dy=pt.y-ov.y;
+    const c=Math.cos(-ov.rot), s=Math.sin(-ov.rot);
+    const lx=dx*c-dy*s, ly=dx*s+dy*c;
+    const x0=-w*j.ax, y0=-h*j.ay;
+    if (lx>=x0-8 && lx<=x0+w+8 && ly>=y0-8 && ly<=y0+h+8) return ov;
+  }
+  return null;
+}
+
+canvas.addEventListener('mousedown', e => {
+  const pt = cPt(e);
+  const hit = hitTest(pt);
+  S.selected = hit;
+  if (hit) S.dragging = { ov:hit, sx:pt.x, sy:pt.y, ox:hit.x, oy:hit.y };
+  render();
+});
+canvas.addEventListener('mousemove', e => {
+  if (!S.dragging) { canvas.style.cursor = hitTest(cPt(e)) ? 'grab' : 'default'; return; }
+  canvas.style.cursor = 'grabbing';
+  const pt=cPt(e), d=S.dragging;
+  d.ov.x = d.ox+(pt.x-d.sx); d.ov.y = d.oy+(pt.y-d.sy);
+  render();
+});
+canvas.addEventListener('mouseup', () => { S.dragging=null; canvas.style.cursor='default'; });
+canvas.addEventListener('dblclick', e => {
+  const hit = hitTest(cPt(e));
+  if (!hit) return;
+  S.overlays = S.overlays.filter(o=>o!==hit);
+  if (S.selected===hit) S.selected=null;
+  render(); refreshList();
+});
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const hit = S.selected ?? hitTest(cPt(e));
+  if (!hit) return;
+  hit.scale *= e.deltaY < 0 ? 1.07 : 0.93;
+  hit.scale = Math.max(.02, Math.min(12, hit.scale));
+  render();
+}, { passive:false });
+
+let lastDist = null;
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  if (e.touches.length===1) {
+    const pt=cPt(e), hit=hitTest(pt);
+    S.selected=hit;
+    if (hit) S.dragging={ov:hit,sx:pt.x,sy:pt.y,ox:hit.x,oy:hit.y};
+    render();
+  } else if (e.touches.length===2) {
+    lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  }
+},{passive:false});
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length===1 && S.dragging) {
+    const pt=cPt(e), d=S.dragging;
+    d.ov.x=d.ox+(pt.x-d.sx); d.ov.y=d.oy+(pt.y-d.sy); render();
+  } else if (e.touches.length===2) {
+    const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    if (lastDist && S.selected) {
+      S.selected.scale=Math.max(.02,Math.min(12,S.selected.scale*(dist/lastDist)));
+      render();
+    }
+    lastDist=dist;
+  }
+},{passive:false});
+canvas.addEventListener('touchend', ()=>{ S.dragging=null; lastDist=null; });
+
+// ─────────────────────────────────────────────
+//  UI
+// ─────────────────────────────────────────────
+function refreshList() {
+  const list  = document.getElementById('active-list');
+  const empty = document.getElementById('wearing-empty');
+  if (!S.overlays.length) {
+    list.innerHTML=''; list.appendChild(empty); return;
+  }
+  list.innerHTML = S.overlays.map((ov,i)=>`
+    <div class="aitem">
+      <span class="aitem-name">${ov.name}</span>
+      <button class="rmbtn" data-i="${i}">✕</button>
+    </div>`).join('');
+  list.querySelectorAll('.rmbtn').forEach(btn=>{
+    btn.onclick=()=>{
+      const i=+btn.dataset.i;
+      if (S.selected===S.overlays[i]) S.selected=null;
+      S.overlays.splice(i,1); render(); refreshList();
+    };
+  });
+}
+
+function buildGrid(zone) {
+  const grid  = document.getElementById('cat-grid');
+  const items = zone==='all' ? JEWELRY : JEWELRY.filter(j=>j.zone===zone);
+  grid.innerHTML='';
+  items.forEach(j=>{
+    const card=document.createElement('div'); card.className='jcard'; card.title=j.name;
+    // thumbnail
+    const thumb=document.createElement('canvas'); thumb.width=66; thumb.height=66;
+    const tc=thumb.getContext('2d');
+    const src=cache.get(j.id);
+    const aspect=j.w/j.h;
+    const tw=aspect>=1?66:66*aspect, th=aspect>=1?66/aspect:66;
+    tc.drawImage(src,(66-tw)/2,(66-th)/2,tw,th);
+    const nm=document.createElement('div'); nm.className='jname'; nm.textContent=j.name;
+    card.append(thumb,nm);
+    card.onclick=()=>addOverlay(j);
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('zone-tabs').addEventListener('click', e=>{
+  const tab=e.target.closest('.ztab'); if(!tab) return;
+  document.querySelectorAll('.ztab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active'); S.zone=tab.dataset.zone; buildGrid(S.zone);
+});
+
+document.getElementById('btn-undo').onclick=()=>{
+  if (!S.overlays.length) return;
+  const last=S.overlays.pop();
+  if (S.selected===last) S.selected=null;
+  render(); refreshList();
+};
+document.getElementById('btn-clear').onclick=()=>{
+  S.overlays=[]; S.selected=null; render(); refreshList();
+};
+document.getElementById('btn-newphoto').onclick=()=>{
+  S.overlays=[]; S.selected=null; S.photo=null; S.placements={};
+  document.getElementById('tryon-screen').classList.remove('active');
+  document.getElementById('upload-screen').classList.add('active');
+};
+document.getElementById('btn-save').onclick=()=>{
+  const prev=S.selected; S.selected=null; render();
+  canvas.toBlob(blob=>{
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='herprint-tryon.jpg'; a.click();
+    URL.revokeObjectURL(url); S.selected=prev; render();
+  },'image/jpeg',.92);
+};
+
+// ─────────────────────────────────────────────
+//  PHOTO LOAD + DETECT
+// ─────────────────────────────────────────────
+async function handleFile(file) {
+  if (!file?.type.startsWith('image/')) return;
+
+  document.getElementById('upload-screen').classList.remove('active');
+  document.getElementById('tryon-screen').classList.add('active');
+  document.getElementById('detect-overlay').classList.add('show');
+
+  const img = await new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=e.target.result; };
+    r.readAsDataURL(file);
+  });
+
+  S.photo=img; setupCanvas(img); render();
+
+  const lm = await detect(img);
+  S.lm = lm;
+  S.placements = buildPlacements(lm, img.naturalWidth, img.naturalHeight);
+
+  document.getElementById('detect-overlay').classList.remove('show');
+  buildGrid('all'); refreshList();
+}
+
+document.getElementById('file-input').addEventListener('change', e=>handleFile(e.target.files[0]));
+const dz=document.getElementById('drop-zone');
+dz.addEventListener('dragover', e=>{ e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', ()=>dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e=>{ e.preventDefault(); dz.classList.remove('drag-over'); handleFile(e.dataTransfer.files[0]); });
+
+// ─────────────────────────────────────────────
+//  BOOT
+// ─────────────────────────────────────────────
+initMP();
+</script>
+</body>
+</html>
