@@ -86,24 +86,86 @@
   font-weight: normal;
 }
 
-/* ── Herprint Mega Menu: links left · image right ── */
+/* ── Herprint Mega Menu: links left · per-category image pair right ── */
 .mega-menu__inner {
   display: flex;
   align-items: flex-start;
   gap: 6rem;
   padding-top: 3.6rem;
   padding-bottom: 3.6rem;
+  position: relative;
+  min-height: 34rem;
 }
 
 .mega-menu__links-col {
-  flex: 0 0 auto;
-  min-width: 18rem;
+  flex: 0 0 26rem;
+  min-width: 26rem;
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+/* Per-category image pair: occupies the right side, swaps on hover */
+.mega-menu__images {
+  position: absolute;
+  top: 0;
+  left: 30rem;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 26rem));
+  justify-content: end;
+  align-content: start;
+  gap: 1.6rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--duration-default, 0.3s) ease;
+  z-index: 1;
+}
+/* Default panel (first category that has images) shows until another is hovered */
+.mega-menu__cat--default > .mega-menu__images {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.mega-menu__cat:hover > .mega-menu__images {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
+}
+.mega-menu__links-col:hover .mega-menu__cat--default:not(:hover) > .mega-menu__images {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mega-menu__slot {
+  display: block;
+  text-decoration: none;
+}
+.mega-menu__slot-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+.mega-menu__slot:hover .mega-menu__slot-img {
+  transform: scale(1.03);
+}
+.mega-menu__slot-label {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
 }
 
 .mega-menu__links-col .mega-menu__link--level-2 {
