@@ -219,10 +219,45 @@
                 </p>
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
+                  {%- assign _meta = product.metafields.custom.details.value -%}
+                  {%- assign _desc = product.description -%}
+                  {%- assign _details = '' -%}
+                  {%- if _meta == blank and _desc contains '<ul' -%}
+                    {%- assign _before = _desc | split: '<ul' | first -%}
+                    {%- assign _details = _desc | split: '<ul' | last | split: '</ul>' | first -%}
+                  {%- else -%}
+                    {%- assign _before = _desc -%}
+                  {%- endif -%}
                   <div class="product__description rte quick-add-hidden" style="font-size: 14px; line-height: 1.6;" {{ block.shopify_attributes }}>
-                    {{ product.description }}
+                    {{ _before }}
                   </div>
+                  {%- if _meta != blank or _details != '' -%}
+                    <div class="product__accordion accordion quick-add-hidden">
+                      <details id="Details-desc-{{ section.id }}">
+                        <summary>
+                          <div class="summary__title">
+                            <h2 class="h4 accordion__title inline-richtext">Details</h2>
+                          </div>
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </summary>
+                        <div class="accordion__content rte" id="ProductAccordion-desc-{{ section.id }}">
+                          {%- if _meta != blank -%}
+                            <ul>{%- for i in _meta -%}<li>{{ i | escape }}</li>{%- endfor -%}</ul>
+                          {%- else -%}
+                            <ul{{ _details }}</ul>
+                          {%- endif -%}
+                        </div>
+                      </details>
+                    </div>
+                  {%- endif -%}
                 {%- endif -%}
+              {%- when 'status_labels' -%}
+                <div {{ block.shopify_attributes }}>{% render 'product-status-labels', product: product %}</div>
+              {%- when 'size_guide_link' -%}
+                <a href="{{ block.settings.link | default: '/pages/size-guide' }}" class="product__size-guide-link" {{ block.shopify_attributes }}>
+                  {%- if block.settings.show_icon -%}<span class="svg-wrapper">{{- 'icon-ruler.svg' | inline_asset_content -}}</span>{%- endif -%}
+                  {{ block.settings.text | default: 'Size Guide' | escape }}
+                </a>
               {%- when 'sku' -%}
                 <p
                   class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -702,6 +737,10 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+              {%- when 'tryon' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'jewelry-tryon', product: product, button_label: block.settings.button_label %}
+                </div>
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -2164,6 +2203,59 @@
           "type": "text",
           "id": "caption_4",
           "label": "Caption 4"
+        }
+      ]
+    },
+    {
+      "type": "status_labels",
+      "name": "Status labels",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Catbird-style labels from product tags. Recognized: new, best seller, online exclusive (or exclusive), limited edition (or limited), pre order (or preorder), ready to ship, made to order, back in stock, engravable, final sale. Case-insensitive; hyphens treated as spaces. Sold-out shows automatically from inventory."
+        }
+      ]
+    },
+    {
+      "type": "size_guide_link",
+      "name": "Size guide link",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Link label",
+          "default": "Size Guide"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Size guide page",
+          "info": "Defaults to /pages/size-guide if left blank."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show ruler icon",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "tryon",
+      "name": "Virtual try-on",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Adds a \"See it on me\" button that overlays this product on the customer's uploaded photo or live camera, entirely in their browser — no photo is uploaded. Works with the product photo automatically; for the cleanest result add a transparent PNG to the product metafield tryon.overlay and the real height to tryon.height_mm."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "See it on me"
         }
       ]
     }
