@@ -1,0 +1,4 @@
+baseId,name,price,metal,color,sizes,inventory,notes
+RG_07,,69.90,gold,clear,"6,7,8",50,EXAMPLE ROW — delete me. pavé bar; call it nothing special so I'll auto-name
+NC_09,Lucky Gourd Pink Necklace,64.90,gold,pink,,30,EXAMPLE ROW — delete me. wu-lu gourd motif; one-size so sizes left blank
+BC_08,,,silver,green,one-size,,EXAMPLE ROW — delete me. blank price = use category band; blank inventory = default 50
