@@ -1,0 +1,280 @@
+{% stylesheet %}
+  .size-guide {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .size-guide__header {
+    text-align: center;
+    margin-bottom: 4.5rem;
+  }
+
+  .size-guide__heading {
+    margin: 0;
+  }
+
+  .size-guide__intro {
+    margin: 1.6rem auto 0;
+    max-width: 600px;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    opacity: 0.8;
+  }
+
+  .size-guide__group {
+    margin-bottom: 4.5rem;
+  }
+
+  .size-guide__group-title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 0 0 1.6rem;
+  }
+
+  .size-guide__table-wrap {
+    overflow-x: auto;
+  }
+
+  .size-guide__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.4rem;
+  }
+
+  .size-guide__table th,
+  .size-guide__table td {
+    text-align: left;
+    padding: 1.1rem 1.2rem;
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.1);
+    white-space: nowrap;
+  }
+
+  .size-guide__table thead th {
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom-width: 0.1rem;
+    border-bottom-color: rgba(var(--color-foreground), 0.25);
+  }
+
+  .size-guide__table td:last-child {
+    white-space: normal;
+  }
+
+  .size-guide__table tbody tr:hover {
+    background: rgba(var(--color-foreground), 0.03);
+  }
+
+  .size-guide__popular {
+    display: inline-block;
+    margin-left: 0.6rem;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7f6464;
+  }
+
+  .size-guide__measure {
+    margin-top: 1.5rem;
+    padding-top: 4.5rem;
+    border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .size-guide__measure-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+    max-width: 640px;
+  }
+
+  .size-guide__measure-list li {
+    position: relative;
+    padding-left: 2.4rem;
+    font-size: 1.5rem;
+    line-height: 1.7;
+  }
+
+  .size-guide__measure-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: #c8a6a6;
+  }
+
+  .size-guide__measure-list a {
+    color: #7f6464;
+    text-underline-offset: 0.3rem;
+  }
+{% endstylesheet %}
+
+<div class="size-guide color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="size-guide__inner">
+    <div class="size-guide__header">
+      {%- if section.settings.heading != blank -%}
+        <h1 class="size-guide__heading {{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <div class="size-guide__intro rte">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Ring Sizes {%- endcomment -%}
+    <div class="size-guide__group">
+      <h2 class="size-guide__group-title">Ring Sizes</h2>
+      <div class="size-guide__table-wrap">
+        <table class="size-guide__table">
+          <thead>
+            <tr><th scope="col">US Size</th><th scope="col">Diameter (mm)</th><th scope="col">Circumference (mm)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>4</td><td>14.8</td><td>46.5</td></tr>
+            <tr><td>4.5</td><td>15.2</td><td>47.8</td></tr>
+            <tr><td>5</td><td>15.6</td><td>49.0</td></tr>
+            <tr><td>5.5</td><td>16.0</td><td>50.3</td></tr>
+            <tr><td>6</td><td>16.5</td><td>51.5</td></tr>
+            <tr><td>6.5</td><td>16.9</td><td>52.8</td></tr>
+            <tr><td>7</td><td>17.3</td><td>54.0</td></tr>
+            <tr><td>7.5</td><td>17.7</td><td>55.3</td></tr>
+            <tr><td>8</td><td>18.1</td><td>56.6</td></tr>
+            <tr><td>8.5</td><td>18.5</td><td>57.8</td></tr>
+            <tr><td>9</td><td>19.0</td><td>59.1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {%- comment -%} Necklace Lengths {%- endcomment -%}
+    <div class="size-guide__group">
+      <h2 class="size-guide__group-title">Necklace Lengths</h2>
+      <div class="size-guide__table-wrap">
+        <table class="size-guide__table">
+          <thead>
+            <tr><th scope="col">Length</th><th scope="col">cm</th><th scope="col">Where It Sits</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>14"</td><td>35.5</td><td>Choker, snug at base of neck</td></tr>
+            <tr><td>16"</td><td>40.5</td><td>On the collarbone</td></tr>
+            <tr><td>18"</td><td>45.5</td><td>Just below collarbone <span class="size-guide__popular">Most popular</span></td></tr>
+            <tr><td>20"</td><td>51</td><td>Top of neckline</td></tr>
+            <tr><td>24"</td><td>61</td><td>Breastbone</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {%- comment -%} Bracelet Sizes {%- endcomment -%}
+    <div class="size-guide__group">
+      <h2 class="size-guide__group-title">Bracelet Sizes</h2>
+      <div class="size-guide__table-wrap">
+        <table class="size-guide__table">
+          <thead>
+            <tr><th scope="col">Size</th><th scope="col">cm</th><th scope="col">Inches</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>15</td><td>5.9"</td></tr>
+            <tr><td>S</td><td>16.5</td><td>6.5"</td></tr>
+            <tr><td>M <span class="size-guide__popular">Most popular</span></td><td>18</td><td>7.1"</td></tr>
+            <tr><td>L</td><td>19.5</td><td>7.7"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {%- comment -%} How to Measure {%- endcomment -%}
+    <div class="size-guide__measure">
+      <h2 class="size-guide__group-title">How to Measure</h2>
+      <ul class="size-guide__measure-list">
+        <li>Measure at the end of the day, when fingers and wrists are at their largest.</li>
+        <li>Make sure your hands are warm — cold hands can read up to half a size smaller.</li>
+        <li>For a ring, size up slightly if it has to pass a larger knuckle (thumb or index).</li>
+        <li>Still unsure? Email us at <a href="mailto:hello@herprint.co">hello@herprint.co</a> and we'll help you find your fit.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Size Guide",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Size Guide"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "hxl", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "<p>Find your perfect fit. All measurements are approximate — if you're between sizes or unsure, reach out and we'll help.</p>"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size Guide"
+    }
+  ]
+}
+{% endschema %}

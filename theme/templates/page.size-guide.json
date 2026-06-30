@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "size-guide",
+      "settings": {
+        "heading": "Size Guide",
+        "heading_size": "h1",
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": ["main"]
+}

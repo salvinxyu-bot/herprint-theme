@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-faq",
+      "blocks": {
+        "cat_shipping": { "type": "category", "settings": { "title": "Shipping & Delivery" } },
+        "q_intl": { "type": "question", "settings": { "question": "Do you ship internationally?", "answer": "<p>Yes! We offer worldwide shipping. Delivery times typically range from 7–15 business days, depending on your location.</p>" } },
+        "q_track": { "type": "question", "settings": { "question": "How can I track my order?", "answer": "<p>Once your order ships, you'll receive an email with a tracking link so you can follow it every step of the way.</p>" } },
+        "q_customs": { "type": "question", "settings": { "question": "Are there customs fees?", "answer": "<p>For international orders, customers are responsible for any local customs duties or taxes incurred.</p>" } },
+        "cat_returns": { "type": "category", "settings": { "title": "Returns & Exchanges" } },
+        "q_policy": { "type": "question", "settings": { "question": "What is your return policy?", "answer": "<p>We accept returns on most items within 14 days of delivery. Items must be in their original packaging and unworn.</p>" } },
+        "q_earrings": { "type": "question", "settings": { "question": "Are earrings returnable?", "answer": "<p>Due to hygiene reasons, earrings (including our crystal butterfly collection) are final sale unless they arrive damaged.</p>" } },
+        "cat_care": { "type": "category", "settings": { "title": "Jewelry Care" } },
+        "q_care": { "type": "question", "settings": { "question": "How do I care for my Herprint jewelry?", "answer": "<p>To maintain the high brilliance of your 14k gold plating and natural zircon, avoid contact with water, perfumes, and lotions.</p>" } },
+        "q_store": { "type": "question", "settings": { "question": "How should I store my jewelry?", "answer": "<p>To prevent tarnishing, we include a reusable anti-oxidation bag with every order. When you're not wearing your jewelry, keep it sealed in the bag to protect it from moisture and air.</p>" } },
+        "cat_sizing": { "type": "category", "settings": { "title": "Sizing & Fit" } },
+        "q_size": { "type": "question", "settings": { "question": "How do I find my size?", "answer": "<p>Our <a href=\"/pages/size-guide\">Size Guide</a> has full ring, necklace, and bracelet measurements, plus simple tips for measuring at home. Still unsure? Email <a href=\"mailto:hello@herprint.co\">hello@herprint.co</a> and we'll help.</p>" } }
+      },
+      "block_order": [
+        "cat_shipping", "q_intl", "q_track", "q_customs",
+        "cat_returns", "q_policy", "q_earrings",
+        "cat_care", "q_care", "q_store",
+        "cat_sizing", "q_size"
+      ],
+      "settings": {
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "accent_color": "#7f6464",
+        "eyebrow": "Help Center",
+        "title": "Frequently Asked Questions",
+        "intro": "Everything you need to know about your order, returns, and caring for your Herprint pieces. Can't find your answer? We're always an email away.",
+        "show_cta": true,
+        "cta_text": "Still have a question?",
+        "cta_label": "Contact Us",
+        "cta_link": "/pages/contact"
+      }
+    }
+  },
+  "order": ["main"]
+}
