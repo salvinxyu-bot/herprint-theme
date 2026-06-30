@@ -1,72 +1,77 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Jewelry that marks your every becoming.",
-            "heading_size": "h1"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop Now",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "New Arrivals",
-            "button_link_2": "shopify://collections/new",
-            "button_style_secondary_2": true
-          }
-        }
-      },
-      "block_order": ["heading", "button"],
+    "herprint_eclat": {
+      "type": "herprint-eclat",
       "settings": {
-        "image": "shopify://shop_images/8466ef5faa864860859bb0255f0f634_49643ef7-d745-449a-9235-b0c5e2d80875.jpg",
-        "image_2": "shopify://shop_images/PLS03543_872e6329-aef7-446d-99db-6d1032a9acab.jpg",
-        "image_overlay_opacity": 30,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "wordmark": "Herprint",
+        "tagline": "Jewelry that marks your every becoming.",
+        "cta_text": "Shop",
+        "cta_link": "shopify://collections/all",
+        "cta2_text": "Explore",
+        "cta2_link": "shopify://pages/herprint-story",
+        "height_desktop": 90,
+        "height_mobile": 80,
+        "min_height": 520,
+        "fallback_color": "#f4f1e9"
       }
     },
-    "shop_by_category": {
+    "marquee_text": {
+      "type": "marquee-text",
+      "settings": {
+        "text": "Plated in 14k Gold · Worldwide Shipping · 14-Day Returns · Made to Last",
+        "separator": "✦",
+        "speed": 20,
+        "color_scheme": "scheme-2",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 8,
+        "title": "New Arrivals",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "collection_list": {
       "type": "collection-list",
       "blocks": {
-        "rings": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "rings"
-          }
-        },
-        "necklaces": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "necklaces"
-          }
-        },
-        "earrings": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "earrings"
-          }
-        },
-        "bracelets": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "bracelets"
-          }
-        }
+        "col_1": { "type": "featured_collection", "settings": { "collection": "rings" } },
+        "col_2": { "type": "featured_collection", "settings": { "collection": "necklace" } },
+        "col_3": { "type": "featured_collection", "settings": { "collection": "earrings" } },
+        "col_4": { "type": "featured_collection", "settings": { "collection": "bracelets" } }
       },
-      "block_order": ["rings", "necklaces", "earrings", "bracelets"],
+      "block_order": ["col_1", "col_2", "col_3", "col_4"],
       "settings": {
         "title": "Shop by Category",
         "heading_size": "h2",
@@ -76,118 +81,65 @@
         "show_view_all": false,
         "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 60,
+        "padding_top": 36,
         "padding_bottom": 36
-      }
-    },
-    "best_sellers": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Best Sellers",
-        "heading_size": "h2",
-        "collection": "best-sellers",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": true,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-2",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 60,
-        "padding_bottom": 60
       }
     },
     "brand_values": {
       "type": "multicolumn",
       "blocks": {
-        "solid_gold": {
+        "col_gold": {
           "type": "column",
           "settings": {
-            "title": "Solid Gold, Always",
-            "text": "<p>Every piece is crafted in 14k solid gold — built to last a lifetime, never plated.<\/p>",
+            "title": "Crafted in 14k Gold",
+            "text": "<p>Sterling silver plated in 14k gold and set with natural 5A zircon — made to be worn every day.</p>",
             "link_label": "",
             "link": ""
           }
         },
-        "handcrafted": {
+        "col_sustainable": {
           "type": "column",
           "settings": {
-            "title": "Handcrafted with Care",
-            "text": "<p>Made in small batches by skilled artisans who take pride in every detail.<\/p>",
+            "title": "95% Recycled Silver",
+            "text": "<p>Our sterling silver is 95% recycled, because beautiful jewelry shouldn't cost the earth.</p>",
             "link_label": "",
             "link": ""
           }
         },
-        "free_returns": {
+        "col_made": {
           "type": "column",
           "settings": {
-            "title": "Free Returns",
-            "text": "<p>Not the right fit? Returns and exchanges are always free within 30 days.<\/p>",
-            "link_label": "Learn more",
-            "link": "/policies/refund-policy"
+            "title": "Made to Last",
+            "text": "<p>Delicate doesn't mean fragile. Our jewelry is designed to become heirlooms — worn every day, passed down forever.</p>",
+            "link_label": "",
+            "link": ""
           }
         }
       },
-      "block_order": ["solid_gold", "handcrafted", "free_returns"],
+      "block_order": ["col_gold", "col_sustainable", "col_made"],
       "settings": {
         "title": "",
         "heading_size": "h2",
-        "image_width": "third",
+        "image_width": "full",
         "image_ratio": "adapt",
         "columns_desktop": 3,
         "column_alignment": "center",
         "background_style": "none",
         "button_label": "",
         "button_link": "",
-        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "color_scheme": "scheme-2",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
         "padding_top": 52,
         "padding_bottom": 52
       }
-    },
-    "email_signup": {
-      "type": "newsletter",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "10% off your first order"
-          }
-        },
-        "subheading": {
-          "type": "paragraph",
-          "settings": {
-            "paragraph": "<p>Join the Herprint community for new arrivals, behind-the-scenes stories, and early access to sales.<\/p>"
-          }
-        },
-        "email": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": ["heading", "subheading", "email"],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "full_width": true,
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
     }
   },
   "order": [
-    "hero_banner",
-    "shop_by_category",
-    "best_sellers",
-    "brand_values",
-    "email_signup"
+    "herprint_eclat",
+    "marquee_text",
+    "featured_collection",
+    "collection_list",
+    "brand_values"
   ]
 }
