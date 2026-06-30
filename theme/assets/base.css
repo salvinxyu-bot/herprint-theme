@@ -3620,7 +3620,7 @@ details-disclosure > details {
 
 @media screen and (min-width: 750px) {
   .product__lifestyle-gifs-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -3871,4 +3871,121 @@ details-disclosure > details {
   background: rgb(var(--color-button));
   color: rgb(var(--color-button-label));
   border-color: rgb(var(--color-button));
+}
+
+/* =====================
+   Product status labels
+   ===================== */
+.product-status-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+.status-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 0.3rem;
+  border: 0.1rem solid transparent;
+  white-space: nowrap;
+}
+.status-label--new {
+  background: #7f6464;
+  color: #fff;
+}
+.status-label--best-seller {
+  background: #2a2a2a;
+  color: #fff;
+}
+.status-label--back-in-stock {
+  background: #c8a6a6;
+  color: #2a2020;
+}
+.status-label--final-sale {
+  background: #9a4a4a;
+  color: #fff;
+}
+.status-label--online-exclusive {
+  background: transparent;
+  color: #2a2020;
+  border-color: #2a2a2a;
+}
+.status-label--limited {
+  background: transparent;
+  color: #7f6464;
+  border-color: #c8a6a6;
+}
+.status-label--pre-order {
+  background: transparent;
+  color: #7f6464;
+  border-style: dashed;
+  border-color: rgba(127, 100, 100, 0.5);
+}
+.status-label--ready,
+.status-label--made-to-order,
+.status-label--engravable {
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  border-color: rgba(var(--color-foreground), 0.25);
+}
+.status-label--ready::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #5f8a6a;
+  display: inline-block;
+}
+.product-status-labels--card {
+  margin-bottom: 0;
+}
+.product-status-labels--card .status-label {
+  font-size: 0.95rem;
+  padding: 0.4rem 0.7rem;
+  letter-spacing: 0.08em;
+}
+
+/* =====================
+   Product size-guide link
+   ===================== */
+.product__size-guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.4rem 0 1.6rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  color: rgb(var(--color-foreground));
+}
+.product__size-guide-link:hover {
+  color: #7f6464;
+}
+.product__size-guide-link .svg-wrapper svg {
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+/* =====================
+   Centered product title cluster (status / vendor / title / price / size guide)
+   ===================== */
+.product__info-container .product-status-labels {
+  justify-content: center;
+}
+.product__info-container .product__text,
+.product__info-container .product__title,
+.product__info-container .price {
+  text-align: center;
+}
+.product__info-container .product__size-guide-link {
+  display: flex;
+  justify-content: center;
 }
