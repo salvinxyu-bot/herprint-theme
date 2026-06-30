@@ -1,38 +1,8 @@
 {
   "sections": {
     "main": {
-      "type": "page-story",
-      "blocks": {
-        "value_1": {
-          "type": "value",
-          "settings": {
-            "title": "Solid Gold, Always",
-            "text": "We only work with 14k solid gold. No plating. No shortcuts. Just pieces that last as long as the moments they mark."
-          }
-        },
-        "value_2": {
-          "type": "value",
-          "settings": {
-            "title": "Made with Intention",
-            "text": "Every design begins with a feeling — not a trend. We make jewelry for the woman who knows who she is, and who she is still becoming."
-          }
-        },
-        "value_3": {
-          "type": "value",
-          "settings": {
-            "title": "For Every Woman",
-            "text": "We believe beauty has no single shape. Herprint is built for every chapter, every body, every story."
-          }
-        }
-      },
-      "block_order": ["value_1", "value_2", "value_3"],
-      "settings": {
-        "poem": "The engine ticks softly as it cools in the dark.\nYou rest your hands on the steering wheel,\nlistening to the rain tap the glass.\nBefore you open the door and face the room,\nyou look down.\nYour thumb finds the silver.\nIt is already warm with your body heat.\n\nYou gently trace the tiny, sharp edges of the stone.\nEach cut under your fingertip holds a quiet courage:\nthe pale book pages you flipped in deep night,\nthe difficult email you finally sent,\nthe heavy suitcase you dragged down the stairs.\nTime did not wear you down.\nIt carved you.\n\nIn the faint glow of the dashboard,\nthe stone catches a sudden, silent spark.\nYou press the solid metal against your palm,\ntake one slow, deep breath,\nand push the car door open.\n\nSome prints are quiet and unnoticeable,\nyet time cannot erase their weight.\nEvery print of your world counts.\nThey pave the quiet path to your becoming.\nWe are witnessing all of them.",
-        "poem_credit": "Herprint",
-        "body_text": "<p>Herprint was born from a simple belief — that jewelry is not decoration. It is memory. It is identity. It is the quiet language of a life fully lived.<\/p><p>Every piece we make is solid gold, handcrafted in small batches, designed to become yours the moment you put it on.<\/p>",
-        "cta_label": "Shop the Collection",
-        "cta_link": "shopify://collections/all"
-      }
+      "type": "story-profiles",
+      "settings": {}
     }
   },
   "order": ["main"]
