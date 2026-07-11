@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "story-profiles",
+      "settings": {
+        "color_scheme": "",
+        "heading_font": "libre_bodoni_n4",
+        "body_font": "roboto_serif_n4",
+        "title_size": 56,
+        "name_size": 34,
+        "quote_size": 22,
+        "body_size": 16,
+        "eyebrow_size": 12,
+        "bg_color": "#fafaf7",
+        "title_color": "#2a2a2a",
+        "text_color": "#4a4a4a",
+        "accent_color": "#7f6464",
+        "accent_deep_color": "#a67979",
+        "eyebrow": "Our Story",
+        "title": "The women behind <em>becoming.</em>",
+        "intro": "Herprint was built by women, for women — and shaped by the stories of those who wear it. Here are a few of them.",
+        "p1_image": "shopify://shop_images/image_emma.png",
+        "p1_name": "Olivia Lin",
+        "p1_role": "Founder · new york",
+        "p1_quote": "I wanted jewelry that remembered the moments, not just decorated them.",
+        "p1_story": "<p>Herprint began on an ordinary evening, with a single ring Olivia kept reaching for — the one she'd bought herself the week she decided to start over.</p><p>She founded Herprint so every woman could mark her own becoming in something she'd keep for life.</p>",
+        "p1_link_label": "Shop Olivia's edit",
+        "p1_link": "",
+        "p2_image": "shopify://shop_images/image_founder.jpg",
+        "p2_name": "Sofia Reyes",
+        "p2_role": "Muse · Mexico City",
+        "p2_quote": "Every piece I wear carries a chapter I'm proud of.",
+        "p2_story": "<p>Sofia found Herprint between two big moves and one quiet reinvention. The necklace she chose became a small daily reminder of how far she'd come.</p><p>Now she helps other women find the piece that tells their story.</p>",
+        "p2_link_label": "Shop Sofia's edit",
+        "p2_link": "",
+        "p3_image": "shopify://shop_images/image_black.png",
+        "p3_name": "Amara Okafor",
+        "p3_role": "Community · Lagos",
+        "p3_quote": "Becoming isn't loud. It's the small things you choose to keep.",
+        "p3_story": "<p>For Amara, jewelry was never about flash — it was about meaning. Each Herprint piece she wears marks a person, a place, a promise.</p><p>She brings that same intention to the community she's built around the brand.</p>",
+        "p3_link_label": "Shop Amara's edit",
+        "p3_link": "",
+        "closing_title": "Your story is next.",
+        "closing_text": "Wherever you are in your becoming, there's a piece here to mark it.",
+        "closing_btn_label": "Explore the collection",
+        "closing_btn_link": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

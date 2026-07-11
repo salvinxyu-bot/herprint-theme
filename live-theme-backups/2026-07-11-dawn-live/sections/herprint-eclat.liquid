@@ -1,0 +1,344 @@
+{% comment %}
+  Herprint — Éclat Shader Hero (native section, no iframe).
+  Mounts a WebGL canvas directly in the page and renders the Éclat sparkle shader.
+  Requires assets: herprint-eclat-shaders.js + herprint-eclat.js
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Marcellus&family=Forum&family=Prata&family=Bodoni+Moda:wght@400;500;700&family=Cinzel:wght@400;500&family=Gilda+Display&family=Bellefair&family=Antic+Didone&family=Cardo:wght@400;700&family=Tenor+Sans&family=Spectral:wght@400;500;700&family=Playfair+Display:wght@400;500;700&family=Cormorant:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+
+{%- liquid
+  assign sid = section.id
+  assign cta_link = section.settings.cta_link | default: '#'
+  assign cta2_link = section.settings.cta2_link | default: '#'
+  assign hero_font_stack = '"' | append: section.settings.slogan_font | append: '", Georgia, serif'
+  if section.settings.bold
+    assign hero_weight = 700
+    assign hero_stroke = '0.4px'
+  else
+    assign hero_weight = 400
+    assign hero_stroke = '0'
+  endif
+  assign hero_size_scale = section.settings.slogan_size | divided_by: 100.0
+  assign hero_btn_scale = section.settings.button_size | divided_by: 100.0
+-%}
+
+<div class="hp-eclat" id="hp-eclat-{{ sid }}" {{ section.shopify_attributes }}>
+  <canvas class="hp-eclat__gl" aria-hidden="true"></canvas>
+  <div class="hp-eclat__scrim"></div>
+  <div class="hp-eclat__stage">
+    <div class="hp-eclat__hero">
+      {%- if section.settings.wordmark != blank -%}
+        <div class="hp-eclat__wordmark">{{ section.settings.wordmark | escape }}</div>
+      {%- endif -%}
+      {%- if section.settings.tagline != blank -%}
+        <p class="hp-eclat__tagline">{{ section.settings.tagline | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_text != blank or section.settings.cta2_text != blank -%}
+        <div class="hp-eclat__actions">
+          {%- if section.settings.cta_text != blank -%}
+            <a class="hp-eclat__btn hp-eclat__btn--solid" href="{{ cta_link }}">{{ section.settings.cta_text | escape }}</a>
+          {%- endif -%}
+          {%- if section.settings.cta2_text != blank -%}
+            <a class="hp-eclat__btn" href="{{ cta2_link }}">{{ section.settings.cta2_text | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  #hp-eclat-{{ sid }} {
+    --cream: #f4f1e9;
+    --ink-soft: rgba(58, 51, 56, 0.58);
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    --hero-font: {{ hero_font_stack }};
+    --hero-color: {{ section.settings.font_color }};
+    --hero-weight: {{ hero_weight }};
+    --hero-stroke: {{ hero_stroke }};
+    --hero-size-scale: {{ hero_size_scale }};
+    --hero-btn-scale: {{ hero_btn_scale }};
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.height_desktop }}vh;
+    min-height: {{ section.settings.min_height }}px;
+    margin: 0;
+    overflow: hidden;
+    background: {{ section.settings.fallback_color }};
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__gl {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: crosshair;
+    z-index: 0;
+  }
+  #hp-eclat-{{ sid }}.no-webgl .hp-eclat__gl {
+    background: linear-gradient(135deg, var(--cream), #e7e0d2 60%, #ddd0d2);
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__scrim {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(58% 64% at 50% 47%,
+      rgba(244, 241, 233, 0.62) 0%,
+      rgba(244, 241, 233, 0.30) 40%,
+      rgba(244, 241, 233, 0.0) 72%);
+    z-index: 1;
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__stage {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 8vh 6vw;
+    pointer-events: none;
+    text-align: center;
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__hero { width: 100%; }
+  #hp-eclat-{{ sid }} .hp-eclat__wordmark {
+    font-family: var(--hero-font);
+    font-weight: 500;
+    font-size: clamp(0.82rem, 1.5vw, 1.15rem);
+    line-height: 1;
+    letter-spacing: 0.46em;
+    text-transform: uppercase;
+    text-indent: 0.46em;
+    color: var(--hero-color);
+    opacity: 0.78;
+    margin-bottom: clamp(1.1rem, 3vh, 2rem);
+    text-shadow: 0 1px 24px rgba(244, 241, 233, 0.85);
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__tagline {
+    font-family: var(--hero-font);
+    font-weight: var(--hero-weight);
+    font-size: calc(clamp(1.85rem, 5vw, 4.2rem) * var(--hero-size-scale));
+    line-height: 1.14;
+    letter-spacing: 0.012em;
+    color: var(--hero-color);
+    -webkit-text-stroke: var(--hero-stroke) var(--hero-color);
+    margin: 0 auto;
+    max-width: 19ch;
+    text-shadow: 0 1px 34px rgba(244, 241, 233, 0.9);
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__actions {
+    display: flex;
+    gap: clamp(0.7rem, 1.6vw, 1.1rem);
+    justify-content: center;
+    margin-top: clamp(2rem, 5vh, 3.4rem);
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__btn {
+    pointer-events: auto;
+    display: inline-block;
+    padding: 0.85em 2.6em;
+    border: 1px solid var(--hero-color);
+    border-radius: 1px;
+    background: transparent;
+    color: var(--hero-color);
+    font-family: var(--mono);
+    font-size: calc(clamp(0.6rem, 1.05vw, 0.72rem) * var(--hero-btn-scale));
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    text-indent: 0.34em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.5s ease, color 0.5s ease, letter-spacing 0.5s ease;
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__btn:hover {
+    background: var(--hero-color);
+    color: var(--cream);
+    letter-spacing: 0.4em;
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__btn--solid {
+    background: var(--hero-color);
+    color: var(--cream);
+  }
+  #hp-eclat-{{ sid }} .hp-eclat__btn--solid:hover {
+    background: transparent;
+    color: var(--hero-color);
+  }
+  @media (max-width: 749px) {
+    #hp-eclat-{{ sid }} {
+      height: {{ section.settings.height_mobile }}vh;
+    }
+    #hp-eclat-{{ sid }} .hp-eclat__wordmark {
+      letter-spacing: 0.42em;
+      font-size: clamp(0.72rem, 3.2vw, 0.92rem);
+    }
+    #hp-eclat-{{ sid }} .hp-eclat__tagline {
+      font-size: calc(clamp(2.05rem, 8.6vw, 3.1rem) * var(--hero-size-scale));
+      line-height: 1.16;
+      max-width: 13ch;
+    }
+    #hp-eclat-{{ sid }} .hp-eclat__actions {
+      flex-direction: column;
+      gap: 0.7rem;
+      align-items: center;
+    }
+    #hp-eclat-{{ sid }} .hp-eclat__btn {
+      width: min(60vw, calc(160px * var(--hero-btn-scale)));
+      text-align: center;
+      text-indent: 0;
+      padding: 1.25em 1.6em;
+    }
+  }
+</style>
+
+<script src="{{ 'herprint-eclat-shaders.js' | asset_url }}" defer></script>
+<script src="{{ 'herprint-eclat.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Herprint Éclat",
+  "tag": "section",
+  "class": "section-herprint-eclat",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "wordmark",
+      "label": "Kicker (small label)",
+      "info": "Leave blank to hide.",
+      "default": "Herprint"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Slogan",
+      "default": "Jewelry that marks your every becoming."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Primary button label",
+      "info": "Leave blank to hide.",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta2_text",
+      "label": "Secondary button label",
+      "info": "Leave blank to hide.",
+      "default": "Explore"
+    },
+    {
+      "type": "url",
+      "id": "cta2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "slogan_font",
+      "label": "Font (kicker + slogan)",
+      "options": [
+        { "value": "Italiana", "label": "Italiana" },
+        { "value": "Marcellus", "label": "Marcellus" },
+        { "value": "Forum", "label": "Forum" },
+        { "value": "Prata", "label": "Prata" },
+        { "value": "Bodoni Moda", "label": "Bodoni Moda" },
+        { "value": "Cinzel", "label": "Cinzel" },
+        { "value": "Gilda Display", "label": "Gilda Display" },
+        { "value": "Bellefair", "label": "Bellefair" },
+        { "value": "Antic Didone", "label": "Antic Didone" },
+        { "value": "Cardo", "label": "Cardo" },
+        { "value": "Tenor Sans", "label": "Tenor Sans" },
+        { "value": "Spectral", "label": "Spectral" },
+        { "value": "Playfair Display", "label": "Playfair Display" },
+        { "value": "Cormorant", "label": "Cormorant" },
+        { "value": "Fraunces", "label": "Fraunces" }
+      ],
+      "default": "Antic Didone"
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Text color (kicker, slogan, buttons)",
+      "default": "#7f6464"
+    },
+    {
+      "type": "range",
+      "id": "slogan_size",
+      "label": "Slogan size",
+      "min": 60,
+      "max": 140,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "bold",
+      "label": "Bold slogan",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button size",
+      "min": 70,
+      "max": 160,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "label": "Height — desktop",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Height — mobile",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum height",
+      "min": 320,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "fallback_color",
+      "label": "Fallback background",
+      "default": "#f4f1e9"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Herprint Éclat"
+    }
+  ]
+}
+{% endschema %}

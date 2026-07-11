@@ -1,0 +1,453 @@
+{% stylesheet %}
+  .story-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem 12rem;
+  }
+
+  .story-page__eyebrow {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .story-page__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.6rem, 6vw, 7.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 6rem;
+    letter-spacing: -0.01em;
+  }
+
+  .story-page__divider {
+    width: 4rem;
+    height: 1px;
+    background: rgba(var(--color-foreground), 0.2);
+    margin: 5rem 0;
+  }
+
+  /* Poem + images side by side */
+  .story-page__poem-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  @media screen and (min-width: 750px) {
+    .story-page__poem-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+    }
+  }
+
+  .story-page__poem {
+    font-family: var(--font-heading-family);
+    font-size: clamp(1.5rem, 1.8vw, 2rem);
+    font-weight: 400;
+    line-height: 2.1;
+    white-space: pre-line;
+    margin: 0 0 1.6rem;
+    font-style: italic;
+  }
+
+  .story-page__poem-credit {
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2.4rem;
+  }
+
+  /* 4 image grid on the right */
+  .story-page__images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .story-page__image-item img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+  }
+
+  .story-page__image-caption {
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+    text-align: center;
+  }
+
+  /* Body + values below */
+  .story-page__body {
+    font-size: 1.6rem;
+    line-height: 1.9;
+    margin-bottom: 3rem;
+    max-width: 720px;
+  }
+
+  .story-page__values {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    margin-top: 7rem;
+    padding-top: 5rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  @media screen and (min-width: 750px) {
+    .story-page__values {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .story-value__number {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.4);
+    margin-bottom: 1.2rem;
+  }
+
+  .story-value__title {
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1.2rem;
+  }
+
+  .story-value__text {
+    font-size: 1.4rem;
+    line-height: 1.8;
+  }
+
+  .story-page__cta {
+    margin-top: 7rem;
+    text-align: center;
+  }
+
+  .story-page__cta-text {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 3.5vw, 4rem);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  .story-page__btn {
+    display: inline-block;
+    padding: 1.4rem 3.6rem;
+    background: rgb(var(--color-button));
+    color: rgb(var(--color-button-label));
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgb(var(--color-button));
+    transition: background var(--duration-short) ease, color var(--duration-short) ease;
+  }
+
+  .story-page__btn:hover {
+    background: transparent;
+    color: rgb(var(--color-button));
+  }
+{% endstylesheet %}
+
+<div class="story-page">
+
+  <span class="story-page__eyebrow" style="color: {{ section.settings.eyebrow_color }};">
+    {{ section.settings.eyebrow }}
+  </span>
+
+  <h1 class="story-page__title" style="color: {{ section.settings.title_color }};">
+    {{ section.settings.title }}
+  </h1>
+
+  <div class="story-page__divider"></div>
+
+  <!-- Poem left · Images right -->
+  <div class="story-page__poem-row">
+    <div class="story-page__poem-col">
+      <div class="story-page__poem" style="color: {{ section.settings.poem_color }}; font-size: {{ section.settings.poem_size }}rem;">{{ section.settings.poem }}</div>
+      {%- if section.settings.poem_credit != blank -%}
+        <span class="story-page__poem-credit" style="color: {{ section.settings.poem_credit_color }};">— {{ section.settings.poem_credit }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="story-page__images">
+      {%- for i in (1..4) -%}
+        {%- assign img_key = 'image_' | append: i -%}
+        {%- assign cap_key = 'caption_' | append: i -%}
+        {%- if section.settings[img_key] != blank -%}
+          <div class="story-page__image-item">
+            <img
+              src="{{ section.settings[img_key] | image_url: width: 800 }}"
+              alt="{{ section.settings[cap_key] | default: 'Herprint' }}"
+              width="800"
+              loading="lazy"
+            >
+            {%- if section.settings[cap_key] != blank -%}
+              <p class="story-page__image-caption" style="color: {{ section.settings.caption_color }};">
+                {{ section.settings[cap_key] }}
+              </p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="story-page__divider"></div>
+
+  <div class="story-page__body" style="color: {{ section.settings.body_color }};">
+    {{ section.settings.body_text }}
+  </div>
+
+  <div class="story-page__values">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'value' -%}
+        <div class="story-value" {{ block.shopify_attributes }}>
+          <p class="story-value__number">0{{ forloop.index }}</p>
+          <h3 class="story-value__title" style="color: {{ block.settings.title_color }};">{{ block.settings.title }}</h3>
+          <p class="story-value__text" style="color: {{ block.settings.text_color }};">{{ block.settings.text }}</p>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="story-page__cta">
+    <p class="story-page__cta-text" style="color: {{ section.settings.cta_text_color }};">
+      {{ section.settings.cta_tagline }}
+    </p>
+    <a href="{{ section.settings.cta_link }}" class="story-page__btn">{{ section.settings.cta_label }}</a>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Story Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Our Story"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#7f6464"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page title",
+      "default": "Made for every chapter of you."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "header",
+      "content": "Poem"
+    },
+    {
+      "type": "textarea",
+      "id": "poem",
+      "label": "Poem text"
+    },
+    {
+      "type": "range",
+      "id": "poem_size",
+      "label": "Poem font size (rem)",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "poem_color",
+      "label": "Poem text color",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "text",
+      "id": "poem_credit",
+      "label": "Poem credit",
+      "default": "Herprint"
+    },
+    {
+      "type": "color",
+      "id": "poem_credit_color",
+      "label": "Credit color",
+      "default": "#7f6464"
+    },
+    {
+      "type": "header",
+      "content": "Images / GIFs (beside poem)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image / GIF 1"
+    },
+    {
+      "type": "text",
+      "id": "caption_1",
+      "label": "Caption 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image / GIF 2"
+    },
+    {
+      "type": "text",
+      "id": "caption_2",
+      "label": "Caption 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image / GIF 3"
+    },
+    {
+      "type": "text",
+      "id": "caption_3",
+      "label": "Caption 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image / GIF 4"
+    },
+    {
+      "type": "text",
+      "id": "caption_4",
+      "label": "Caption 4"
+    },
+    {
+      "type": "color",
+      "id": "caption_color",
+      "label": "Caption color",
+      "default": "#7f6464"
+    },
+    {
+      "type": "header",
+      "content": "Brand Story Text"
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "<p>Herprint was born from a simple belief — that jewelry is not decoration. It is memory. It is identity. It is the quiet language of a life fully lived.</p><p>Every piece is sterling silver plated in 14k gold and set with natural 5A zircon, handcrafted in small batches and designed to become yours the moment you put it on.</p>"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#4a4a4a"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_tagline",
+      "label": "Tagline above button",
+      "default": "Jewelry that marks your every becoming."
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Tagline color",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Brand Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#2a2a2a"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#6a6a6a"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Page",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Crafted in 14k Gold",
+            "text": "Sterling silver plated in 14k gold and set with natural 5A zircon — considered materials, made to be worn through every chapter."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Made with Intention",
+            "text": "Every design begins with a feeling — not a trend. We make jewelry for the woman who knows who she is, and who she is still becoming."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "For Every Woman",
+            "text": "We believe beauty has no single shape. Herprint is built for every chapter, every body, every story."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

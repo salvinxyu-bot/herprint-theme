@@ -1,0 +1,174 @@
+{% stylesheet %}
+  .sp { padding: 8rem 2rem; }
+  .sp__wrap { max-width: 1080px; margin: 0 auto; }
+  .sp__hero { max-width: 720px; margin: 0 auto 7rem; text-align: center; }
+  .sp__eyebrow { display: inline-block; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 1.8rem; }
+  .sp__title { line-height: 1.12; margin: 0 0 2rem; }
+  .sp__intro { line-height: 1.8; margin: 0; }
+
+  .sp__profiles { display: flex; flex-direction: column; gap: 6.5rem; }
+  .sp__profile { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.4rem, 5vw, 5rem); align-items: center; }
+  .sp__media { position: relative; }
+  .sp__media img, .sp__ph { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .sp__ph { background: linear-gradient(135deg, #e7d3d3, #d8c6c6 55%, #c8a6a6); }
+  .sp__profile--flip .sp__media { order: 2; }
+
+  .sp__name { line-height: 1.1; margin: 0 0 0.6rem; }
+  .sp__role { display: block; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 2rem; }
+  .sp__quote { font-style: italic; line-height: 1.4; margin: 0 0 2rem; }
+  .sp__story { line-height: 1.85; }
+  .sp__story p { margin: 0 0 1.4rem; }
+  .sp__story p:last-child { margin-bottom: 0; }
+  .sp__link { display: inline-block; margin-top: 2.2rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 0.4rem; transition: opacity 0.2s; }
+  .sp__link:hover { opacity: 0.6; }
+
+  .sp__closing { text-align: center; max-width: 640px; margin: 8rem auto 0; }
+  .sp__closing-title { line-height: 1.15; margin: 0 0 1.6rem; }
+  .sp__closing-text { line-height: 1.8; margin: 0 0 3rem; }
+  .sp__btn { display: inline-block; padding: 1.4rem 3.6rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border: 1px solid; transition: background 0.25s, color 0.25s; }
+
+  @media screen and (max-width: 749px) {
+    .sp__profile { grid-template-columns: 1fr; gap: 2.4rem; }
+    .sp__profile--flip .sp__media { order: 0; }
+  }
+{% endstylesheet %}
+
+{%- liquid
+  assign heading_font = section.settings.heading_font
+  assign body_font = section.settings.body_font
+  assign title_min = section.settings.title_size | times: 0.55 | round
+-%}
+
+{% style %}
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .sp {
+    background: {{ section.settings.bg_color }};
+    --sp-head: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --sp-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+  }
+  #shopify-section-{{ section.id }} .sp__eyebrow,
+  #shopify-section-{{ section.id }} .sp__role { font-family: var(--sp-body); font-weight: 400; font-size: {{ section.settings.eyebrow_size }}px; color: {{ section.settings.accent_color }}; }
+  #shopify-section-{{ section.id }} .sp__title,
+  #shopify-section-{{ section.id }} .sp__closing-title { font-family: var(--sp-head); font-weight: 400; font-size: clamp({{ title_min }}px, 5vw, {{ section.settings.title_size }}px); color: {{ section.settings.title_color }}; }
+  #shopify-section-{{ section.id }} .sp__intro,
+  #shopify-section-{{ section.id }} .sp__closing-text { font-family: var(--sp-body); font-weight: 400; font-size: {{ section.settings.body_size }}px; color: {{ section.settings.text_color }}; }
+  #shopify-section-{{ section.id }} .sp__name { font-family: var(--sp-head); font-weight: 400; font-size: {{ section.settings.name_size }}px; color: {{ section.settings.title_color }}; }
+  #shopify-section-{{ section.id }} .sp__quote { font-family: var(--sp-head); font-size: {{ section.settings.quote_size }}px; color: {{ section.settings.accent_deep_color }}; }
+  #shopify-section-{{ section.id }} .sp__story { font-family: var(--sp-body); font-size: {{ section.settings.body_size }}px; color: {{ section.settings.text_color }}; }
+  #shopify-section-{{ section.id }} .sp__link { font-family: var(--sp-body); font-size: {{ section.settings.eyebrow_size }}px; color: {{ section.settings.accent_color }}; }
+  #shopify-section-{{ section.id }} .sp__btn { font-family: var(--sp-body); font-size: {{ section.settings.eyebrow_size }}px; background: {{ section.settings.accent_color }}; color: {{ section.settings.bg_color }}; border-color: {{ section.settings.accent_color }}; }
+  #shopify-section-{{ section.id }} .sp__btn:hover { background: transparent; color: {{ section.settings.accent_color }}; }
+{% endstyle %}
+
+<div class="sp color-{{ section.settings.color_scheme }}" {{ section.shopify_attributes }}>
+  <div class="sp__wrap">
+
+    <div class="sp__hero">
+      {%- if section.settings.eyebrow != blank -%}<span class="sp__eyebrow">{{ section.settings.eyebrow | escape }}</span>{%- endif -%}
+      {%- if section.settings.title != blank -%}<h1 class="sp__title">{{ section.settings.title }}</h1>{%- endif -%}
+      {%- if section.settings.intro != blank -%}<p class="sp__intro">{{ section.settings.intro | escape }}</p>{%- endif -%}
+    </div>
+
+    <div class="sp__profiles">
+      {%- for i in (1..3) -%}
+        {%- assign img = 'p' | append: i | append: '_image' -%}
+        {%- assign nm = 'p' | append: i | append: '_name' -%}
+        {%- assign rl = 'p' | append: i | append: '_role' -%}
+        {%- assign qt = 'p' | append: i | append: '_quote' -%}
+        {%- assign st = 'p' | append: i | append: '_story' -%}
+        {%- assign ll = 'p' | append: i | append: '_link_label' -%}
+        {%- assign lu = 'p' | append: i | append: '_link' -%}
+        {%- assign is_even = i | modulo: 2 -%}
+        <div class="sp__profile{% if is_even == 0 %} sp__profile--flip{% endif %}">
+          <div class="sp__media">
+            {%- if section.settings[img] != blank -%}
+              <img src="{{ section.settings[img] | image_url: width: 900 }}" alt="{{ section.settings[nm] | escape }}" width="900" loading="lazy">
+            {%- else -%}
+              <div class="sp__ph"></div>
+            {%- endif -%}
+          </div>
+          <div class="sp__text">
+            {%- if section.settings[nm] != blank -%}<h2 class="sp__name">{{ section.settings[nm] | escape }}</h2>{%- endif -%}
+            {%- if section.settings[rl] != blank -%}<span class="sp__role">{{ section.settings[rl] | escape }}</span>{%- endif -%}
+            {%- if section.settings[qt] != blank -%}<p class="sp__quote">“{{ section.settings[qt] | escape }}”</p>{%- endif -%}
+            {%- if section.settings[st] != blank -%}<div class="sp__story">{{ section.settings[st] }}</div>{%- endif -%}
+            {%- if section.settings[ll] != blank -%}<a class="sp__link" href="{{ section.settings[lu] | default: '#' }}">{{ section.settings[ll] | escape }}</a>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.closing_title != blank or section.settings.closing_text != blank -%}
+      <div class="sp__closing">
+        {%- if section.settings.closing_title != blank -%}<h2 class="sp__closing-title">{{ section.settings.closing_title }}</h2>{%- endif -%}
+        {%- if section.settings.closing_text != blank -%}<p class="sp__closing-text">{{ section.settings.closing_text | escape }}</p>{%- endif -%}
+        {%- if section.settings.closing_btn_label != blank -%}<a class="sp__btn" href="{{ section.settings.closing_btn_link | default: '#' }}">{{ section.settings.closing_btn_label | escape }}</a>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Story — Profiles",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392" },
+
+    { "type": "header", "content": "Typography & colors" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "noto_serif_n4" },
+    { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "roboto_serif_n4" },
+    { "type": "range", "id": "title_size", "label": "Title size", "min": 28, "max": 88, "step": 1, "unit": "px", "default": 56 },
+    { "type": "range", "id": "name_size", "label": "Profile name size", "min": 20, "max": 56, "step": 1, "unit": "px", "default": 34 },
+    { "type": "range", "id": "quote_size", "label": "Quote size", "min": 16, "max": 40, "step": 1, "unit": "px", "default": 22 },
+    { "type": "range", "id": "body_size", "label": "Body text size", "min": 13, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "eyebrow_size", "label": "Eyebrow / label size", "min": 9, "max": 18, "step": 1, "unit": "px", "default": 12 },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#fafaf7" },
+    { "type": "color", "id": "title_color", "label": "Headings & names", "default": "#2a2a2a" },
+    { "type": "color", "id": "text_color", "label": "Body text", "default": "#4a4a4a" },
+    { "type": "color", "id": "accent_color", "label": "Accent (eyebrow, links, button)", "default": "#7f6464" },
+    { "type": "color", "id": "accent_deep_color", "label": "Quote color", "default": "#8f5161" },
+
+    { "type": "header", "content": "Intro" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Story" },
+    { "type": "inline_richtext", "id": "title", "label": "Title", "default": "The women behind <em>becoming.</em>" },
+    { "type": "textarea", "id": "intro", "label": "Intro text", "default": "Herprint was built by women, for women — and shaped by the stories of those who wear it. Here are a few of them." },
+
+    { "type": "header", "content": "Profile 1" },
+    { "type": "image_picker", "id": "p1_image", "label": "Photo" },
+    { "type": "text", "id": "p1_name", "label": "Name", "default": "Mei Lin" },
+    { "type": "text", "id": "p1_role", "label": "Role / location", "default": "Founder · Shanghai" },
+    { "type": "text", "id": "p1_quote", "label": "Pull quote", "default": "I wanted jewelry that remembered the moments, not just decorated them." },
+    { "type": "richtext", "id": "p1_story", "label": "Story", "default": "<p>Herprint began on an ordinary evening, with a single ring Mei kept reaching for — the one she'd bought herself the week she decided to start over.</p><p>She founded Herprint so every woman could mark her own becoming in something she'd keep for life.</p>" },
+    { "type": "text", "id": "p1_link_label", "label": "Link label", "default": "Shop Mei's edit" },
+    { "type": "url", "id": "p1_link", "label": "Link" },
+
+    { "type": "header", "content": "Profile 2" },
+    { "type": "image_picker", "id": "p2_image", "label": "Photo" },
+    { "type": "text", "id": "p2_name", "label": "Name", "default": "Sofia Reyes" },
+    { "type": "text", "id": "p2_role", "label": "Role / location", "default": "Muse · Mexico City" },
+    { "type": "text", "id": "p2_quote", "label": "Pull quote", "default": "Every piece I wear carries a chapter I'm proud of." },
+    { "type": "richtext", "id": "p2_story", "label": "Story", "default": "<p>Sofia found Herprint between two big moves and one quiet reinvention. The necklace she chose became a small daily reminder of how far she'd come.</p><p>Now she helps other women find the piece that tells their story.</p>" },
+    { "type": "text", "id": "p2_link_label", "label": "Link label", "default": "Shop Sofia's edit" },
+    { "type": "url", "id": "p2_link", "label": "Link" },
+
+    { "type": "header", "content": "Profile 3" },
+    { "type": "image_picker", "id": "p3_image", "label": "Photo" },
+    { "type": "text", "id": "p3_name", "label": "Name", "default": "Amara Okafor" },
+    { "type": "text", "id": "p3_role", "label": "Role / location", "default": "Community · Lagos" },
+    { "type": "text", "id": "p3_quote", "label": "Pull quote", "default": "Becoming isn't loud. It's the small things you choose to keep." },
+    { "type": "richtext", "id": "p3_story", "label": "Story", "default": "<p>For Amara, jewelry was never about flash — it was about meaning. Each Herprint piece she wears marks a person, a place, a promise.</p><p>She brings that same intention to the community she's built around the brand.</p>" },
+    { "type": "text", "id": "p3_link_label", "label": "Link label", "default": "Shop Amara's edit" },
+    { "type": "url", "id": "p3_link", "label": "Link" },
+
+    { "type": "header", "content": "Closing" },
+    { "type": "inline_richtext", "id": "closing_title", "label": "Heading", "default": "Your story is next." },
+    { "type": "textarea", "id": "closing_text", "label": "Text", "default": "Wherever you are in your becoming, there's a piece here to mark it." },
+    { "type": "text", "id": "closing_btn_label", "label": "Button label", "default": "Explore the collection" },
+    { "type": "url", "id": "closing_btn_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Story — Profiles" }]
+}
+{% endschema %}

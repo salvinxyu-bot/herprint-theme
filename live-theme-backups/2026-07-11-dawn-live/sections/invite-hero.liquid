@@ -1,0 +1,116 @@
+{%- liquid
+  assign eyebrow_font = section.settings.eyebrow_font
+  assign title_font = section.settings.title_font
+  assign subtitle_font = section.settings.subtitle_font
+  assign title_min = section.settings.title_size | times: 0.5 | round
+  assign subtitle_min = section.settings.subtitle_size | times: 0.8 | round
+-%}
+
+{% style %}
+  {{ eyebrow_font | font_face: font_display: 'swap' }}
+  {{ title_font | font_face: font_display: 'swap' }}
+  {{ subtitle_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .invite-hero__eyebrow {
+    font-family: {{ eyebrow_font.family }}, {{ eyebrow_font.fallback_families }};
+    font-weight: {{ eyebrow_font.weight }};
+    font-style: {{ eyebrow_font.style }};
+    font-size: {{ section.settings.eyebrow_size }}px;
+    letter-spacing: {{ section.settings.eyebrow_spacing }}em;
+    text-transform: {{ section.settings.eyebrow_transform }};
+    color: {{ section.settings.eyebrow_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-hero__title {
+    font-family: {{ title_font.family }}, {{ title_font.fallback_families }};
+    font-weight: {{ title_font.weight }};
+    font-style: {{ title_font.style }};
+    font-size: clamp({{ title_min }}px, 6vw, {{ section.settings.title_size }}px);
+    letter-spacing: {{ section.settings.title_spacing }}em;
+    color: {{ section.settings.title_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-hero__subtitle {
+    font-family: {{ subtitle_font.family }}, {{ subtitle_font.fallback_families }};
+    font-weight: {{ subtitle_font.weight }};
+    font-style: {{ subtitle_font.style }};
+    font-size: clamp({{ subtitle_min }}px, 2vw, {{ section.settings.subtitle_size }}px);
+    color: {{ section.settings.subtitle_color }};
+    opacity: 1;
+  }
+{% endstyle %}
+
+<div class="invite-hero color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
+  <div class="invite-hero__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="invite-hero__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h1 class="invite-hero__title">{{ section.settings.title | escape }}</h1>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="invite-hero__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .invite-hero {
+    text-align: center;
+    padding: 10rem 2rem 8rem;
+  }
+  .invite-hero__inner { max-width: 720px; margin: 0 auto; }
+  .invite-hero__eyebrow {
+    display: block;
+    margin-bottom: 2.4rem;
+  }
+  .invite-hero__title {
+    line-height: 1.1;
+    margin-bottom: 2.4rem;
+  }
+  .invite-hero__subtitle {
+    line-height: 1.8;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Invite — Hero",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-coffee" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#7f6464" },
+
+    { "type": "header", "content": "Content — Eyebrow" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "An Invitation" },
+    { "type": "header", "content": "Eyebrow style" },
+    { "type": "font_picker", "id": "eyebrow_font", "label": "Font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "eyebrow_size", "label": "Size", "min": 8, "max": 28, "step": 1, "unit": "px", "default": 11 },
+    { "type": "range", "id": "eyebrow_spacing", "label": "Letter spacing", "min": 0, "max": 0.5, "step": 0.1, "unit": "em", "default": 0.2 },
+    {
+      "type": "select", "id": "eyebrow_transform", "label": "Text case",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "lowercase", "label": "lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    { "type": "color", "id": "eyebrow_color", "label": "Color", "default": "#7f6464" },
+
+    { "type": "header", "content": "Content — Heading" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "You're invited into our world." },
+    { "type": "header", "content": "Heading style" },
+    { "type": "font_picker", "id": "title_font", "label": "Font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "title_size", "label": "Size", "min": 28, "max": 110, "step": 1, "unit": "px", "default": 70 },
+    { "type": "range", "id": "title_spacing", "label": "Letter spacing", "min": -0.1, "max": 0.3, "step": 0.1, "unit": "em", "default": 0 },
+    { "type": "color", "id": "title_color", "label": "Color", "default": "#2a2a2a" },
+
+    { "type": "header", "content": "Content — Subheading" },
+    { "type": "textarea", "id": "subtitle", "label": "Subheading", "default": "Herprint was built by women, for women. Whether you create, lead, or dream — there is a place for you here." },
+    { "type": "header", "content": "Subheading style" },
+    { "type": "font_picker", "id": "subtitle_font", "label": "Font", "default": "roboto_serif_n4" },
+    { "type": "range", "id": "subtitle_size", "label": "Size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "subtitle_color", "label": "Color", "default": "#2a2a2a" }
+  ],
+  "presets": [{ "name": "Invite — Hero" }]
+}
+{% endschema %}

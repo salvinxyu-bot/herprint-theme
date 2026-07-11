@@ -1,0 +1,119 @@
+{%- liquid
+  assign label_font = section.settings.label_font
+  assign title_font = section.settings.title_font
+  assign text_font = section.settings.text_font
+  assign title_min = section.settings.title_size | times: 0.55 | round
+  assign text_min = section.settings.text_size | times: 0.8 | round
+-%}
+
+{% style %}
+  {{ label_font | font_face: font_display: 'swap' }}
+  {{ title_font | font_face: font_display: 'swap' }}
+  {{ text_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .invite-fund-section__label {
+    font-family: {{ label_font.family }}, {{ label_font.fallback_families }};
+    font-weight: {{ label_font.weight }};
+    font-style: {{ label_font.style }};
+    font-size: {{ section.settings.label_size }}px;
+    letter-spacing: {{ section.settings.label_spacing }}em;
+    text-transform: {{ section.settings.label_transform }};
+    color: {{ section.settings.label_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-fund-section__title {
+    font-family: {{ title_font.family }}, {{ title_font.fallback_families }};
+    font-weight: {{ title_font.weight }};
+    font-style: {{ title_font.style }};
+    font-size: clamp({{ title_min }}px, 3.5vw, {{ section.settings.title_size }}px);
+    letter-spacing: {{ section.settings.title_spacing }}em;
+    color: {{ section.settings.title_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-fund-section__text {
+    font-family: {{ text_font.family }}, {{ text_font.fallback_families }};
+    font-weight: {{ text_font.weight }};
+    font-style: {{ text_font.style }};
+    font-size: clamp({{ text_min }}px, 2vw, {{ section.settings.text_size }}px);
+    color: {{ section.settings.text_color }};
+    opacity: 1;
+  }
+{% endstyle %}
+
+<div class="invite-fund-section color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
+  <div class="invite-fund-section__inner">
+    {%- if section.settings.label != blank -%}
+      <span class="invite-fund-section__label">{{ section.settings.label | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h2 class="invite-fund-section__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="invite-fund-section__text">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .invite-fund-section {
+    padding: 8rem 2rem;
+  }
+  .invite-fund-section__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .invite-fund-section__label {
+    display: block;
+    margin-bottom: 2rem;
+  }
+  .invite-fund-section__title {
+    line-height: 1.25;
+    margin-bottom: 2rem;
+  }
+  .invite-fund-section__text {
+    line-height: 1.8;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Invite — Fund",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-3" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c8a6a6" },
+
+    { "type": "header", "content": "Content — Label" },
+    { "type": "text", "id": "label", "label": "Label", "default": "The Herprint Fund" },
+    { "type": "header", "content": "Label style" },
+    { "type": "font_picker", "id": "label_font", "label": "Font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "label_size", "label": "Size", "min": 8, "max": 28, "step": 1, "unit": "px", "default": 11 },
+    { "type": "range", "id": "label_spacing", "label": "Letter spacing", "min": 0, "max": 0.5, "step": 0.1, "unit": "em", "default": 0.2 },
+    {
+      "type": "select", "id": "label_transform", "label": "Text case",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "lowercase", "label": "lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    { "type": "color", "id": "label_color", "label": "Color", "default": "#c8a6a6" },
+
+    { "type": "header", "content": "Content — Heading" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "We are building a real fund for children and single mothers around the world." },
+    { "type": "header", "content": "Heading style" },
+    { "type": "font_picker", "id": "title_font", "label": "Font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "title_size", "label": "Size", "min": 20, "max": 72, "step": 1, "unit": "px", "default": 44 },
+    { "type": "range", "id": "title_spacing", "label": "Letter spacing", "min": -0.1, "max": 0.3, "step": 0.1, "unit": "em", "default": 0 },
+    { "type": "color", "id": "title_color", "label": "Color", "default": "#fafaf7" },
+
+    { "type": "header", "content": "Content — Description" },
+    { "type": "textarea", "id": "text", "label": "Description", "default": "Because every woman deserves a chance. And every child deserves a future. This is what Herprint is ultimately for." },
+    { "type": "header", "content": "Description style" },
+    { "type": "font_picker", "id": "text_font", "label": "Font", "default": "roboto_serif_n4" },
+    { "type": "range", "id": "text_size", "label": "Size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 15 },
+    { "type": "color", "id": "text_color", "label": "Color", "default": "#fafaf7" }
+  ],
+  "presets": [{ "name": "Invite — Fund" }]
+}
+{% endschema %}

@@ -1,0 +1,179 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "herprint_eclat": {
+      "type": "herprint-eclat",
+      "settings": {
+        "wordmark": "Herprint",
+        "tagline": "Jewelry that marks your every becoming.",
+        "cta_text": "Shop",
+        "cta_link": "shopify://collections/all",
+        "cta2_text": "Explore",
+        "cta2_link": "shopify://pages/herprint-story",
+        "slogan_font": "Marcellus",
+        "font_color": "#A67979",
+        "slogan_size": 140,
+        "bold": true,
+        "button_size": 160,
+        "height_desktop": 55,
+        "height_mobile": 80,
+        "min_height": 320,
+        "fallback_color": "#A57474"
+      }
+    },
+    "marquee_text": {
+      "type": "marquee-text",
+      "settings": {
+        "text": "Plated in 14k Gold · Worldwide Shipping · 14-Day Returns · Made to Last",
+        "separator": "✦",
+        "speed": 20,
+        "color_scheme": "scheme-2",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "necklace",
+        "products_to_show": 8,
+        "title": "New Arrivals",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "collection_list": {
+      "type": "collection-list",
+      "blocks": {
+        "col_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "rings"
+          }
+        },
+        "col_2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "necklace"
+          }
+        },
+        "col_3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "earrings"
+          }
+        },
+        "col_4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bracelets"
+          }
+        }
+      },
+      "block_order": [
+        "col_1",
+        "col_2",
+        "col_3",
+        "col_4"
+      ],
+      "settings": {
+        "title": "Shop by Category",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "brand_values": {
+      "type": "multicolumn",
+      "blocks": {
+        "col_gold": {
+          "type": "column",
+          "settings": {
+            "title": "Crafted in 14k Gold",
+            "text": "<p>Sterling silver plated in 14k gold and set with natural 5A zircon — made to be worn every day.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "col_sustainable": {
+          "type": "column",
+          "settings": {
+            "title": "95% Recycled Silver",
+            "text": "<p>Our sterling silver is 95% recycled, because beautiful jewelry shouldn't cost the earth.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "col_made": {
+          "type": "column",
+          "settings": {
+            "title": "Made to Last",
+            "text": "<p>Delicate doesn't mean fragile. Our jewelry is designed to become heirlooms — worn every day, passed down forever.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "col_gold",
+        "col_sustainable",
+        "col_made"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "herprint_eclat",
+    "marquee_text",
+    "featured_collection",
+    "collection_list",
+    "brand_values"
+  ]
+}

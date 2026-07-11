@@ -1,0 +1,221 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "invite-hero",
+      "settings": {
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "accent_color": "#7f6464",
+        "eyebrow": "An Invitation",
+        "eyebrow_font": "noto_serif_n4",
+        "eyebrow_size": 11,
+        "eyebrow_spacing": 0.2,
+        "eyebrow_transform": "uppercase",
+        "eyebrow_color": "#7f6464",
+        "title": "You're invited into our world.",
+        "title_font": "libre_bodoni_n5",
+        "title_size": 50,
+        "title_spacing": 0,
+        "title_color": "#8F5161",
+        "subtitle": "Herprint was built by women, for women. Whether you create, lead, or dream — there is a place for you here.",
+        "subtitle_font": "roboto_serif_n4",
+        "subtitle_size": 16,
+        "subtitle_color": "#2a2a2a"
+      }
+    },
+    "muse": {
+      "type": "invite-muse",
+      "blocks": {
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "icon": "✦",
+            "title": "Free Experience",
+            "text": "Receive a Herprint coupon to shop our collection, completely on us."
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "icon": "◇",
+            "title": "No Obligation",
+            "text": "We ask nothing in return. If you love it and want to share, we'd be honoured."
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "icon": "○",
+            "title": "Ongoing Partnership",
+            "text": "Great fits become long-term Herprint friends — with early access, custom pieces, and more."
+          }
+        },
+        "elig_1": {
+          "type": "eligibility",
+          "settings": {
+            "text": "Have 1,000+ followers on any single platform"
+          }
+        },
+        "elig_2": {
+          "type": "eligibility",
+          "settings": {
+            "text": "Create in fashion, beauty, lifestyle or jewelry"
+          }
+        },
+        "elig_3": {
+          "type": "eligibility",
+          "settings": {
+            "text": "Are active on YouTube, Instagram or TikTok"
+          }
+        },
+        "elig_4": {
+          "type": "eligibility",
+          "settings": {
+            "text": "Have an engaged, authentic community"
+          }
+        }
+      },
+      "block_order": [
+        "perk_1",
+        "perk_2",
+        "perk_3",
+        "elig_1",
+        "elig_2",
+        "elig_3",
+        "elig_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "accent_color": "#8F5161",
+        "tag": "Herprint Muse",
+        "tag_font": "noto_serif_n4",
+        "tag_size": 11,
+        "tag_spacing": 0.2,
+        "tag_transform": "uppercase",
+        "tag_color": "#fafaf7",
+        "title": "For the creators in their vibes",
+        "title_font": "libre_bodoni_n5",
+        "title_size": 46,
+        "title_spacing": 0,
+        "title_color": "#8F5161",
+        "lead": "If you create content around fashion, beauty, lifestyle or jewelry — and your community trusts you — we want to gift you a Herprint experience. No strings. Just jewelry that fits your story.",
+        "lead_font": "roboto_serif_n4",
+        "lead_size": 18,
+        "lead_color": "#2A2A2A",
+        "icon_size": 20,
+        "icon_color": "#7f6464",
+        "perk_title_font": "noto_serif_n4",
+        "perk_title_size": 18,
+        "perk_title_color": "#2a2a2a",
+        "perk_text_font": "roboto_serif_n4",
+        "perk_text_size": 14,
+        "perk_text_color": "#2a2a2a",
+        "eligibility_heading": "You may qualify if you —",
+        "elig_heading_font": "noto_serif_n4",
+        "elig_heading_size": 12,
+        "elig_heading_spacing": 0.1,
+        "elig_heading_transform": "uppercase",
+        "elig_heading_color": "#7f6464",
+        "elig_item_font": "roboto_serif_n4",
+        "elig_item_size": 14,
+        "elig_item_color": "#2a2a2a",
+        "cta_label": "Apply as a Muse",
+        "cta_link": "shopify://pages/muse-invitation",
+        "email": "hi@herprint.co",
+        "email_label": "Email us directly",
+        "btn_font": "roboto_serif_n4",
+        "btn_size": 12,
+        "btn_spacing": 0.1,
+        "btn_transform": "uppercase",
+        "btn_bg_color": "#7f6464",
+        "btn_text_color": "#fafaf7",
+        "btn_text_color_ghost": "#7f6464"
+      }
+    },
+    "partner": {
+      "type": "invite-partner",
+      "blocks": {
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "icon": "✦",
+            "title": "Build with Us",
+            "text": "Join our core team as a regional partner, brand ambassador or creative collaborator."
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "icon": "◇",
+            "title": "Grow Together",
+            "text": "Access resources, mentorship and a global network of women who lift each other up."
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "icon": "○",
+            "title": "Make an Impact",
+            "text": "A portion of every sale goes into our fund — supporting children and single mothers worldwide."
+          }
+        }
+      },
+      "block_order": [
+        "perk_1",
+        "perk_2",
+        "perk_3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-636b8a2b-0e73-4da9-8c5d-94025a339392",
+        "accent_color": "#7f6464",
+        "tag": "Herprint Partner",
+        "tag_font": "noto_serif_n4",
+        "tag_size": 11,
+        "tag_spacing": 0.2,
+        "tag_transform": "uppercase",
+        "tag_color": "#fafaf7",
+        "title": "For the ambitious women ready to build something real.",
+        "title_font": "libre_bodoni_n5",
+        "title_size": 46,
+        "title_spacing": 0,
+        "title_color": "#8F5161",
+        "lead": "We are looking for driven, passionate women around the world to grow with us. Herprint is not just a jewelry brand — it is a movement.",
+        "lead_font": "roboto_serif_n4",
+        "lead_size": 18,
+        "lead_color": "#2a2a2a",
+        "icon_size": 20,
+        "icon_color": "#7f6464",
+        "perk_title_font": "noto_serif_n4",
+        "perk_title_size": 18,
+        "perk_title_color": "#2a2a2a",
+        "perk_text_font": "roboto_serif_n4",
+        "perk_text_size": 14,
+        "perk_text_color": "#2a2a2a",
+        "cta_label": "Become a Partner",
+        "cta_link": "",
+        "email": "partner@herprint.co",
+        "email_label": "Tell us your story",
+        "btn_font": "roboto_serif_n4",
+        "btn_size": 12,
+        "btn_spacing": 0.1,
+        "btn_transform": "uppercase",
+        "btn_bg_color": "#7f6464",
+        "btn_text_color": "#fafaf7",
+        "btn_text_color_ghost": "#7f6464"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "partner",
+    "muse"
+  ]
+}
