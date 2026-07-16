@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-16",
+  "status": "PASS",
+  "productionTheme": {
+    "id": "154908491968",
+    "name": "Dawn - Stage 2 SEO QA 2026-07-16",
+    "unchanged": true
+  },
+  "stage3Theme": {
+    "id": "154911768768",
+    "name": "Dawn - Stage 3 Shop All QA 2026-07-16",
+    "role": "unpublished"
+  },
+  "operations": [
+    {
+      "type": "collection_visibility_and_redirect",
+      "collectionId": "352250527936",
+      "source": "/collections/all-product",
+      "onlineStoreVisible": false,
+      "preRedirectStatus": 404,
+      "redirectId": "437585281216",
+      "destination": "/collections/all",
+      "redirectStatus": 301,
+      "finalStatus": 200
+    },
+    {
+      "type": "collection_visibility_and_redirect",
+      "collectionId": "328963981504",
+      "source": "/collections/frontpage",
+      "onlineStoreVisible": false,
+      "preRedirectStatus": 404,
+      "redirectId": "437585313984",
+      "destination": "/collections/all",
+      "redirectStatus": 301,
+      "finalStatus": 200
+    },
+    {
+      "type": "collection_title",
+      "collectionId": "347464892608",
+      "previousTitle": "Necklace",
+      "currentTitle": "Necklaces",
+      "handle": "/collections/necklace",
+      "status": 200,
+      "canonical": "https://herprint.co/collections/necklace"
+    }
+  ],
+  "postOperationQa": {
+    "production": "PASS",
+    "stage3Preview": "PASS",
+    "themePublished": false
+  }
+}

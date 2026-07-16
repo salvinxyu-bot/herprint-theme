@@ -60,9 +60,41 @@
     "productJsonLd": "PASS",
     "ga4": "PASS"
   },
+  "adminOperations": {
+    "status": "PASS",
+    "allProduct": {
+      "collectionId": "352250527936",
+      "onlineStoreVisible": false,
+      "preRedirectStatus": 404,
+      "redirectId": "437585281216",
+      "redirectFrom": "/collections/all-product",
+      "redirectTo": "/collections/all",
+      "redirectStatus": 301,
+      "finalStatus": 200
+    },
+    "frontpage": {
+      "collectionId": "328963981504",
+      "onlineStoreVisible": false,
+      "preRedirectStatus": 404,
+      "redirectId": "437585313984",
+      "redirectFrom": "/collections/frontpage",
+      "redirectTo": "/collections/all",
+      "redirectStatus": 301,
+      "finalStatus": 200
+    },
+    "necklaces": {
+      "collectionId": "347464892608",
+      "previousTitle": "Necklace",
+      "currentTitle": "Necklaces",
+      "handle": "/collections/necklace",
+      "status": 200,
+      "canonical": "https://herprint.co/collections/necklace"
+    },
+    "stage3PreviewRegression": "PASS"
+  },
   "production": {
     "published": false,
-    "adminCollectionChanges": false,
+    "adminCollectionChanges": true,
     "liveTitleObservedAnonymously": "Products – herprint"
   }
 }

@@ -9,7 +9,7 @@ Date: 2026-07-16
 - QA theme role: unpublished
 - Preview: `https://15icsx-ru.myshopify.com?preview_theme_id=154911768768`
 - Production theme after QA: unchanged at `154908491968`
-- Shopify Admin collection and redirect operations: not performed
+- Shopify Admin collection and redirect operations: completed and verified
 - Publication: not performed
 
 ## File Integrity
@@ -23,6 +23,16 @@ upload, both remote files were pulled back and matched the proposal exactly.
 | `layout/theme.liquid` | `a657b3d81ce70eb318a82fe7ba95da73fc4eb3b1643f73e8bf78285f1bc5802b` | `8329e3988e6807ee4b7b17e3a8489da6d56ad6f24f4dd4571b30f210444378c1` | Exact match |
 | `sections/main-collection-banner.liquid` | `20eca13abf715d2cd2ffa75e864daeb29e5e61c6616808a6e12d641d7ed36810` | `797c77088a98c150ead5e11dc566687b041255a50bea6b67c278ce6a62fe6860` | Exact match |
 
+## Shopify Admin Operations
+
+- Collection `352250527936` (`/collections/all-product`) was removed from the Online Store channel without deletion. The route returned 404 before redirect creation.
+- Redirect `437585281216` now sends `/collections/all-product` to `/collections/all`.
+- Collection `328963981504` (`/collections/frontpage`) was removed from the Online Store channel without deletion. The route returned 404 before redirect creation.
+- Redirect `437585313984` now sends `/collections/frontpage` to `/collections/all`.
+- Collection `347464892608` was renamed from `Necklace` to `Necklaces`; its handle remains `/collections/necklace`.
+- Both old routes return Shopify-native 301 responses and finish at a 200 response on `/collections/all`.
+- `/collections/necklace` returns 200 with title and H1 `Necklaces` and a self-canonical URL.
+
 ## Browser QA
 
 - `/collections/all` title, meta description, canonical, Open Graph title and description, visible H1, and introduction matched the proposal.
@@ -35,16 +45,19 @@ upload, both remote files were pulled back and matched the proposal exactly.
 - `/collections/rings` retained its existing title, H1, canonical, and product grid; the Stage 3 override did not apply.
 - The sampled product retained its title, description, H1, canonical, Product JSON-LD, and add-to-cart control.
 - Add to cart, the cart drawer, and the checkout button worked. The test item was removed and the cart returned to empty.
+- Post-operation QA confirmed both redirects inside the unpublished Stage 3 preview.
+- Post-operation QA confirmed `Necklaces` in the unpublished Stage 3 preview with the unchanged `/collections/necklace` canonical.
+- Production still serves theme `154908491968`; Stage 3 theme `154911768768` remains listed under Draft themes.
 
 ## Evidence
 
 - `evidence/browser-qa.json`
+- `evidence/admin-operations.json`
 - `evidence/shop-all-desktop-1440x900.png`
 - `evidence/shop-all-mobile-390x844.png`
 
 ## Remaining Gates
 
-1. Approve and complete the separate Shopify Admin URL/indexability operations.
-2. Recheck the unpublished theme after those operations.
-3. Obtain explicit human approval immediately before publication.
-4. Publish only theme `154911768768` and run production smoke QA.
+1. Obtain explicit human approval immediately before publication.
+2. Publish only theme `154911768768`.
+3. Run production smoke QA immediately after publication.
