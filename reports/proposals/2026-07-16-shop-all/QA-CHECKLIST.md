@@ -1,6 +1,6 @@
 # Stage 3 Shop All QA Checklist
 
-Status: proposal validation in progress; production untouched
+Status: duplicate-theme remote QA passed; production untouched
 
 ## Source Gate
 
@@ -9,7 +9,7 @@ Status: proposal validation in progress; production untouched
 - [x] Proposal is limited to two files.
 - [x] Deterministic verifier passes.
 - [x] Full-theme check matches the source baseline: 31 existing findings, no new offense.
-- [ ] Refresh both files from the current live theme immediately before remote QA.
+- [x] Refresh both files from the current live theme immediately before remote QA.
 
 ## Content Gate
 
@@ -21,13 +21,13 @@ Status: proposal validation in progress; production untouched
 
 ## Duplicate-Theme Gate
 
-- [ ] Create or refresh an unpublished QA theme from the current live theme.
-- [ ] Upload only `layout/theme.liquid` and `sections/main-collection-banner.liquid`.
-- [ ] Pull both remote files back and compare byte-for-byte.
-- [ ] Confirm homepage, product, and non-`all` collection metadata remain unchanged.
-- [ ] Confirm `/collections/all` title, meta, H1, canonical, Open Graph fields, and introduction.
-- [ ] Confirm pagination, sort, filter, product cards, add to cart, and cart drawer.
-- [ ] Save desktop and 390 x 844 mobile screenshots.
+- [x] Create or refresh an unpublished QA theme from the current live theme.
+- [x] Upload only `layout/theme.liquid` and `sections/main-collection-banner.liquid`.
+- [x] Pull both remote files back and compare byte-for-byte.
+- [x] Confirm homepage, product, and non-`all` collection metadata remain unchanged.
+- [x] Confirm `/collections/all` title, meta, H1, canonical, Open Graph fields, and introduction.
+- [x] Confirm pagination, sort, filter, product cards, add to cart, and cart drawer.
+- [x] Save desktop and 390 x 844 mobile screenshots.
 
 ## Release Gate
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "preparedAt": "2026-07-16",
-  "status": "proposal-ready-production-untouched",
+  "status": "remote-qa-passed-production-untouched",
   "targetUrl": "https://herprint.co/collections/all",
   "sourceTheme": {
     "id": "154908491968",
@@ -28,6 +28,17 @@
     "metaDescriptionCharacters": 146,
     "visibleIntroductionWords": 20
   },
+  "remoteQa": {
+    "themeId": "154911768768",
+    "themeName": "Dawn - Stage 3 Shop All QA 2026-07-16",
+    "role": "unpublished",
+    "previewUrl": "https://15icsx-ru.myshopify.com?preview_theme_id=154911768768",
+    "sourceRefreshMatched": true,
+    "pullbackMatched": true,
+    "desktopPassed": true,
+    "mobile390x844Passed": true,
+    "productionThemeIdUnchanged": "154908491968"
+  },
   "prohibitedChanges": [
     "URL or canonical",
     "product membership",
@@ -39,10 +50,9 @@
     "non-all collection output"
   ],
   "remainingReleaseGates": [
-    "Refresh current live source",
-    "Duplicate-theme remote QA",
-    "Complete approved Shopify Admin URL operations",
+    "Complete separately approved Shopify Admin URL operations",
     "Record explicit human approval",
+    "Publish tested duplicate theme",
     "Production smoke QA"
   ]
 }

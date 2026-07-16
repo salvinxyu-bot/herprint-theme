@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-16",
+  "status": "PASS",
+  "theme": {
+    "id": "154911768768",
+    "name": "Dawn - Stage 3 Shop All QA 2026-07-16",
+    "role": "unpublished",
+    "sourceLiveThemeId": "154908491968",
+    "productionThemeAfterQa": "154908491968"
+  },
+  "fileIntegrity": {
+    "sourceRefreshMatched": true,
+    "pullbackMatched": true,
+    "uploadedFiles": [
+      "layout/theme.liquid",
+      "sections/main-collection-banner.liquid"
+    ]
+  },
+  "shopAllPage1": {
+    "title": "Dainty Jewelry: Rings, Necklaces & More – herprint",
+    "description": "Shop Herprint's collection of dainty rings, necklaces, earrings, and bracelets for everyday wear, thoughtful gifts, and meaningful moments online.",
+    "canonical": "https://herprint.co/collections/all",
+    "openGraphTitle": "Dainty Jewelry: Rings, Necklaces & More",
+    "openGraphDescriptionMatched": true,
+    "accessibleH1": "Collection: All Jewelry",
+    "visibleH1": "All Jewelry",
+    "introductionMatched": true,
+    "productCards": 16,
+    "filterPresent": true,
+    "sortPresent": true,
+    "nextPage": "/collections/all?page=2"
+  },
+  "shopAllPage2": {
+    "title": "Dainty Jewelry: Rings, Necklaces & More – Page 2 – herprint",
+    "canonical": "https://herprint.co/collections/all?page=2",
+    "productCards": 16,
+    "previousPage": "/collections/all?page=1",
+    "nextPage": "/collections/all?page=3"
+  },
+  "responsive": {
+    "desktop": "PASS",
+    "mobileViewport": "390x844",
+    "mobile": "PASS",
+    "mobileClientWidth": 390,
+    "mobileScrollWidth": 390,
+    "horizontalOverflow": false
+  },
+  "interactions": {
+    "sortPriceAscending": "PASS",
+    "addToCart": "PASS",
+    "cartDrawer": "PASS",
+    "checkoutButtonPresent": true,
+    "testCartCleared": true
+  },
+  "regressions": {
+    "homepage": "PASS",
+    "ringsCollection": "PASS",
+    "sampleProduct": "PASS",
+    "productJsonLd": "PASS",
+    "ga4": "PASS"
+  },
+  "production": {
+    "published": false,
+    "adminCollectionChanges": false,
+    "liveTitleObservedAnonymously": "Products – herprint"
+  }
+}
