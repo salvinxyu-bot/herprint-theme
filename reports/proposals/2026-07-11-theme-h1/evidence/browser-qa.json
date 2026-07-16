@@ -1,0 +1,57 @@
+{
+  "capturedAt": "2026-07-16",
+  "themeId": "154908491968",
+  "themeRole": "unpublished",
+  "homepage": {
+    "viewportDesktop": "1440x900",
+    "viewportMobile": "390x844",
+    "h1s": ["Jewelry that marks your every becoming."],
+    "title": "Dainty Jewelry & Meaningful Gifts | Herprint",
+    "canonical": "https://herprint.co/",
+    "ga4MeasurementIdPresent": true,
+    "desktopNavigation": true,
+    "stickyNavigation": true,
+    "mobileMenu": true
+  },
+  "products": [
+    {
+      "category": "rings",
+      "path": "/products/minimalist-gold-baguette-solitaire-ring",
+      "h1": "Minimalist Gold Baguette Solitaire Ring",
+      "canonical": true,
+      "productJsonLd": true,
+      "offerPriceCurrencyAvailability": true
+    },
+    {
+      "category": "necklace",
+      "path": "/products/dainty-silver-green-heart-crystal-necklace",
+      "h1": "Dainty Silver Green Heart Crystal Necklace",
+      "canonical": true,
+      "productJsonLd": true,
+      "offerPriceCurrencyAvailability": true
+    },
+    {
+      "category": "earrings",
+      "path": "/products/earthy-mustard-resin-wood-square-drop-earrings",
+      "h1": "Earthy Mustard Resin & Wood Square Drop Earrings",
+      "canonical": true,
+      "productJsonLd": true,
+      "offerPriceCurrencyAvailability": true
+    },
+    {
+      "category": "bracelets",
+      "path": "/products/dainty-silver-green-heart-crystal-bracelet",
+      "h1": "Dainty Silver Green Heart Crystal Bracelet",
+      "canonical": true,
+      "productJsonLd": true,
+      "offerPriceCurrencyAvailability": true
+    }
+  ],
+  "cart": {
+    "addToCart": "pass",
+    "cartDrawer": "pass",
+    "testItemRemoved": true,
+    "checkoutButtonPresent": true,
+    "checkoutPage": "deferred-to-immediate-post-publication-smoke"
+  }
+}

@@ -1,12 +1,12 @@
 # Stage 2 Theme Semantics Proposal
 
-Status: **prepared locally, not applied to Shopify**.
+Status: **duplicate-theme QA passed; publication pending human approval**.
 
-Publication is blocked until the four exact assets are pulled from the current
-live theme and the package is verified against those refreshed sources. The
-Shopify CLI refresh attempt on 2026-07-16 returned HTTP 401, so this package
-continues to use the committed 2026-07-11 live-theme backup at Git commit
-`274c9e1` as its construction source.
+The four exact assets were pulled again from the current live Dawn theme on
+2026-07-16. Their hashes still match the committed 2026-07-11 baseline, and the
+deterministic verifier passed against the refreshed source. Only the four
+manifest files were uploaded to unpublished theme `154908491968`, named
+`Dawn - Stage 2 SEO QA 2026-07-16`. The published theme remains unchanged.
 
 ## Scope
 
@@ -42,16 +42,22 @@ HERPRINT_LIVE_THEME_SOURCE=/path/to/new-live-snapshot node verify.js
 
 Do not bypass a failure. Rebuild the proposal from the refreshed files.
 
-## Safe Application Sequence
+## Release State
 
-1. Restore Shopify CLI or equivalent read-only theme access without sharing a token.
-2. Confirm the current live theme ID and pull the four exact assets.
-3. Re-run `verify.js` against the refreshed snapshot.
-4. Duplicate the current live theme.
-5. Apply only the four manifest files to the duplicate theme.
-6. Complete every item in `QA-CHECKLIST.md`.
-7. Obtain explicit human approval immediately before publication.
-8. Save the published assets and release evidence back to Git and the SEO changelog.
+Completed:
+
+1. Restored dedicated Theme Access authentication without storing a password in Git.
+2. Confirmed live theme `141871349952` and pulled the four exact assets.
+3. Re-ran `verify.js` against the refreshed snapshot with a PASS result.
+4. Created unpublished duplicate theme `154908491968`.
+5. Applied only the four manifest files and pulled them back for byte-for-byte comparison.
+6. Passed desktop/mobile homepage and four-category product browser QA.
+
+Remaining:
+
+1. Review the unpublished preview and record explicit human approval immediately before publication.
+2. Publish only after that approval.
+3. Run the production smoke test, including checkout handoff, then save the release evidence and SEO changelog entry.
 
 See `manifest.json` for source and proposal hashes, prohibited changes, and the
 release gates.

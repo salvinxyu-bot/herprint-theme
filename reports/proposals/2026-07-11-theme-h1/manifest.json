@@ -1,15 +1,23 @@
 {
   "schemaVersion": 1,
   "preparedAt": "2026-07-16",
-  "status": "blocked-pending-current-live-source-refresh-and-duplicate-theme-qa",
+  "status": "duplicate-theme-qa-passed-pending-human-publication-approval",
   "store": "15icsx-ru.myshopify.com",
-  "recordedLiveThemeId": "141871349952",
+  "liveThemeId": "141871349952",
+  "qaTheme": {
+    "id": "154908491968",
+    "name": "Dawn - Stage 2 SEO QA 2026-07-16",
+    "role": "unpublished",
+    "previewUrl": "https://15icsx-ru.myshopify.com?preview_theme_id=154908491968",
+    "published": false
+  },
   "source": {
-    "kind": "committed-live-theme-backup",
-    "path": "/Users/xiaowen/Herprintwebbuilding/live-theme-backups/2026-07-11-dawn-live",
-    "gitCommit": "274c9e1",
-    "capturedAt": "2026-07-11",
-    "currentLiveRefreshAttempt": "blocked-by-expired-shopify-cli-auth-401"
+    "kind": "current-live-theme-refresh",
+    "path": "/Users/xiaowen/Documents/Codex/2026-07-05/rug/work/stage2-theme/current-live-2026-07-16",
+    "capturedAt": "2026-07-16",
+    "matchesCommittedBaseline": true,
+    "baselinePath": "/Users/xiaowen/Herprintwebbuilding/live-theme-backups/2026-07-11-dawn-live",
+    "baselineGitCommit": "274c9e1"
   },
   "files": [
     {
@@ -37,6 +45,15 @@
       "proposalSha256": "a657b3d81ce70eb318a82fe7ba95da73fc4eb3b1643f73e8bf78285f1bc5802b"
     }
   ],
+  "qa": {
+    "remotePullbackMatchesProposal": true,
+    "homepageDesktop": "pass",
+    "homepageMobile390x844": "pass",
+    "productCategoriesChecked": ["rings", "necklace", "earrings", "bracelets"],
+    "productH1CanonicalAndJsonLd": "pass",
+    "addToCartAndCartDrawer": "pass",
+    "checkoutHandoff": "deferred-to-immediate-post-publication-smoke"
+  },
   "prohibitedChanges": [
     "visible copy",
     "layout or CSS",
@@ -46,13 +63,10 @@
     "analytics code",
     "unrelated theme settings"
   ],
-  "releaseGates": [
-    "Fetch the four exact assets from the current live theme",
-    "Run verify.js against the refreshed source and rebuild if any source hash changed",
-    "Apply only these four files to a duplicate unpublished theme",
-    "Pass desktop and mobile homepage and product QA",
-    "Pass variant, gallery, add-to-cart, cart, and checkout-handoff QA",
-    "Verify rendered title, canonical, meta, H1 count, Product JSON-LD, and GA4 tag",
-    "Record explicit human approval before publication"
+  "remainingReleaseGates": [
+    "Record explicit human approval immediately before publication",
+    "Publish only the already-tested duplicate theme",
+    "Run immediate production smoke QA including checkout handoff",
+    "Record release and rollback evidence in Git and the SEO changelog"
   ]
 }

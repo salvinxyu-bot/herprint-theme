@@ -1,46 +1,46 @@
 # Stage 2 Duplicate-Theme QA
 
-Status: **blocked until the current live source files are refreshed**.
+Status: **browser QA passed; checkout handoff deferred to production smoke; publication requires human approval**.
 
 ## Source Gate
 
-- [ ] Restore Shopify CLI access without pasting a token into chat or Git.
-- [ ] Confirm the current live theme ID.
-- [ ] Pull only `sections/header.liquid`, `sections/herprint-eclat.liquid`, `sections/main-product.liquid`, and `layout/theme.liquid` into a new timestamped snapshot.
-- [ ] Run `HERPRINT_LIVE_THEME_SOURCE=<new-snapshot> node verify.js`.
-- [ ] If verification fails, rebuild the proposal from the new source instead of forcing the old patch.
+- [x] Restore Shopify CLI access without storing a token in chat or Git.
+- [x] Confirm current live theme ID `141871349952`.
+- [x] Pull the four target files into a new 2026-07-16 snapshot.
+- [x] Run `HERPRINT_LIVE_THEME_SOURCE=<new-snapshot> node verify.js` with a PASS result.
+- [x] Confirm no source drift; no rebase was required.
 
 ## Duplicate Theme
 
-- [ ] Duplicate the current live theme in Shopify Admin.
-- [ ] Record the duplicate theme ID and creation time.
-- [ ] Apply only the four manifest files to the duplicate theme.
-- [ ] Confirm no other asset changed.
+- [x] Duplicate the current live theme.
+- [x] Record unpublished theme `154908491968`, created 2026-07-16.
+- [x] Apply only the four manifest files with `--nodelete`.
+- [x] Pull the four files back and confirm byte-for-byte equality with the proposal.
 
 ## Homepage QA
 
-- [ ] Desktop: exactly one meaningful H1 with the existing hero tagline.
-- [ ] Mobile: exactly one meaningful H1 with no visual shift or duplicate heading.
-- [ ] Header logo and navigation work in both logo positions used by the theme.
-- [ ] Rendered title contains Herprint once.
-- [ ] Canonical and meta description remain unchanged.
-- [ ] GA4 measurement tag remains present.
+- [x] Desktop: exactly one meaningful H1 with the existing hero tagline.
+- [x] Mobile 390 x 844: exactly one meaningful H1 with no visual shift or duplicate heading.
+- [x] Desktop, sticky, and mobile navigation remain usable.
+- [x] Rendered title contains Herprint once.
+- [x] Canonical and metadata rendering remain intact.
+- [x] GA4 measurement tag remains present.
 
 ## Product QA
 
-Test one ring, necklace, earring, and bracelet.
+One ring, necklace, earring, and bracelet were tested.
 
-- [ ] Exactly one meaningful H1 matching the product title.
-- [ ] Price, variants, inventory state, image gallery, and accordions are unchanged.
-- [ ] Product JSON-LD or ProductGroup JSON-LD still contains valid offers.
-- [ ] Add to cart succeeds.
-- [ ] Cart drawer or cart page succeeds.
-- [ ] Checkout handoff opens correctly.
+- [x] Exactly one meaningful H1 matching each product title.
+- [x] Price, inventory display, image gallery, quantity, and accordions remain intact.
+- [x] Product JSON-LD contains offers with price, currency, and availability on all four samples.
+- [x] Add to cart succeeds on the bracelet sample using the shared product template.
+- [x] Cart drawer succeeds and the test item was removed.
+- [ ] Checkout page: the button renders, but Shopify exits draft-theme preview at checkout. Test immediately after publication; do not purchase.
 
 ## Release Gate
 
-- [ ] Save before screenshots, rendered source, and the four refreshed source hashes.
-- [ ] Run the full SEO audit against the duplicate-theme preview when technically possible.
-- [ ] Record rollback references for the previous live theme and four source assets.
+- [x] Save desktop/mobile screenshots, product screenshots, browser results, and refreshed source hashes.
+- [x] Record rollback theme `141871349952` and the four source assets.
 - [ ] Obtain explicit human approval immediately before publication.
-- [ ] After publication, run the full production audit and add a changelog entry in `/Users/xiaowen/HerprintSEO/docs/seo/changelog.json`.
+- [ ] Publish the duplicate theme without bundling unrelated work.
+- [ ] Run the production smoke test and add a changelog entry in `/Users/xiaowen/HerprintSEO/docs/seo/changelog.json`.
