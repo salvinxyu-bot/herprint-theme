@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "preparedAt": "2026-07-16",
+  "status": "proposal-ready-production-untouched",
+  "targetUrl": "https://herprint.co/collections/all",
+  "sourceTheme": {
+    "id": "154908491968",
+    "name": "Dawn - Stage 2 SEO QA 2026-07-16",
+    "role": "live"
+  },
+  "files": [
+    {
+      "file": "layout/theme.liquid",
+      "purpose": "Provide all-collection-only title and meta values, including Open Graph values",
+      "sourceSha256": "a657b3d81ce70eb318a82fe7ba95da73fc4eb3b1643f73e8bf78285f1bc5802b",
+      "proposalSha256": "8329e3988e6807ee4b7b17e3a8489da6d56ad6f24f4dd4571b30f210444378c1"
+    },
+    {
+      "file": "sections/main-collection-banner.liquid",
+      "purpose": "Provide all-collection-only visible H1 and introduction",
+      "sourceSha256": "20eca13abf715d2cd2ffa75e864daeb29e5e61c6616808a6e12d641d7ed36810",
+      "proposalSha256": "797c77088a98c150ead5e11dc566687b041255a50bea6b67c278ce6a62fe6860"
+    }
+  ],
+  "proposedOutput": {
+    "searchTitleWithoutBrandSuffix": "Dainty Jewelry: Rings, Necklaces & More",
+    "visibleH1": "All Jewelry",
+    "metaDescriptionCharacters": 146,
+    "visibleIntroductionWords": 20
+  },
+  "prohibitedChanges": [
+    "URL or canonical",
+    "product membership",
+    "sorting or filtering",
+    "layout or CSS",
+    "JavaScript",
+    "analytics",
+    "commerce behavior",
+    "non-all collection output"
+  ],
+  "remainingReleaseGates": [
+    "Refresh current live source",
+    "Duplicate-theme remote QA",
+    "Complete approved Shopify Admin URL operations",
+    "Record explicit human approval",
+    "Production smoke QA"
+  ]
+}
