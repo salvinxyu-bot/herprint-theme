@@ -1,11 +1,16 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "preparedAt": "2026-07-16",
-  "status": "remote-qa-passed-production-untouched",
+  "status": "published-production-cache-pending",
   "targetUrl": "https://herprint.co/collections/all",
-  "sourceTheme": {
+  "previousLiveTheme": {
     "id": "154908491968",
     "name": "Dawn - Stage 2 SEO QA 2026-07-16",
+    "role": "previous-live"
+  },
+  "liveTheme": {
+    "id": "154911768768",
+    "name": "Dawn - Stage 3 Shop All QA 2026-07-16",
     "role": "live"
   },
   "files": [
@@ -13,13 +18,15 @@
       "file": "layout/theme.liquid",
       "purpose": "Provide all-collection-only title and meta values, including Open Graph values",
       "sourceSha256": "a657b3d81ce70eb318a82fe7ba95da73fc4eb3b1643f73e8bf78285f1bc5802b",
-      "proposalSha256": "8329e3988e6807ee4b7b17e3a8489da6d56ad6f24f4dd4571b30f210444378c1"
+      "proposalSha256": "8329e3988e6807ee4b7b17e3a8489da6d56ad6f24f4dd4571b30f210444378c1",
+      "livePullbackSha256": "8329e3988e6807ee4b7b17e3a8489da6d56ad6f24f4dd4571b30f210444378c1"
     },
     {
       "file": "sections/main-collection-banner.liquid",
       "purpose": "Provide all-collection-only visible H1 and introduction",
       "sourceSha256": "20eca13abf715d2cd2ffa75e864daeb29e5e61c6616808a6e12d641d7ed36810",
-      "proposalSha256": "797c77088a98c150ead5e11dc566687b041255a50bea6b67c278ce6a62fe6860"
+      "proposalSha256": "797c77088a98c150ead5e11dc566687b041255a50bea6b67c278ce6a62fe6860",
+      "livePullbackSha256": "797c77088a98c150ead5e11dc566687b041255a50bea6b67c278ce6a62fe6860"
     }
   ],
   "proposedOutput": {
@@ -31,13 +38,25 @@
   "remoteQa": {
     "themeId": "154911768768",
     "themeName": "Dawn - Stage 3 Shop All QA 2026-07-16",
-    "role": "unpublished",
     "previewUrl": "https://15icsx-ru.myshopify.com?preview_theme_id=154911768768",
     "sourceRefreshMatched": true,
     "pullbackMatched": true,
     "desktopPassed": true,
-    "mobile390x844Passed": true,
-    "productionThemeIdUnchanged": "154908491968"
+    "mobile390x844Passed": true
+  },
+  "publication": {
+    "approved": true,
+    "published": true,
+    "liveThemeId": "154911768768",
+    "forceSwitchApproved": true,
+    "forceSwitchSequence": [
+      "154908491968",
+      "154911768768"
+    ],
+    "livePullbackMatched": true,
+    "productionSmokeStatus": "PASS_WITH_SHOPIFY_PAGE_CACHE_EXCEPTION",
+    "cachePendingUrl": "https://herprint.co/collections/all",
+    "cachePendingEtag": "W/\"page_cache:68814373056:CollectionDetailsController:53a4db53dea8c2aafeacc81cb8505b70\""
   },
   "prohibitedChanges": [
     "URL or canonical",
@@ -49,10 +68,9 @@
     "commerce behavior",
     "non-all collection output"
   ],
-  "remainingReleaseGates": [
-    "Complete separately approved Shopify Admin URL operations",
-    "Record explicit human approval",
-    "Publish tested duplicate theme",
-    "Production smoke QA"
+  "remainingFollowUp": [
+    "Confirm the exact /collections/all route page cache has refreshed",
+    "Escalate the route-specific stale page cache to Shopify Support if it persists",
+    "Do not mutate collection content solely to force invalidation without separate approval"
   ]
 }

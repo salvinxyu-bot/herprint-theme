@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "date": "2026-07-16",
-  "status": "PASS",
+  "status": "PASS_WITH_PRODUCTION_CACHE_EXCEPTION",
   "theme": {
     "id": "154911768768",
     "name": "Dawn - Stage 3 Shop All QA 2026-07-16",
-    "role": "unpublished",
+    "role": "live",
     "sourceLiveThemeId": "154908491968",
-    "productionThemeAfterQa": "154908491968"
+    "productionThemeAfterQa": "154911768768"
   },
   "fileIntegrity": {
     "sourceRefreshMatched": true,
@@ -93,8 +93,26 @@
     "stage3PreviewRegression": "PASS"
   },
   "production": {
-    "published": false,
+    "published": true,
+    "liveThemeId": "154911768768",
     "adminCollectionChanges": true,
-    "liveTitleObservedAnonymously": "Products – herprint"
+    "livePullbackMatched": true,
+    "homepage": "PASS",
+    "sampleProduct": "PASS",
+    "necklacesCollection": "PASS",
+    "allPage1QueryVariant": "PASS",
+    "allSortQueryVariant": "PASS",
+    "redirects": "PASS",
+    "exactShopAllRoot": {
+      "status": "SHOPIFY_PAGE_CACHE_PENDING",
+      "httpStatus": 200,
+      "canonical": "https://herprint.co/collections/all",
+      "titleObserved": "Products – herprint",
+      "accessibleH1Observed": "Collection: Products",
+      "descriptionObserved": null,
+      "assetRevisionObserved": "t/4",
+      "serverTimingLiveThemeId": "154911768768",
+      "etag": "W/\"page_cache:68814373056:CollectionDetailsController:53a4db53dea8c2aafeacc81cb8505b70\""
+    }
   }
 }

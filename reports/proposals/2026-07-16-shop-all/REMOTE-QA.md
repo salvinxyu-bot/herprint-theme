@@ -4,13 +4,14 @@ Date: 2026-07-16
 
 ## Theme Boundary
 
-- Source/live theme: `154908491968` (`Dawn - Stage 2 SEO QA 2026-07-16`)
-- QA theme: `154911768768` (`Dawn - Stage 3 Shop All QA 2026-07-16`)
-- QA theme role: unpublished
+- Previous live theme: `154908491968` (`Dawn - Stage 2 SEO QA 2026-07-16`)
+- Published theme: `154911768768` (`Dawn - Stage 3 Shop All QA 2026-07-16`)
+- Published theme role: live
 - Preview: `https://15icsx-ru.myshopify.com?preview_theme_id=154911768768`
-- Production theme after QA: unchanged at `154908491968`
+- Production theme after release: `154911768768`
 - Shopify Admin collection and redirect operations: completed and verified
-- Publication: not performed
+- Publication: performed after explicit human approval
+- Forced cache-refresh switch: `154908491968` published temporarily, then `154911768768` immediately republished after explicit human approval
 
 ## File Integrity
 
@@ -47,17 +48,29 @@ upload, both remote files were pulled back and matched the proposal exactly.
 - Add to cart, the cart drawer, and the checkout button worked. The test item was removed and the cart returned to empty.
 - Post-operation QA confirmed both redirects inside the unpublished Stage 3 preview.
 - Post-operation QA confirmed `Necklaces` in the unpublished Stage 3 preview with the unchanged `/collections/necklace` canonical.
-- Production still serves theme `154908491968`; Stage 3 theme `154911768768` remains listed under Draft themes.
+- Production now serves theme `154911768768`.
+
+## Production Release
+
+- Shopify CLI publication of theme `154911768768` succeeded.
+- A live pullback after publication matched both approved proposal files byte-for-byte.
+- Homepage, sampled product, `/collections/necklace`, `/collections/all?page=1`, and `/collections/all?sort_by=best-selling` passed production smoke QA and served the Stage 3 theme asset revision.
+- `/collections/all-product` and `/collections/frontpage` retained their Shopify-native 301 redirects to `/collections/all`.
+- The exact canonical root `/collections/all` returns HTTP 200 and a self-canonical URL, but its HTML remains the prior `Products` rendering with no Stage 3 description and the prior theme asset revision.
+- A direct request to Shopify's origin reports live theme `154911768768` in `server-timing` while returning ETag `W/\"page_cache:68814373056:CollectionDetailsController:53a4db53dea8c2aafeacc81cb8505b70\"` and the stale `t/4` assets.
+- Publishing the Stage 2 theme temporarily and immediately republishing Stage 3 did not invalidate this route-specific Shopify page cache.
+- Stage 3 remains live because no commerce, canonical, redirect, analytics, product, or non-`all` collection regression was found. No unsupported content mutation was used to force invalidation.
 
 ## Evidence
 
 - `evidence/browser-qa.json`
 - `evidence/admin-operations.json`
+- `evidence/production-release.json`
 - `evidence/shop-all-desktop-1440x900.png`
 - `evidence/shop-all-mobile-390x844.png`
 
-## Remaining Gates
+## Remaining Follow-Up
 
-1. Obtain explicit human approval immediately before publication.
-2. Publish only theme `154911768768`.
-3. Run production smoke QA immediately after publication.
+1. Recheck the exact `/collections/all` path until Shopify's route page cache serves the Stage 3 output.
+2. Escalate to Shopify Support with `evidence/production-release.json` if the stale page cache persists.
+3. Do not touch collection content solely to force cache invalidation without a separate approved change plan.

@@ -1,6 +1,6 @@
 # Stage 3 Shop All QA Checklist
 
-Status: duplicate-theme remote QA passed; production untouched
+Status: Stage 3 published; production smoke passed except Shopify page cache on exact `/collections/all`
 
 ## Source Gate
 
@@ -31,7 +31,13 @@ Status: duplicate-theme remote QA passed; production untouched
 
 ## Release Gate
 
-- [ ] Complete and snapshot the Shopify Admin URL/indexability operations.
-- [ ] Obtain explicit human approval immediately before publication.
-- [ ] Publish only the tested duplicate theme.
-- [ ] Run production smoke QA and update the SEO changelog.
+- [x] Complete and snapshot the Shopify Admin URL/indexability operations.
+- [x] Obtain explicit human approval immediately before publication.
+- [x] Publish only the tested duplicate theme.
+- [x] Pull the live files back and verify both hashes against the proposal.
+- [x] Run production smoke QA and update the SEO changelog.
+- [ ] Confirm Shopify's route page cache for exact `/collections/all` has refreshed to the Stage 3 output.
+
+The final open item is a platform cache observation, not an unpublished file or
+failed theme deployment. Query variants and the rest of the smoke-test set
+already serve Stage 3. No collection content was mutated to force invalidation.

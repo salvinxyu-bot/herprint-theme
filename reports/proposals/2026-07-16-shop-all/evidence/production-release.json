@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-16",
+  "status": "PASS_WITH_SHOPIFY_PAGE_CACHE_EXCEPTION",
+  "publication": {
+    "explicitHumanApproval": true,
+    "previousLiveThemeId": "154908491968",
+    "publishedThemeId": "154911768768",
+    "publishedThemeName": "Dawn - Stage 3 Shop All QA 2026-07-16",
+    "forceSwitchExplicitlyApproved": true,
+    "forceSwitchSequence": [
+      "154908491968",
+      "154911768768"
+    ],
+    "finalLiveThemeId": "154911768768"
+  },
+  "fileIntegrity": {
+    "livePullbackMatchedProposal": true,
+    "files": [
+      {
+        "file": "layout/theme.liquid",
+        "sha256": "8329e3988e6807ee4b7b17e3a8489da6d56ad6f24f4dd4571b30f210444378c1"
+      },
+      {
+        "file": "sections/main-collection-banner.liquid",
+        "sha256": "797c77088a98c150ead5e11dc566687b041255a50bea6b67c278ce6a62fe6860"
+      }
+    ]
+  },
+  "productionSmoke": {
+    "homepage": "PASS",
+    "sampleProduct": "PASS",
+    "necklacesCollection": "PASS",
+    "allPage1QueryVariant": "PASS",
+    "allBestSellingQueryVariant": "PASS",
+    "allProductRedirect": "PASS",
+    "frontpageRedirect": "PASS",
+    "ga4": "PASS",
+    "productJsonLd": "PASS",
+    "addToCartPresent": true
+  },
+  "exactShopAllRoot": {
+    "url": "https://herprint.co/collections/all",
+    "httpStatus": 200,
+    "canonical": "https://herprint.co/collections/all",
+    "status": "SHOPIFY_PAGE_CACHE_PENDING",
+    "expectedTitle": "Dainty Jewelry: Rings, Necklaces & More – herprint",
+    "observedTitle": "Products – herprint",
+    "expectedVisibleH1": "All Jewelry",
+    "observedAccessibleH1": "Collection: Products",
+    "expectedDescriptionPresent": true,
+    "observedDescription": null,
+    "expectedAssetRevision": "t/5",
+    "observedAssetRevision": "t/4",
+    "directShopifyOriginChecked": true,
+    "serverTimingThemeId": "154911768768",
+    "etag": "W/\"page_cache:68814373056:CollectionDetailsController:53a4db53dea8c2aafeacc81cb8505b70\"",
+    "forceThemeSwitchInvalidatedCache": false
+  },
+  "releaseDecision": {
+    "stage3RemainsLive": true,
+    "rollbackPerformed": false,
+    "reason": "No commerce or cross-page regression was found, live files match the approved proposal, and the remaining exception is isolated to Shopify's route-specific page cache.",
+    "unsupportedContentMutationUsed": false
+  },
+  "followUp": [
+    "Recheck the exact /collections/all path for the Stage 3 title, description, H1, and t/5 assets",
+    "Contact Shopify Support with this evidence if the stale page cache persists",
+    "Require separate approval before any collection-content change intended only to force cache invalidation"
+  ]
+}

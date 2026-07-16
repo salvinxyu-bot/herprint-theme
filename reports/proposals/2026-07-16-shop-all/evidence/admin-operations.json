@@ -3,14 +3,15 @@
   "date": "2026-07-16",
   "status": "PASS",
   "productionTheme": {
-    "id": "154908491968",
-    "name": "Dawn - Stage 2 SEO QA 2026-07-16",
-    "unchanged": true
+    "id": "154911768768",
+    "name": "Dawn - Stage 3 Shop All QA 2026-07-16",
+    "unchangedDuringAdminOperations": true,
+    "publishedAfterAdminOperations": true
   },
   "stage3Theme": {
     "id": "154911768768",
     "name": "Dawn - Stage 3 Shop All QA 2026-07-16",
-    "role": "unpublished"
+    "role": "live"
   },
   "operations": [
     {
@@ -48,6 +49,8 @@
   "postOperationQa": {
     "production": "PASS",
     "stage3Preview": "PASS",
-    "themePublished": false
+    "themePublished": true,
+    "publishedThemeId": "154911768768",
+    "exactShopAllRootCache": "PENDING"
   }
 }
