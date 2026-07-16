@@ -1,15 +1,20 @@
 {
   "schemaVersion": 1,
   "preparedAt": "2026-07-16",
-  "status": "duplicate-theme-qa-passed-pending-human-publication-approval",
+  "status": "published-production-smoke-passed",
   "store": "15icsx-ru.myshopify.com",
-  "liveThemeId": "141871349952",
-  "qaTheme": {
+  "liveThemeId": "154908491968",
+  "releasedTheme": {
     "id": "154908491968",
     "name": "Dawn - Stage 2 SEO QA 2026-07-16",
-    "role": "unpublished",
-    "previewUrl": "https://15icsx-ru.myshopify.com?preview_theme_id=154908491968",
-    "published": false
+    "role": "live",
+    "published": true,
+    "publishedAt": "2026-07-16T10:08:54.703Z"
+  },
+  "rollbackTheme": {
+    "id": "141871349952",
+    "name": "Dawn",
+    "role": "unpublished"
   },
   "source": {
     "kind": "current-live-theme-refresh",
@@ -52,7 +57,11 @@
     "productCategoriesChecked": ["rings", "necklace", "earrings", "bracelets"],
     "productH1CanonicalAndJsonLd": "pass",
     "addToCartAndCartDrawer": "pass",
-    "checkoutHandoff": "deferred-to-immediate-post-publication-smoke"
+    "checkoutHandoff": "pass",
+    "productionSmoke": "pass",
+    "postReleasePullbackMatchesProposal": true,
+    "testCartCleared": true,
+    "purchaseMade": false
   },
   "prohibitedChanges": [
     "visible copy",
@@ -63,10 +72,5 @@
     "analytics code",
     "unrelated theme settings"
   ],
-  "remainingReleaseGates": [
-    "Record explicit human approval immediately before publication",
-    "Publish only the already-tested duplicate theme",
-    "Run immediate production smoke QA including checkout handoff",
-    "Record release and rollback evidence in Git and the SEO changelog"
-  ]
+  "releaseGatesComplete": true
 }

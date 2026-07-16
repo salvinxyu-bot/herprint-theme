@@ -1,6 +1,6 @@
 # Stage 2 Duplicate-Theme QA
 
-Status: **browser QA passed; checkout handoff deferred to production smoke; publication requires human approval**.
+Status: **complete; published and production smoke QA passed**.
 
 ## Source Gate
 
@@ -35,12 +35,12 @@ One ring, necklace, earring, and bracelet were tested.
 - [x] Product JSON-LD contains offers with price, currency, and availability on all four samples.
 - [x] Add to cart succeeds on the bracelet sample using the shared product template.
 - [x] Cart drawer succeeds and the test item was removed.
-- [ ] Checkout page: the button renders, but Shopify exits draft-theme preview at checkout. Test immediately after publication; do not purchase.
+- [x] Checkout handoff opens and renders the production checkout page; no purchase was made.
 
 ## Release Gate
 
 - [x] Save desktop/mobile screenshots, product screenshots, browser results, and refreshed source hashes.
 - [x] Record rollback theme `141871349952` and the four source assets.
-- [ ] Obtain explicit human approval immediately before publication.
-- [ ] Publish the duplicate theme without bundling unrelated work.
-- [ ] Run the production smoke test and add a changelog entry in `/Users/xiaowen/HerprintSEO/docs/seo/changelog.json`.
+- [x] Obtain explicit human approval immediately before publication.
+- [x] Publish the duplicate theme without bundling unrelated work.
+- [x] Run the production smoke test and add a changelog entry in `/Users/xiaowen/HerprintSEO/docs/seo/changelog.json`.

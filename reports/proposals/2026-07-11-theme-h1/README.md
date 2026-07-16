@@ -1,12 +1,14 @@
 # Stage 2 Theme Semantics Proposal
 
-Status: **duplicate-theme QA passed; publication pending human approval**.
+Status: **published; production smoke QA passed**.
 
 The four exact assets were pulled again from the current live Dawn theme on
 2026-07-16. Their hashes still match the committed 2026-07-11 baseline, and the
 deterministic verifier passed against the refreshed source. Only the four
-manifest files were uploaded to unpublished theme `154908491968`, named
-`Dawn - Stage 2 SEO QA 2026-07-16`. The published theme remains unchanged.
+manifest files were uploaded to theme `154908491968`, named
+`Dawn - Stage 2 SEO QA 2026-07-16`. After explicit human approval, that tested
+theme was published on 2026-07-16. The previous live Dawn theme
+`141871349952` remains unpublished as the rollback point.
 
 ## Scope
 
@@ -52,12 +54,10 @@ Completed:
 4. Created unpublished duplicate theme `154908491968`.
 5. Applied only the four manifest files and pulled them back for byte-for-byte comparison.
 6. Passed desktop/mobile homepage and four-category product browser QA.
+7. Recorded explicit human approval immediately before publication.
+8. Published only theme `154908491968`; no file upload was bundled with publication.
+9. Passed production homepage, four-category product, GA4, cart, and checkout-handoff smoke QA.
+10. Pulled the four files from the new live theme and confirmed byte-for-byte equality with the proposal.
 
-Remaining:
-
-1. Review the unpublished preview and record explicit human approval immediately before publication.
-2. Publish only after that approval.
-3. Run the production smoke test, including checkout handoff, then save the release evidence and SEO changelog entry.
-
-See `manifest.json` for source and proposal hashes, prohibited changes, and the
-release gates.
+See `RELEASE.md` for the production result and `manifest.json` for source and
+proposal hashes.

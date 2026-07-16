@@ -1,0 +1,102 @@
+{
+  "capturedAt": "2026-07-16T10:08:54.703Z",
+  "store": "15icsx-ru.myshopify.com",
+  "publishedTheme": {
+    "id": "154908491968",
+    "name": "Dawn - Stage 2 SEO QA 2026-07-16",
+    "role": "live"
+  },
+  "rollbackTheme": {
+    "id": "141871349952",
+    "name": "Dawn",
+    "role": "unpublished"
+  },
+  "homepage": {
+    "canonical": "https://herprint.co/",
+    "ga4": true,
+    "h1s": [
+      "Jewelry that marks your every becoming."
+    ],
+    "previewFrame": false,
+    "title": "Dainty Jewelry & Meaningful Gifts | Herprint",
+    "desktopViewport": "1440x900",
+    "mobileViewport": "390x844",
+    "desktopVisual": "pass",
+    "mobileVisual": "pass"
+  },
+  "products": [
+    {
+      "category": "rings",
+      "path": "/products/minimalist-gold-baguette-solitaire-ring",
+      "addDisabled": false,
+      "addText": "Add to cart",
+      "canonical": "https://herprint.co/products/minimalist-gold-baguette-solitaire-ring",
+      "h1s": [
+        "Minimalist Gold Baguette Solitaire Ring"
+      ],
+      "offerFields": true,
+      "offers": 1,
+      "previewFrame": false,
+      "products": 1,
+      "title": "Minimalist Gold Baguette Solitaire Ring – herprint",
+      "status": "pass"
+    },
+    {
+      "category": "necklace",
+      "path": "/products/dainty-silver-green-heart-crystal-necklace",
+      "addDisabled": false,
+      "addText": "Add to cart",
+      "canonical": "https://herprint.co/products/dainty-silver-green-heart-crystal-necklace",
+      "h1s": [
+        "Dainty Silver Green Heart Crystal Necklace"
+      ],
+      "offerFields": true,
+      "offers": 1,
+      "previewFrame": false,
+      "products": 1,
+      "title": "Dainty Silver Green Heart Crystal Necklace – herprint",
+      "status": "pass"
+    },
+    {
+      "category": "earrings",
+      "path": "/products/earthy-mustard-resin-wood-square-drop-earrings",
+      "addDisabled": false,
+      "addText": "Add to cart",
+      "canonical": "https://herprint.co/products/earthy-mustard-resin-wood-square-drop-earrings",
+      "h1s": [
+        "Earthy Mustard Resin & Wood Square Drop Earrings"
+      ],
+      "offerFields": true,
+      "offers": 1,
+      "previewFrame": false,
+      "products": 1,
+      "title": "Earthy Mustard Resin & Wood Square Drop Earrings – herprint",
+      "status": "pass"
+    },
+    {
+      "category": "bracelets",
+      "path": "/products/dainty-silver-green-heart-crystal-bracelet",
+      "addDisabled": false,
+      "addText": "Add to cart",
+      "canonical": "https://herprint.co/products/dainty-silver-green-heart-crystal-bracelet",
+      "h1s": [
+        "Dainty Silver Green Heart Crystal Bracelet"
+      ],
+      "offerFields": true,
+      "offers": 1,
+      "previewFrame": false,
+      "products": 1,
+      "title": "Dainty Silver Green Heart Crystal Bracelet – herprint",
+      "status": "pass"
+    }
+  ],
+  "commerce": {
+    "addToCart": "pass",
+    "cartDrawer": "pass",
+    "checkoutHandoff": "pass",
+    "checkoutPageTitle": "Checkout - herprint",
+    "testItemRemoved": true,
+    "purchaseMade": false
+  },
+  "rollbackRequired": false
+}

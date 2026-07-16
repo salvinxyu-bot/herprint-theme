@@ -1,21 +1,23 @@
 # Stage 2 QA Report
 
 Date: 2026-07-16
-Status: duplicate-theme QA passed; publication pending human approval
+Status: published; production smoke QA passed
 
 ## Scope
 
-Current published theme:
+Previous published theme and rollback point:
 
 - Name: `Dawn`
 - Theme ID: `141871349952`
+- Current role: unpublished
 - Refreshed source: `/Users/xiaowen/Documents/Codex/2026-07-05/rug/work/stage2-theme/current-live-2026-07-16`
 
-Unpublished QA theme:
+Released theme:
 
 - Name: `Dawn - Stage 2 SEO QA 2026-07-16`
 - Theme ID: `154908491968`
-- Preview: `https://15icsx-ru.myshopify.com?preview_theme_id=154908491968`
+- Current role: live
+- Published after explicit human approval on 2026-07-16
 
 Only these files were uploaded to the QA theme:
 
@@ -24,7 +26,7 @@ Only these files were uploaded to the QA theme:
 - `sections/herprint-eclat.liquid`
 - `sections/main-product.liquid`
 
-The live theme was not modified or published.
+No additional asset upload was bundled with publication.
 
 ## Source And Remote Verification
 
@@ -79,10 +81,22 @@ Screenshots and machine-readable results are stored in `evidence/`.
 The six baseline errors are outside this proposal and remain documented as
 pre-existing work. This package adds no Theme Check finding.
 
-## Remaining Release Gate
+## Production Release Result
 
-1. Human reviews the unpublished preview.
-2. Human gives explicit approval immediately before publication.
-3. Publish the already-tested duplicate theme without adding other changes.
-4. Immediately verify production homepage/product H1s, GA4, add to cart, cart, and checkout handoff.
-5. Save the previous live theme as the rollback reference and add the production release to `/Users/xiaowen/HerprintSEO/docs/seo/changelog.json`.
+The approved theme was published and independently confirmed as live by a
+fresh Shopify theme-list request. The former live theme remains unpublished as
+the rollback point.
+
+Production smoke QA passed:
+
+1. True live mode was confirmed with no Shopify preview bar.
+2. Desktop and 390 x 844 mobile homepage layouts passed visual inspection.
+3. The homepage has one meaningful H1, the expected title and canonical, and the GA4 tag.
+4. Ring, necklace, earrings, and bracelet samples each have one product H1, a self-canonical, and valid Product offer fields.
+5. Add to cart and the cart drawer passed.
+6. Checkout opened and rendered contact, delivery, shipping, and payment sections.
+7. No customer or payment information was entered, no purchase was made, and the test item was removed.
+8. The four new-live assets were pulled again and match the proposal byte-for-byte.
+
+Production screenshots and structured results are stored in `evidence/` and
+the release is recorded in `/Users/xiaowen/HerprintSEO/docs/seo/changelog.json`.
