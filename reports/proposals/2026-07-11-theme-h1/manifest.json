@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "preparedAt": "2026-07-16",
+  "status": "blocked-pending-current-live-source-refresh-and-duplicate-theme-qa",
+  "store": "15icsx-ru.myshopify.com",
+  "recordedLiveThemeId": "141871349952",
+  "source": {
+    "kind": "committed-live-theme-backup",
+    "path": "/Users/xiaowen/Herprintwebbuilding/live-theme-backups/2026-07-11-dawn-live",
+    "gitCommit": "274c9e1",
+    "capturedAt": "2026-07-11",
+    "currentLiveRefreshAttempt": "blocked-by-expired-shopify-cli-auth-401"
+  },
+  "files": [
+    {
+      "file": "sections/header.liquid",
+      "purpose": "Demote two homepage logo wrappers from H1 to div",
+      "sourceSha256": "c8d44d40a5b3730d336a39045a6bdacccde661fb276950e367fdc975138ef88f",
+      "proposalSha256": "69f4f0d8aabea94b6a4cb0e2755b4ba037acf857ed3505e720a375455c7f8be8"
+    },
+    {
+      "file": "sections/herprint-eclat.liquid",
+      "purpose": "Promote the existing visible homepage tagline from p to H1",
+      "sourceSha256": "efb51e9220b9b8db6826ec0c9911994a4415ead97b5e34e7d0b482033176a9f7",
+      "proposalSha256": "135fdae188adba2c76a373516a283455826ea263b77ae1dd79099ef85953c848"
+    },
+    {
+      "file": "sections/main-product.liquid",
+      "purpose": "Promote the existing product title from H2 to H1",
+      "sourceSha256": "ab5b95c768c04b0b7bf0f89b35ee6ea5aea72fb730f03208365bad1613693ca6",
+      "proposalSha256": "c5f611c08f689a2bc8bb38bb7a5723ea17ebf35eef061eb23f8fd3b8ddc9ea47"
+    },
+    {
+      "file": "layout/theme.liquid",
+      "purpose": "Make the title brand-suffix check case-insensitive",
+      "sourceSha256": "9e70899f092ca3ed62487cbd6c769b80fe41e1680d3901f81ae5c8e21818486f",
+      "proposalSha256": "a657b3d81ce70eb318a82fe7ba95da73fc4eb3b1643f73e8bf78285f1bc5802b"
+    }
+  ],
+  "prohibitedChanges": [
+    "visible copy",
+    "layout or CSS",
+    "product data",
+    "price or variants",
+    "cart behavior",
+    "analytics code",
+    "unrelated theme settings"
+  ],
+  "releaseGates": [
+    "Fetch the four exact assets from the current live theme",
+    "Run verify.js against the refreshed source and rebuild if any source hash changed",
+    "Apply only these four files to a duplicate unpublished theme",
+    "Pass desktop and mobile homepage and product QA",
+    "Pass variant, gallery, add-to-cart, cart, and checkout-handoff QA",
+    "Verify rendered title, canonical, meta, H1 count, Product JSON-LD, and GA4 tag",
+    "Record explicit human approval before publication"
+  ]
+}
