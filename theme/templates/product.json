@@ -3,6 +3,10 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "status_labels": {
+          "type": "status_labels",
+          "settings": {}
+        },
         "vendor": {
           "type": "text",
           "settings": {
@@ -25,6 +29,13 @@
             "swatch_shape": "circle"
           }
         },
+        "size_guide_link": {
+          "type": "size_guide_link",
+          "settings": {
+            "text": "Size Guide",
+            "show_icon": true
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -36,9 +47,23 @@
             "show_gift_card_recipient": true
           }
         },
+        "tryon": {
+          "type": "tryon",
+          "settings": {
+            "button_label": "See it on me"
+          }
+        },
         "description": {
           "type": "description",
           "settings": {}
+        },
+        "tab_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "icon": "none",
+            "content": "<p>Worldwide shipping, typically 7–15 business days. Any customs duties are the customer's responsibility.</p><p>Returns accepted within 14 days of delivery. Items must be unworn and in their original packaging; earrings are final sale. <a href=\"/policies/refund-policy\">Full return policy →</a></p>"
+          }
         },
         "lifestyle_gifs": {
           "type": "lifestyle_gifs",
@@ -54,13 +79,17 @@
         }
       },
       "block_order": [
+        "status_labels",
         "vendor",
         "title",
         "price",
         "variant_picker",
+        "size_guide_link",
         "quantity_selector",
         "buy_buttons",
+        "tryon",
         "description",
+        "tab_shipping",
         "lifestyle_gifs",
         "share"
       ],

@@ -1,0 +1,58 @@
+{% comment %}
+  Renders tag-driven status labels for a product (Catbird-style).
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - context: {String} (optional) pass 'card' for compact grid-card styling
+
+  Tags are matched case-insensitively, with hyphens treated as spaces
+  (e.g. "Best-Seller", "best seller" and "BEST SELLER" all match).
+
+  Usage:
+  {% render 'product-status-labels', product: product %}
+  {% render 'product-status-labels', product: card_product, context: 'card' %}
+{% endcomment %}
+
+{%- liquid
+  assign normalized = product.tags | join: ',' | downcase | replace: '-', ' ' | split: ','
+-%}
+
+{%- capture labels -%}
+  {%- if normalized contains 'new' -%}
+    <span class="status-label status-label--new">New</span>
+  {%- endif -%}
+  {%- if normalized contains 'best seller' -%}
+    <span class="status-label status-label--best-seller">Best Seller</span>
+  {%- endif -%}
+  {%- if normalized contains 'online exclusive' or normalized contains 'exclusive' -%}
+    <span class="status-label status-label--online-exclusive">Online Exclusive</span>
+  {%- endif -%}
+  {%- if normalized contains 'limited edition' or normalized contains 'limited' -%}
+    <span class="status-label status-label--limited">Limited Edition</span>
+  {%- endif -%}
+  {%- if normalized contains 'pre order' or normalized contains 'preorder' -%}
+    <span class="status-label status-label--pre-order">Pre-Order</span>
+  {%- endif -%}
+  {%- if normalized contains 'ready to ship' -%}
+    <span class="status-label status-label--ready">Ready to Ship</span>
+  {%- endif -%}
+  {%- if normalized contains 'made to order' -%}
+    <span class="status-label status-label--made-to-order">Made to Order</span>
+  {%- endif -%}
+  {%- if normalized contains 'back in stock' -%}
+    <span class="status-label status-label--back-in-stock">Back in Stock</span>
+  {%- endif -%}
+  {%- if normalized contains 'engravable' -%}
+    <span class="status-label status-label--engravable">Engravable</span>
+  {%- endif -%}
+  {%- if normalized contains 'final sale' -%}
+    <span class="status-label status-label--final-sale">Final Sale</span>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- assign has_labels = labels | strip -%}
+{%- if has_labels != blank -%}
+  <div class="product-status-labels{% if context == 'card' %} product-status-labels--card{% endif %}">
+    {{- labels -}}
+  </div>
+{%- endif -%}
