@@ -10,32 +10,20 @@
 
   .invite-tag {
     display: inline-block;
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
     padding: 0.4rem 1.2rem;
     margin-bottom: 2.4rem;
-    background-color: var(--invite-accent, rgb(var(--color-button)));
-    color: rgb(var(--color-button-label));
   }
 
   .invite-block__title {
-    font-family: var(--font-heading-family);
-    font-size: clamp(3rem, 4.5vw, 5.2rem);
-    font-weight: 400;
     line-height: 1.15;
     margin-bottom: 2.4rem;
     max-width: 640px;
-    color: rgb(var(--color-foreground));
   }
 
   .invite-block__lead {
-    font-size: 1.7rem;
     line-height: 1.85;
     max-width: 620px;
     margin-bottom: 4rem;
-    opacity: 0.8;
-    color: rgb(var(--color-foreground));
   }
 
   .invite-perks {
@@ -56,66 +44,135 @@
   }
 
   .invite-perk__icon {
-    font-size: 2rem;
     margin-bottom: 1.2rem;
     display: block;
-    color: var(--invite-accent, rgb(var(--color-button)));
   }
 
   .invite-perk__title {
-    font-family: var(--font-heading-family);
-    font-size: 1.8rem;
-    font-weight: 400;
     margin-bottom: 0.8rem;
-    color: rgb(var(--color-foreground));
   }
 
   .invite-perk__text {
-    font-size: 1.3rem;
     line-height: 1.7;
-    opacity: 0.7;
-    color: rgb(var(--color-foreground));
   }
 
   .invite-cta {
     display: inline-block;
     padding: 1.4rem 3.6rem;
-    font-size: 1.2rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     text-decoration: none;
     margin-right: 1.6rem;
     margin-bottom: 1.6rem;
-    border: 1px solid rgb(var(--color-button));
-    background: rgb(var(--color-button));
-    color: rgb(var(--color-button-label));
+    border: 1px solid transparent;
     transition: background 0.2s, color 0.2s;
-  }
-
-  .invite-cta:hover {
-    background: transparent;
-    color: rgb(var(--color-button));
   }
 
   .invite-cta--ghost {
     background: transparent;
-    color: rgb(var(--color-secondary-button-label));
-    border-color: rgba(var(--color-foreground), 0.3);
-  }
-
-  .invite-cta--ghost:hover {
-    background: rgb(var(--color-button));
-    color: rgb(var(--color-button-label));
-    border-color: rgb(var(--color-button));
   }
 {% endstylesheet %}
+
+{%- liquid
+  assign tag_font = section.settings.tag_font
+  assign title_font = section.settings.title_font
+  assign lead_font = section.settings.lead_font
+  assign perk_title_font = section.settings.perk_title_font
+  assign perk_text_font = section.settings.perk_text_font
+  assign btn_font = section.settings.btn_font
+  assign title_min = section.settings.title_size | times: 0.6 | round
+  assign lead_min = section.settings.lead_size | times: 0.7 | round
+-%}
+
+{% style %}
+  {{ tag_font | font_face: font_display: 'swap' }}
+  {{ title_font | font_face: font_display: 'swap' }}
+  {{ lead_font | font_face: font_display: 'swap' }}
+  {{ perk_title_font | font_face: font_display: 'swap' }}
+  {{ perk_text_font | font_face: font_display: 'swap' }}
+  {{ btn_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .invite-tag {
+    font-family: {{ tag_font.family }}, {{ tag_font.fallback_families }};
+    font-weight: {{ tag_font.weight }};
+    font-style: {{ tag_font.style }};
+    font-size: {{ section.settings.tag_size }}px;
+    letter-spacing: {{ section.settings.tag_spacing }}em;
+    text-transform: {{ section.settings.tag_transform }};
+    color: {{ section.settings.tag_color }};
+    background-color: {{ section.settings.accent_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-block__title {
+    font-family: {{ title_font.family }}, {{ title_font.fallback_families }};
+    font-weight: {{ title_font.weight }};
+    font-style: {{ title_font.style }};
+    font-size: clamp({{ title_min }}px, 4.5vw, {{ section.settings.title_size }}px);
+    letter-spacing: {{ section.settings.title_spacing }}em;
+    color: {{ section.settings.title_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-block__lead {
+    font-family: {{ lead_font.family }}, {{ lead_font.fallback_families }};
+    font-weight: {{ lead_font.weight }};
+    font-style: {{ lead_font.style }};
+    font-size: clamp({{ lead_min }}px, 2.2vw, {{ section.settings.lead_size }}px);
+    color: {{ section.settings.lead_color }};
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .invite-perk__icon {
+    font-size: {{ section.settings.icon_size }}px;
+    color: {{ section.settings.icon_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-perk__title {
+    font-family: {{ perk_title_font.family }}, {{ perk_title_font.fallback_families }};
+    font-weight: {{ perk_title_font.weight }};
+    font-style: {{ perk_title_font.style }};
+    font-size: {{ section.settings.perk_title_size }}px;
+    color: {{ section.settings.perk_title_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-perk__text {
+    font-family: {{ perk_text_font.family }}, {{ perk_text_font.fallback_families }};
+    font-weight: {{ perk_text_font.weight }};
+    font-style: {{ perk_text_font.style }};
+    font-size: {{ section.settings.perk_text_size }}px;
+    color: {{ section.settings.perk_text_color }};
+    opacity: 1;
+  }
+  #shopify-section-{{ section.id }} .invite-cta {
+    font-family: {{ btn_font.family }}, {{ btn_font.fallback_families }};
+    font-weight: {{ btn_font.weight }};
+    font-style: {{ btn_font.style }};
+    font-size: {{ section.settings.btn_size }}px;
+    letter-spacing: {{ section.settings.btn_spacing }}em;
+    text-transform: {{ section.settings.btn_transform }};
+    background: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_text_color }};
+    border-color: {{ section.settings.btn_bg_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-cta:hover {
+    background: transparent;
+    color: {{ section.settings.btn_bg_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-cta--ghost {
+    background: transparent;
+    color: {{ section.settings.btn_text_color_ghost }};
+    border-color: {{ section.settings.btn_bg_color }};
+  }
+  #shopify-section-{{ section.id }} .invite-cta--ghost:hover {
+    background: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_text_color }};
+  }
+{% endstyle %}
 
 <div class="invite-block color-{{ section.settings.color_scheme }} gradient" style="--invite-accent: {{ section.settings.accent_color }};">
   <div class="invite-block__inner">
 
-    <span class="invite-tag">{{ section.settings.tag | escape }}</span>
-    <h2 class="invite-block__title">{{ section.settings.title | escape }}</h2>
-    <p class="invite-block__lead">{{ section.settings.lead | escape }}</p>
+    {%- if section.settings.tag != blank -%}
+      <span class="invite-tag">{{ section.settings.tag | escape }}</span>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <h2 class="invite-block__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.lead != blank -%}
+      <p class="invite-block__lead">{{ section.settings.lead | escape }}</p>
+    {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
       <div class="invite-perks">
@@ -131,8 +188,12 @@
       </div>
     {%- endif -%}
 
-    <a href="{{ section.settings.cta_link }}" class="invite-cta">{{ section.settings.cta_label | escape }}</a>
-    <a href="mailto:{{ section.settings.email | escape }}" class="invite-cta invite-cta--ghost">{{ section.settings.email_label | escape }}</a>
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_link }}" class="invite-cta">{{ section.settings.cta_label | escape }}</a>
+    {%- endif -%}
+    {%- if section.settings.email_label != blank -%}
+      <a href="mailto:{{ section.settings.email | escape }}" class="invite-cta invite-cta--ghost">{{ section.settings.email_label | escape }}</a>
+    {%- endif -%}
 
   </div>
 </div>
@@ -141,59 +202,73 @@
 {
   "name": "Invite — Partner",
   "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Colour scheme", "default": "scheme-2" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#7f6464" },
+
+    { "type": "header", "content": "Content — Tag" },
+    { "type": "text", "id": "tag", "label": "Section tag", "default": "Herprint Partner" },
+    { "type": "header", "content": "Tag style" },
+    { "type": "font_picker", "id": "tag_font", "label": "Font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "tag_size", "label": "Size", "min": 8, "max": 28, "step": 1, "unit": "px", "default": 11 },
+    { "type": "range", "id": "tag_spacing", "label": "Letter spacing", "min": 0, "max": 0.5, "step": 0.1, "unit": "em", "default": 0.2 },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Colour scheme",
-      "default": "scheme-2"
+      "type": "select", "id": "tag_transform", "label": "Text case",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "lowercase", "label": "lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
     },
+    { "type": "color", "id": "tag_color", "label": "Text color", "default": "#fafaf7" },
+
+    { "type": "header", "content": "Content — Title" },
+    { "type": "text", "id": "title", "label": "Title", "default": "For the ambitious women ready to build something real." },
+    { "type": "header", "content": "Title style" },
+    { "type": "font_picker", "id": "title_font", "label": "Font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "title_size", "label": "Size", "min": 24, "max": 88, "step": 1, "unit": "px", "default": 52 },
+    { "type": "range", "id": "title_spacing", "label": "Letter spacing", "min": -0.1, "max": 0.3, "step": 0.1, "unit": "em", "default": 0 },
+    { "type": "color", "id": "title_color", "label": "Color", "default": "#2a2a2a" },
+
+    { "type": "header", "content": "Content — Lead text" },
+    { "type": "textarea", "id": "lead", "label": "Lead text", "default": "We are looking for driven, passionate women around the world to grow with us. Herprint is not just a jewelry brand — it is a movement." },
+    { "type": "header", "content": "Lead style" },
+    { "type": "font_picker", "id": "lead_font", "label": "Font", "default": "roboto_serif_n4" },
+    { "type": "range", "id": "lead_size", "label": "Size", "min": 12, "max": 30, "step": 1, "unit": "px", "default": 18 },
+    { "type": "color", "id": "lead_color", "label": "Color", "default": "#2a2a2a" },
+
+    { "type": "header", "content": "Perk cards — style" },
+    { "type": "range", "id": "icon_size", "label": "Icon size", "min": 14, "max": 48, "step": 1, "unit": "px", "default": 20 },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#7f6464" },
+    { "type": "font_picker", "id": "perk_title_font", "label": "Title font", "default": "noto_serif_n4" },
+    { "type": "range", "id": "perk_title_size", "label": "Title size", "min": 12, "max": 36, "step": 1, "unit": "px", "default": 18 },
+    { "type": "color", "id": "perk_title_color", "label": "Title color", "default": "#2a2a2a" },
+    { "type": "font_picker", "id": "perk_text_font", "label": "Text font", "default": "roboto_serif_n4" },
+    { "type": "range", "id": "perk_text_size", "label": "Text size", "min": 10, "max": 22, "step": 1, "unit": "px", "default": 14 },
+    { "type": "color", "id": "perk_text_color", "label": "Text color", "default": "#2a2a2a" },
+
+    { "type": "header", "content": "Content — Buttons" },
+    { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Become a Partner" },
+    { "type": "url", "id": "cta_link", "label": "Primary button link" },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "partner@herprint.co" },
+    { "type": "text", "id": "email_label", "label": "Email button label", "default": "Tell us your story" },
+    { "type": "header", "content": "Button style" },
+    { "type": "font_picker", "id": "btn_font", "label": "Font", "default": "roboto_serif_n4" },
+    { "type": "range", "id": "btn_size", "label": "Size", "min": 8, "max": 22, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "btn_spacing", "label": "Letter spacing", "min": 0, "max": 0.4, "step": 0.1, "unit": "em", "default": 0.1 },
     {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "default": "#7f6464"
+      "type": "select", "id": "btn_transform", "label": "Text case",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
     },
-    {
-      "type": "text",
-      "id": "tag",
-      "label": "Section tag",
-      "default": "Herprint Partner"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "For the ambitious women ready to build something real."
-    },
-    {
-      "type": "textarea",
-      "id": "lead",
-      "label": "Lead text",
-      "default": "We are looking for driven, passionate women around the world to grow with us. Herprint is not just a jewelry brand — it is a movement."
-    },
-    {
-      "type": "text",
-      "id": "cta_label",
-      "label": "Primary button",
-      "default": "Become a Partner"
-    },
-    {
-      "type": "url",
-      "id": "cta_link",
-      "label": "Primary button link"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "Contact email",
-      "default": "partner@herprint.co"
-    },
-    {
-      "type": "text",
-      "id": "email_label",
-      "label": "Email button label",
-      "default": "Tell us your story"
-    }
+    { "type": "color", "id": "btn_bg_color", "label": "Primary button color", "default": "#7f6464" },
+    { "type": "color", "id": "btn_text_color", "label": "Primary button text", "default": "#fafaf7" },
+    { "type": "color", "id": "btn_text_color_ghost", "label": "Secondary button text", "default": "#7f6464" }
   ],
   "blocks": [
     {
