@@ -470,7 +470,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 18,
   "settings": [
     {
       "type": "select",
@@ -660,23 +660,46 @@
         {
           "type": "text",
           "id": "menu_item_handle",
-          "label": "Nav item handle",
-          "info": "Match exactly the menu item handle (e.g. 'rings', 'necklaces'). Find it in the URL when you hover the nav link."
+          "label": "Category handle",
+          "info": "The category's menu title in lowercase, spaces as hyphens — e.g. 'rings', 'necklaces', 'earrings', 'anniversary', 'self-love'. One block per category."
+        },
+        {
+          "type": "header",
+          "content": "Slot 1"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Menu image"
+          "label": "Image 1"
         },
         {
           "type": "text",
           "id": "image_label",
-          "label": "Image label (optional)"
+          "label": "Image 1 label (optional)"
         },
         {
           "type": "url",
           "id": "image_link",
-          "label": "Image link (optional)"
+          "label": "Image 1 link (optional)"
+        },
+        {
+          "type": "header",
+          "content": "Slot 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "text",
+          "id": "image_2_label",
+          "label": "Image 2 label (optional)"
+        },
+        {
+          "type": "url",
+          "id": "image_2_link",
+          "label": "Image 2 link (optional)"
         }
       ]
     }

@@ -1,7 +1,9 @@
 {% comment %}
-  Renders a megamenu for the header.
-  Left: nav links stacked vertically
-  Right: editable image per top-level menu item (set via header section blocks)
+  Herprint mega menu.
+  Left: child category links stacked vertically.
+  Right: per-category image pair (up to 2 slots) that swaps as you hover each
+  category. Images are set via header section "Mega Menu Image" blocks, matched
+  by the child menu item's handle (e.g. 'rings', 'necklace', 'earrings').
 {% endcomment %}
 
 <nav class="header__inline-menu">
@@ -26,22 +28,38 @@
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                {%- assign menu_image = null -%}
-                {%- assign menu_image_label = null -%}
-                {%- assign menu_image_link = null -%}
-                {%- for block in blocks -%}
-                  {%- if block.type == 'mega_menu_image' and block.settings.menu_item_handle == link.handle -%}
-                    {%- assign menu_image = block.settings.image -%}
-                    {%- assign menu_image_label = block.settings.image_label -%}
-                    {%- assign menu_image_link = block.settings.image_link -%}
-                  {%- endif -%}
-                {%- endfor -%}
-
                 <div class="mega-menu__inner page-width">
-
                   <ul class="mega-menu__links-col" role="list">
+                    {%- assign mm_default_assigned = false -%}
                     {%- for childlink in link.links -%}
-                      <li>
+                      {%- liquid
+                        assign mm_img1 = null
+                        assign mm_img1_label = null
+                        assign mm_img1_link = null
+                        assign mm_img2 = null
+                        assign mm_img2_label = null
+                        assign mm_img2_link = null
+                        for block in blocks
+                          if block.type == 'mega_menu_image' and block.settings.menu_item_handle == childlink.handle
+                            assign mm_img1 = block.settings.image
+                            assign mm_img1_label = block.settings.image_label
+                            assign mm_img1_link = block.settings.image_link
+                            assign mm_img2 = block.settings.image_2
+                            assign mm_img2_label = block.settings.image_2_label
+                            assign mm_img2_link = block.settings.image_2_link
+                          endif
+                        endfor
+                        assign has_imgs = false
+                        if mm_img1 != null or mm_img2 != null
+                          assign has_imgs = true
+                        endif
+                        assign is_default = false
+                        if has_imgs and mm_default_assigned == false
+                          assign is_default = true
+                          assign mm_default_assigned = true
+                        endif
+                      -%}
+                      <li class="mega-menu__cat{% if has_imgs %} mega-menu__cat--has-images{% endif %}{% if is_default %} mega-menu__cat--default{% endif %}">
                         <a
                           id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
                           href="{{ childlink.url }}"
@@ -50,51 +68,49 @@
                         >
                           {{ childlink.title | escape }}
                         </a>
-                        {%- if childlink.links != blank -%}
-                          <ul class="list-unstyled" role="list">
-                            {%- for grandchildlink in childlink.links -%}
-                              <li>
-                                <a
-                                  id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                  href="{{ grandchildlink.url }}"
-                                  class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                  {% if grandchildlink.current %}aria-current="page"{% endif %}
+                        {%- if has_imgs -%}
+                          <div class="mega-menu__images">
+                            {%- if mm_img1 != null -%}
+                              {%- if mm_img1_link != blank -%}
+                                <a href="{{ mm_img1_link }}" class="mega-menu__slot">
+                              {%- else -%}
+                                <div class="mega-menu__slot">
+                              {%- endif -%}
+                                <img
+                                  src="{{ mm_img1 | image_url: width: 500 }}"
+                                  alt="{{ mm_img1_label | default: childlink.title | escape }}"
+                                  width="500"
+                                  loading="lazy"
+                                  class="mega-menu__slot-img"
                                 >
-                                  {{ grandchildlink.title | escape }}
-                                </a>
-                              </li>
-                            {%- endfor -%}
-                          </ul>
+                                {%- if mm_img1_label != blank -%}
+                                  <span class="mega-menu__slot-label">{{ mm_img1_label | escape }}</span>
+                                {%- endif -%}
+                              {%- if mm_img1_link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+                            {%- endif -%}
+                            {%- if mm_img2 != null -%}
+                              {%- if mm_img2_link != blank -%}
+                                <a href="{{ mm_img2_link }}" class="mega-menu__slot">
+                              {%- else -%}
+                                <div class="mega-menu__slot">
+                              {%- endif -%}
+                                <img
+                                  src="{{ mm_img2 | image_url: width: 500 }}"
+                                  alt="{{ mm_img2_label | default: childlink.title | escape }}"
+                                  width="500"
+                                  loading="lazy"
+                                  class="mega-menu__slot-img"
+                                >
+                                {%- if mm_img2_label != blank -%}
+                                  <span class="mega-menu__slot-label">{{ mm_img2_label | escape }}</span>
+                                {%- endif -%}
+                              {%- if mm_img2_link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+                            {%- endif -%}
+                          </div>
                         {%- endif -%}
                       </li>
                     {%- endfor -%}
                   </ul>
-
-                  {%- if menu_image != null -%}
-                    <div class="mega-menu__image-col">
-                      {%- if menu_image_link != blank -%}
-                        <a href="{{ menu_image_link }}" class="mega-menu__image-wrap">
-                      {%- else -%}
-                        <div class="mega-menu__image-wrap">
-                      {%- endif -%}
-                        <img
-                          src="{{ menu_image | image_url: width: 600 }}"
-                          alt="{{ menu_image_label | default: link.title | escape }}"
-                          width="600"
-                          loading="eager"
-                          class="mega-menu__image"
-                        >
-                        {%- if menu_image_label != blank -%}
-                          <span class="mega-menu__image-label">{{ menu_image_label | escape }}</span>
-                        {%- endif -%}
-                      {%- if menu_image_link != blank -%}
-                        </a>
-                      {%- else -%}
-                        </div>
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-
                 </div>
               </div>
             </details>
