@@ -1,6 +1,7 @@
 const { chromium } = require('playwright');
 
-const THEME_ID = '153670156480';
+const PROXY = process.env.https_proxy || process.env.HTTPS_PROXY || 'http://127.0.0.1:7897';
+const THEME_ID = '141871349952'; // live "Dawn" theme (was 153670156480, which no longer exists)
 const STORE   = 'https://15icsx-ru.myshopify.com';
 const PREVIEW = `?preview_theme_id=${THEME_ID}`;
 
@@ -15,7 +16,7 @@ const pages = [
 (async () => {
   const browser = await chromium.launch({
     headless: false,          // set true to run silently
-    proxy: { server: 'http://127.0.0.1:7890' },
+    proxy: { server: PROXY },
   });
 
   const context = await browser.newContext({

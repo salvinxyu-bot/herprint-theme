@@ -7,6 +7,17 @@ Store** — no manual Files upload / CSV import / channel-publish.
 Copy is written in **session mode** (Claude Code) to `generated/<handle>.json`; this
 script only reads those files and talks to Shopify. It does **not** use any Anthropic API key.
 
+Before a live run, validate the full generated catalog with the separate SEO operations repository:
+
+```bash
+node /Users/xiaowen/HerprintSEO/tools/seo/cli.js validate-products \
+  --dir=/Users/xiaowen/Herprintwebbuilding/tools/herprint-upload/generated \
+  --strict
+```
+
+The uploader also rejects missing SEO fields, encoded ampersands, unsupported precious-metal
+claims, undisclosed 14K plating, duties-included claims, and diamond claims.
+
 ## One-time setup
 1. Shopify admin → Settings → Apps → **Develop apps → Create app** ("Herprint Uploader").
 2. Configure Admin API scopes:
